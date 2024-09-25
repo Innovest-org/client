@@ -1,0 +1,22 @@
+.small-card {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #BFBFBF;
+  border-radius: 8px;
+}
+
+.overviewIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #fff;
+}
+
+
+.overviewText {
+  color: #787486;
+}

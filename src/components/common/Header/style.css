@@ -1,0 +1,16 @@
+.header-container {
+  margin-bottom: 20px;
+}
+
+.header-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 576px) {
+  .header-text {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+}
