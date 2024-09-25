@@ -1,0 +1,88 @@
+.right-sidebar {
+  width: 350px;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.icon-back {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EEF2FF;
+  margin-right: 10px;
+}
+
+.rightsidebar-span {
+  color: #0D062D;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.date {
+  margin-left: 3rem;
+  font-size: 0.85rem;
+}
+
+hr {
+  margin: 0.5rem 0;
+}
+
+.rightsidebar-text {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.rightsidebar-card {
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .right-sidebar {
+    width: 100%;
+    padding: 0.6rem;
+    border-left: none;
+  }
+
+  .rightsidebar-text, .rightsidebar-span {
+    font-size: 0.9rem;
+  }
+
+  .icon-back {
+    width: 35px;
+    height: 35px;
+  }
+
+  .date {
+    margin-left: 2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .right-sidebar {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .icon-back {
+    width: 30px;
+    height: 30px;
+  }
+
+  .rightsidebar-span {
+    font-size: 1rem;
+  }
+
+  .rightsidebar-text {
+    font-size: 1rem;
+  }
+
+  .date {
+    margin-left: 1.5rem;
+    font-size: 0.75rem;
+  }
+}
