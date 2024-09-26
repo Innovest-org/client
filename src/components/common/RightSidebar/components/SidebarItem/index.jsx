@@ -6,7 +6,7 @@ export default function SidebarItem({ icon, color, label, count, date }) {
     <div className="sidebar-item">
       <div className='d-flex justify-content-between align-items-center'>
         <div className="rightsidebar-icon d-flex align-items-center" style={{ color }}>
-          <div className="icon-back">
+          <div className="icon-back mb-1">
             <FontAwesomeIcon icon={icon} />
           </div>
           <span className='rightsidebar-span ms-1'>{label}</span>

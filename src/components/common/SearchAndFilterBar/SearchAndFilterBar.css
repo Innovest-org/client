@@ -1,3 +1,24 @@
 .search-filter-container {
-  margin-bottom: 20px;
+  width: 100%;
+  padding: 1rem;
+}
+
+.search-filter-wrapper {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+
+.input-group {
+  width: 100%;
+}
+
+.form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-outline-secondary {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }

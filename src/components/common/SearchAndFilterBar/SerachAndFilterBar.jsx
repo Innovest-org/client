@@ -6,8 +6,8 @@ import './SearchAndFilterBar.css';
 
 export default function SearchAndFilterBar() {
   return (
-    <div className="row search-filter-container">
-      <div className="col-12">
+    <div className="search-filter-container">
+      <div className="search-filter-wrapper">
         <div className="input-group">
           <input
             type="text"

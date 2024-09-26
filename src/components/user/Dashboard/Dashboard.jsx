@@ -28,9 +28,9 @@ const users = [
 
 export default function Dashboard() {
   return (
-    <div className="dashboard-container container-fluid">
+    <div className="dashboard-container container">
       <div className="row">
-        <div className="col-12 ps-4">
+        <div className="col-12 col-md-7 ps-4">
           <h2>
             Welcome, <span className='dashboard-text'>Lara Doe</span>
           </h2>
@@ -39,7 +39,7 @@ export default function Dashboard() {
 
       <div className="dashboard-content row">
         <div className="main-content col-12 col-md-9 col-sm-12">
-          <div className='my-2 border buttons-border d-flex flex-wrap justify-content-evenly p-2 shadow-sm'>
+          <div className='my-2 border buttons-border d-flex flex-wrap p-3 justify-content-evenly shadow-sm'>
             <CustomButton text="Add New User" />
             <CustomButton text="Moderate New Posts" />
             <CustomButton text="Review New Projects" />
@@ -50,12 +50,12 @@ export default function Dashboard() {
             <OverviewCard />
           </div>
 
-          <div className="my-2 p-2">
+          <div className="my-2 p-3">
             <UserTable users={users} />
           </div>
         </div>
 
-        <div className="right-sidebar col-12 col-md-3 mt-md-2">
+        <div className="right-sidebar col-12 col-md-2 mt-md-2">
           <RightSidebar />
         </div>
       </div>
