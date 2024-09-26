@@ -9,7 +9,7 @@ import Settings from "../../components/user/Settings/Settings";
 import Messages from "../../components/user/Messages/Messages";
 import DashboardHeader from "../../components/layout/DashboardHeader";
 
-const AdminUser = () => {
+const AdminDashboard = () => {
   const { activeComponent } = useContext(AppContext);
 
   const renderComponent = () => {
@@ -32,11 +32,11 @@ const AdminUser = () => {
   return (
     <div className="admin-container container-fluid">
       <div className="row">
-        <div className="col-12 col-md-3 col-lg-2 p-0 d-none d-md-block">
+        <div className="col-12 col-md-3 col-lg-2 p-0   d-none d-md-block">
           <Sidebar />
         </div>
         
-        <div className="col-12 col-md-9 col-lg-10">
+        <div className="col-12 col-md-9 col-lg-10 mx-auto">
           <DashboardHeader />
           {renderComponent()}
         </div>
@@ -49,4 +49,5 @@ const AdminUser = () => {
   );
 };
 
-export default AdminUser;
+export default AdminDashboard;
+

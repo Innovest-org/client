@@ -1,17 +1,28 @@
 import React from 'react';
-import './style.css';
 import CustomButton from '../CustomButton/CustomButton';
+import './style.css';
 
-export default function NoContent({ onAddAdminClick }) {
+export default function NoContent({
+  onAddAdminClick,
+  title = "No Admins at this time",
+  description = "Admins will appear here",
+  buttonText = "Add New Admin"
+}) {
   return (
-    <div className="row shadow-sm">
-      <div className="col-12 content-back d-flex justify-content-center align-items-center flex-column">
-        <h2 className="text-center">No Admins at this time</h2>
-        <p className="text-center">Admins will appear here</p>
-        <div>
-          <CustomButton text="Add New Admin" onClick={onAddAdminClick} />
+        <div className="col-12">
+          <div className="card shadow-sm">
+            <div className="card-body text-center py-5">
+              <h2 className="card-title mb-3">{title}</h2>
+              <p className="card-text mb-4">{description}</p>
+              <div className='btn-class'>
+                <CustomButton
+                  text={buttonText}
+                  onClick={onAddAdminClick}
+                  className="btn btn-primary"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
   );
 }
