@@ -5,7 +5,7 @@ import Avatar from '../../assets/a_user01_avatar.png';
 
 export default function DashboardHeader() {
   return (
-    <nav className="navbar navbar-expand-lg bg-transparent">
+    <nav className="navbar navbar-expand-lg bg-transparent position-relative">
       <div className="container-fluid">
         <button
           className="navbar-toggler ms-auto"
@@ -19,8 +19,8 @@ export default function DashboardHeader() {
           <span className="navbar-toggler-icon"></span>
         </button>
         
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mb-2 mb-lg-0 d-flex align-items-center ms-auto"> {/* Use ms-auto for right alignment */}
+        <div className="collapse navbar-collapse  mx-auto" id="navbarSupportedContent">
+          <ul className="navbar-nav mb-2  mb-lg-0 d-flex align-items-center ms-auto"> {/* Use ms-auto for right alignment */}
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="#">
                 <i className="fa-regular fa-bell fs-5"></i>
@@ -32,7 +32,7 @@ export default function DashboardHeader() {
                 <p className='user-country mb-0'>U.P, India</p>
               </div>
             </li>
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown position-position-relative">
               <Link
                 className="nav-link dropdown-toggle"
                 to="#"
@@ -48,7 +48,7 @@ export default function DashboardHeader() {
                   height="50"
                 />
               </Link>
-              <ul className="dropdown-menu dropdown-menu-end">
+              <ul className="dropdown-menu dropdown-menu-end position-absolute">
                 <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
                 <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
                 <li><hr className="dropdown-divider" /></li>

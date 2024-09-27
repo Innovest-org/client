@@ -1,15 +1,26 @@
-@media (max-width: 991px) {
+@media (max-width: 980px) {
   .navbar-nav {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     z-index: 999999999;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    z-index: 999999999;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-top: 3.4rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s ease-in-out;
   }
-  
+
   .nav-item {
     margin: 0 10px;
   }
-  
+
   .dropdown-menu {
     position: absolute;
     right: 0;

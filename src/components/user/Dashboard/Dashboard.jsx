@@ -28,7 +28,7 @@ const users = [
 
 export default function Dashboard() {
   return (
-    <div className="dashboard-container container">
+    <div className="dashboard-container container m-3">
       <div className="row">
         <div className="col-12 col-md-7 ps-4">
           <h2>
@@ -55,7 +55,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="right-sidebar col-12 col-md-2 mt-md-2">
+        <div className="right-sidebar col-12 col-md-2 mt-md-2  mb-4">
           <RightSidebar />
         </div>
       </div>

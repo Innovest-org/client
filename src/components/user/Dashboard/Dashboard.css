@@ -1,20 +1,23 @@
 .dashboard-text {
   font-weight: bold;
-  color: #E86924;
+  color: #e86924;
+}
+.dashboard-container h2 {
+  padding: 0 0.1rem;
 }
 
 .custom-button {
-  background-color: #E86924 !important;
+  background-color: #e86924 !important;
   color: #fff;
-  border: 1px solid #E86924;
+  border: 1px solid #e86924;
   flex: 1;
   min-width: 120px;
 }
 
 .custom-button:hover {
   background-color: #fff !important;
-  color: #E86924;
-  border: 1px solid #E86924;
+  color: #e86924;
+  border: 1px solid #e86924;
 }
 
 .buttons-border {
@@ -23,7 +26,7 @@
 }
 
 .overview-header-text {
-  color: #E86924;
+  color: #e86924;
 }
 
 th {
@@ -40,7 +43,6 @@ tbody {
   margin: 0 auto !important;
 }
 
-
 .dashboard-content {
   display: flex;
   flex-wrap: wrap;
@@ -52,13 +54,19 @@ tbody {
 
 .right-sidebar {
   background-color: #f9f9f9;
-  padding: 0.6rem 1rem ;
+  padding: 0.6rem 1rem;
   flex-basis: 25%;
   max-width: 100%;
   border: 1px solid #f9f9f9;
   border-radius: 8px;
 }
 
+@media (max-width: 766px) {
+  .dashboard-container {
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+  }
+}
 @media (max-width: 886px) {
   .dashboard-content {
     flex-direction: column;
@@ -66,7 +74,27 @@ tbody {
     width: 100%;
     margin: 0 auto;
     padding: 0 1rem;
-    margin-left: 0.8rem;
+  }
+  .dashboard-container h2 {
+    margin-left: 1rem !important;
+  }
+
+  .right-sidebar {
+    margin-top: 0.6rem;
+    width: 100%;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+}
+@media (max-width: 1286px) {
+  .dashboard-content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
   .dashboard-container h2 {
     margin-left: 1rem !important;
