@@ -1,4 +1,9 @@
 .admin-page {
-  padding: 20px;
-  margin-left: 1.7rem;
+  padding: 2rem;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.custom-m {
+  margin-left: 2rem !important;
 }

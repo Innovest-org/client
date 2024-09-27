@@ -9,7 +9,7 @@ export default function SidebarItem({ icon, color, label, count, date }) {
           <div className="icon-back mb-1">
             <FontAwesomeIcon icon={icon} />
           </div>
-          <span className='rightsidebar-span ms-1'>{label}</span>
+          <span className='rightsidebar-span ms-1 fw-bold'>{label}</span>
         </div>
         <div className="rightsidebar-text">
           <span style={{ color }}>{count}</span>
