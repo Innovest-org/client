@@ -25,7 +25,7 @@ const Sidebar = () => {
               to={`/admin-dashboard/${item.path}`}
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
-              <FontAwesomeIcon icon={item.icon} className="me-2" />
+              <FontAwesomeIcon icon={item.icon} className="me-3" />
               <span className="sidebar-text">{item.name}</span>
             </NavLink>
           </li>

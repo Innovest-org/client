@@ -3,7 +3,7 @@ import RightSidebar from '../../common/RightSidebar/RightSidebar';
 import './Dashboard.css';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import OverviewCard from '../../common/OverviewCard/OverviewCard';
-import UserTable from '../../common/UserTable';
+import UserTable from '../../common/UserTable/UsersData';
 
 const users = [
   {

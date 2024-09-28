@@ -8,6 +8,7 @@ import Settings from "../components/user/Settings/Settings";
 import Messages from "../components/user/Messages/Messages";
 import AddOrEditForm from "../components/common/AddOrEditForm/AddOrEditForm";
 import Admin from "../components/user/Admin/Admin";
+import Profile from "../components/user/Profile/Profile";
 
 const Router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const Router = createBrowserRouter([
           path: "edit-admin",
           element: <AddOrEditForm />,
         },
+        {
+          path: "profile",
+          element: <Profile />,
+        }
         ]
       },
       {
@@ -56,6 +61,14 @@ const Router = createBrowserRouter([
         path: "messages",
         element: <Messages />,
       },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "profile/:id",
+        element: <Profile />,
+      }
     ],
   },
 ]);

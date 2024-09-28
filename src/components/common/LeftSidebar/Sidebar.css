@@ -51,7 +51,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  color: #dee2e6;
+  color:#dee2e6;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
   padding: 0.6rem 1rem;
@@ -92,8 +92,9 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 100px;
+    width: 80px;
     padding: 10px;
+    margin: 0 auto;
   }
 
   .logo {
