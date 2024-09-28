@@ -49,8 +49,8 @@ export default function DashboardHeader() {
                 />
               </Link>
               <ul className="dropdown-menu dropdown-menu-end position-absolute">
-                <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
-                <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
+                <li><Link className="dropdown-item" to="profile/id">Profile</Link></li>
+                <li><Link className="dropdown-item" to="settings">Settings</Link></li>
                 <li><hr className="dropdown-divider" /></li>
                 <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
               </ul>

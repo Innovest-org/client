@@ -4,7 +4,10 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import './SearchAndFilterBar.css';
 
-export default function SearchAndFilterBar() {
+export default function SearchAndFilterBar({onSearchChange}) {
+  const handleInputChange = (e) => {
+    onSearchChange(e.target.value);
+  };
   return (
     <div className="search-filter-container">
       <div className="search-filter-wrapper">
@@ -14,6 +17,7 @@ export default function SearchAndFilterBar() {
             className="form-control"
             placeholder="Search..."
             aria-label="Search"
+            onChange={handleInputChange}
           />
           <button
             className="btn btn-outline-secondary dropdown-toggle"
