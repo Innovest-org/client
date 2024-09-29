@@ -1,0 +1,12 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h3 {
+  font-family: "Open Sans", sans-serif;
+  color: #1e1e1e;
+}
+
+.text-muted {
+  color: #989898 !important;
+}

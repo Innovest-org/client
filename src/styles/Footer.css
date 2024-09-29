@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  flex: 1;
+}
+
+footer {
+  background-color: #f8f9fa;
+  z-index: 1000;
+  width: 100%;
+}
+
+.innovest-logo {
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  color: #e86924;
+  font-weight: 700;
+}
+
+.section-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #170f49;
+  font-size: 16px;
+}
+
+ul {
+  margin-top: 10px;
+}
+
+ul li {
+  margin-top: 8px;
+}
+
+.contact-icon {
+  color: #e86924;
+  margin-right: 5px;
+}
+
+.contact-link {
+  color: #77808b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.contact-link:hover {
+  color: #e86924;
+  text-decoration: underline;
+}
+
+.footer-link {
+  font-family: "Roboto", sans-serif;
+  color: #77808b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  color: #e86924;
+  text-decoration: underline;
+}
+
+.service-social-media {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-left: -15px;
+}
+
+.newsletter-input {
+  width: 100%;
+  max-width: 450px;
+  padding: 8px;
+  border: 1px solid #76aeff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.btn-newsletter {
+  background-color: #e86924;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-newsletter:hover {
+  background-color: #d45c1d;
+}
+
+.btn-send-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.email-label {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #77808b;
+  margin-bottom: 5px;
+}
