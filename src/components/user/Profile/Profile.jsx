@@ -63,7 +63,7 @@ export default function Profile() {
           <div className="related-data pt-4">
             <h5 className="mt-4 mb-3">Admins from the same community</h5>
             <div className="d-flex align-items-center position-relative">
-              {/*dont forget to filter and slice 2 from it*/}
+              {/*don't forget to filter and slice 2 from it*/}
                   <div className="me-2" key={adminsData.id}>
                     <img
                       className="rounded-circle img-fluid border border-secondary"

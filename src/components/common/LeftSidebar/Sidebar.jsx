@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faUsers, faCog, faUserGear, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faUsers, faCog, faUserGear, faComments, faMoneyCheckAlt } from '@fortawesome/free-solid-svg-icons';
 
-const Sidebar = () => {
-  const navItems = [
+const Sidebar = ({ role }) => {
+  const adminNavItems = [
     { name: 'Dashboard', icon: faTachometerAlt, path: 'dashboard' },
     { name: 'Admins', icon: faUserGear, path: 'admin' },
     { name: 'Members', icon: faUserGear, path: 'members' },
@@ -14,15 +14,28 @@ const Sidebar = () => {
     { name: 'Messages', icon: faComments, path: 'messages' },
   ];
 
+  const investorNavItems = [
+    { name: 'Dashboard', icon: faTachometerAlt, path: 'dashboard' },
+    { name: 'Messages', icon: faComments, path: 'messages' },
+    { name: 'Proposals', icon: faMoneyCheckAlt, path: 'proposals' },
+    { name: 'Communities', icon: faUsers, path: 'communities' },
+    { name: 'My Investments', icon: faUsers, path: 'investments' },
+    { name: 'Settings', icon: faCog, path: 'settings' },
+  ];
+
+  const navItems = role === 'admin' ? adminNavItems : investorNavItems;
+  const sidebarClass = role === 'admin' ? 'sidebar admin-sidebar' : 'sidebar investor-sidebar';
+
+
   return (
-    <div className="sidebar">
-      <div className="logo">Innovest</div>
+    <div className={sidebarClass}>
+      <div className="logo">{role === 'admin' ? 'Admin Dashboard' : 'Investor Dashboard'}</div>
       <div className="breakline"></div>
       <ul>
         {navItems.map((item) => (
           <li key={item.name}>
             <NavLink
-              to={`/admin-dashboard/${item.path}`}
+              to={`/${role}-dashboard/${item.path}`}
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
               <FontAwesomeIcon icon={item.icon} className="me-3" />

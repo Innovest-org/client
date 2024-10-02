@@ -1,16 +1,26 @@
-.sidebar {
+.admin-sidebar,
+.investor-sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: 15%;
   height: 100%;
-  background-color: #E86924;
-  color: #dee2e6;
   border-right: 1px solid #dee2e6;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.admin-sidebar {
+  background-color: #E86924;
+  color: #dee2e6;
+  
+}
+
+.investor-sidebar {
+  background-color: #fff;
+  color: #000;
 }
 
 .breakline {
@@ -26,12 +36,14 @@
   margin-bottom: 20px;
 }
 
-.sidebar ul {
+.admin-sidebar ul,
+.investor-sidebar ul {
   list-style-type: none;
   padding: 0;
 }
 
-.sidebar ul li {
+.admin-sidebar ul li,
+.investor-sidebar ul li {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   display: flex;
@@ -41,20 +53,36 @@
   margin-bottom: 1rem;
 }
 
-.sidebar ul li:hover,
-.sidebar ul li.active {
+.admin-sidebar ul li:hover,
+.admin-sidebar ul li.active {
   background-color: #e9ecef;
   color: #E86924;
 }
 
-.sidebar ul li a {
+.investor-sidebar ul li a:hover,
+.investor-sidebar ul li.active {
+  background-color: #E86924;
+  color: #fff ;
+  border-radius: 8px;
+}
+
+.admin-sidebar ul li a,
+.investor-sidebar ul li a  {
   display: flex;
   align-items: center;
   width: 100%;
-  color:#dee2e6;
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
+  
+  transition: .3s;
   padding: 0.6rem 1rem;
+}
+
+.admin-sidebar ul li a {
+  color:#dee2e6;
+}
+
+.investor-sidebar ul li a {
+  color:#000;
 }
 
 .usercountry {
@@ -62,7 +90,8 @@
 }
 
 @media (max-width: 992px) {
-  .sidebar {
+  .admin-sidebar,
+  .investor-sidebar {
     width: 200px;
   }
 
@@ -72,7 +101,8 @@
 }
 
 @media (max-width: 800px) {
-  .sidebar {
+  .admin-sidebar,
+  .investor-sidebar {
     width: 150px;
     padding: 10px;
   }
@@ -81,7 +111,8 @@
     font-size: 18px;
   }
 
-  .sidebar ul li {
+  .admin-sidebar ul li,
+  .investor-sidebar ul li {
     padding: 10px;
   }
 
@@ -91,7 +122,8 @@
 }
 
 @media (max-width: 768px) {
-  .sidebar {
+  .admin-sidebar,
+  .investor-sidebar {
     width: 80px;
     padding: 10px;
     margin: 0 auto;
@@ -101,13 +133,15 @@
     font-size: 18px;
   }
 
-  .sidebar ul li {
+  .admin-sidebar ul li ,
+  .investor-sidebar ul li {
     padding: 10px;
   }
 }
 
 @media (max-width: 400px) {
-  .sidebar {
+  .admin-sidebar,
+  .investor-sidebar {
     width: 60px;
   }
 
@@ -115,15 +149,15 @@
     display: none;
   }
 
-  .sidebar ul li {
+  .admin-sidebar ul li ,
+  .investor-sidebar ul li {
     justify-content: center;
+    padding: 10px;
   }
 
-  .sidebar ul li span {
+  .admin-sidebar ul li span,
+  .investor-sidebar ul li span {
     display: none;
   }
 
-  .sidebar ul li {
-    padding: 10px;
-  }
 }

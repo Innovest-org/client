@@ -10,6 +10,15 @@ import AddOrEditForm from "../components/common/AddOrEditForm/AddOrEditForm";
 import Admin from "../components/user/Admin/Admin";
 import Profile from "../components/user/Profile/Profile";
 
+// Innovest Components 
+import InnovestDashBoard from '../pages/User/InnovestDashBoard'
+import InvDashBoard from '../components/Innovest/Dashboard/Inv_DashBoard'
+import InvCommunities from "../components/Innovest/Communities/Inv_Communities";
+import InvInvestments from "../components/Innovest/Investments/Inv_Investments";
+import InvProposals from "../components/Innovest/Proposals/Inv_Proposals";
+import InvMessages from "../components/Innovest/Messages/Inv_Messages";
+import InvSettings from "../components/Innovest/Settings/Inv_Settings";
+
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -71,6 +80,40 @@ const Router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: 'innovest-dashboard',
+    element: <InnovestDashBoard />,
+    children: [
+      {
+        index: true,
+        element: <InvDashBoard />,
+      },
+      {
+        path: 'dashboard',
+        element: <InvDashBoard />,
+      },
+      {
+        path: 'communities',
+        element: <InvCommunities />,
+      },
+      {
+        path: 'investments',
+        element: <InvInvestments />,
+      },
+      {
+        path: 'proposals',
+        element: <InvProposals />,
+      },
+      {
+        path:'messages',
+        element: <InvMessages />,
+      },
+      {
+        path:'settings',
+        element: <InvSettings />,
+      },
+    ]
+  }
 ]);
 
 const AppRouters = () => {

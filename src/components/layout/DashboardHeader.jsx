@@ -30,7 +30,7 @@ export default function DashboardHeader() {
               <div className="text-center">
                 <span className="user-name fw-bold">Lara Doe</span>
                 <p className='user-country mb-0'>U.P, India</p>
-              </div>
+              </div> 
             </li>
             <li className="nav-item dropdown position-position-relative">
               <Link
