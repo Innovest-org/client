@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // استيراد useNavigate و Link
+import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../styles/Screen1.css";
+import "./Screen2.css";
 
 const VerifyEmail = () => {
   const [code, setCode] = useState(new Array(5).fill(""));
@@ -47,35 +47,15 @@ const VerifyEmail = () => {
                 key={index}
                 type="text"
                 maxLength="1"
-                className="form-control mx-1"
+                className="form-control mx-1 code-input"
                 value={value}
                 onChange={(e) => handleChange(e.target, index)}
                 onFocus={(e) => e.target.select()}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  fontSize: "24px",
-                  textAlign: "center",
-                  borderColor: "#E1E1E1",
-                  fontFamily: "Open Sans",
-                }}
               />
             ))}
           </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary btn-block"
-            style={{
-              backgroundColor: "#E86924",
-              borderColor: "#E86924",
-              fontFamily: "Open Sans",
-              width: "100%",
-              maxWidth: "300px",
-              borderRadius: "8px",
-              padding: "10px 20px",
-            }}
-          >
+          <button type="submit" className="btn btn-block verify-button">
             Verify Code
           </button>
         </form>
@@ -84,8 +64,7 @@ const VerifyEmail = () => {
           Haven't got the email yet?{" "}
           <Link to="/resend" className="text-primary">
             Resend email
-          </Link>{" "}
-          {/* استبدال a بـ Link */}
+          </Link>
         </p>
       </div>
     </div>

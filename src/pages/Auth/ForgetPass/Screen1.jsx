@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../styles/Screen1.css";
+import "./Screen1.css";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -23,28 +23,13 @@ const ForgotPassword = () => {
           <div className="mb-3">
             <input
               type="email"
-              className="form-control"
+              className="form-control email-input"
               placeholder="Enter your email"
-              style={{
-                fontFamily: "Open Sans",
-                borderColor: "#E1E1E1",
-                color: "#E1E1E1",
-                textAlign: "center",
-              }}
             />
           </div>
           <button
             type="button"
-            className="btn btn-primary btn-block"
-            style={{
-              backgroundColor: "#E86924",
-              borderColor: "#E86924",
-              fontFamily: "Open Sans",
-              width: "100%",
-              maxWidth: "350px",
-              borderRadius: "8px",
-              padding: "8px 20px",
-            }}
+            className="btn btn-block reset-button"
             onClick={handleClick}
           >
             Reset Password

@@ -7,6 +7,8 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+
+/* 1st hero section */
 .hero-container {
   width: 100%;
   height: 450px;
@@ -56,15 +58,14 @@ h1 {
   font-size: 1rem;
   text-align: left;
   line-height: 1.2;
+  margin-left: 30px;
 }
 
-/* Hide join-text on smaller screens or when zoomed in */
 @media (max-width: 1024px) {
   .join-text {
     display: none;
   }
 }
-
 .scroll-text {
   position: absolute;
   bottom: 20px;
@@ -77,7 +78,6 @@ h1 {
   z-index: 2;
   animation: bounce 1s infinite;
 }
-
 @keyframes bounce {
   0%,
   100% {
@@ -99,13 +99,14 @@ h1 {
 .left-half {
   flex: 1;
   max-width: 600px;
-  padding: 0 15px; /* Added padding to avoid overflow */
+  padding: 0 15px;
 }
 
 .right-half {
   flex: 1;
   max-width: 600px;
-  padding: 0 15px; /* Added padding to avoid overflow */
+  padding: 0 15px;
+  margin-left: 100px;
 }
 
 h2 {
@@ -154,12 +155,14 @@ h2 {
 .right-half p {
   margin-top: 0;
 }
-/* Adjustments specific to the third section */
+
+/* third section */
 .third-section .card-img-top {
   height: 220px;
   object-fit: cover;
   border-radius: 5px;
 }
+
 .third-section .card-body {
   text-align: left;
   padding-left: 1rem;
@@ -192,7 +195,6 @@ h2 {
   color: #777;
 }
 
-/* Adjusting card size and hover effect */
 .third-section .card {
   border: 1px solid rgba(0, 0, 0, 0.1);
   height: 320px;
@@ -203,21 +205,22 @@ h2 {
   transform: translateY(10px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
-
-/* Aligning text to the left inside the card */
-.third-section .card-body {
-  text-align: left;
-  padding-left: 1rem;
-  padding-right: 1rem;
+.third-section {
+  background-color: #fff;
 }
 
-.third-section .card-title,
-.third-section .card-text {
-  margin-left: 0;
-  text-align: left;
+.top-muted {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
 }
 
-/* Investment Section */
+.top-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* 4th Section */
 .investment-section {
   padding: 50px 0;
   background-color: #fff;
@@ -303,68 +306,7 @@ h2 {
   float: right;
 }
 
-/* third section */
-.third-section {
-  background-color: #fff;
-}
-
-.top-muted {
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
-}
-
-.top-text {
-  font-family: "Inter", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.third-section .card-img-top {
-  height: 220px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.third-section h2 {
-  font-family: "Merriweather", serif;
-  font-size: 1.8rem;
-}
-
-.third-section .card-title {
-  font-size: 1.2rem;
-  font-family: "Inter", sans-serif;
-}
-
-.third-section .card-text {
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
-  color: #777;
-}
-
-.third-section .card {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  height: 320px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.third-section .card:hover {
-  transform: translateY(10px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-.third-section .card-body {
-  text-align: left;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.third-section .card-title,
-.third-section .card-text {
-  margin-left: 0;
-  text-align: left;
-}
-
-/* 4th section */
+/* 5th section */
 .innovest-section {
   background-color: white;
   padding: 40px 50px;
@@ -422,7 +364,7 @@ h2 {
   }
 }
 
-/* 5th section */
+/* 6th section */
 .team-section {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -453,91 +395,26 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
-.team-section .text-muted {
-  font-size: 0.85rem;
-}
-/* 6th section */
-
-.investment-area {
-  background-color: white;
-  padding: 3rem 0;
+.team-section .team-member {
+  margin-right: 1rem;
 }
 
-.investment-area h5,
-.investment-area h2 {
+.footer {
+  background-color: #000000;
+  color: white;
+  padding: 20px 50px;
+}
+
+.footer p {
+  margin: 0;
   text-align: center;
+  font-size: 0.9rem;
 }
 
-.investment-area h5 {
-  color: #6c757d;
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
+.footer a {
+  color: #e86923;
 }
 
-.investment-area h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #000;
-  font-family: "Inter", sans-serif;
-}
-
-.card-custom {
-  padding: 1.2rem;
-  max-width: 450px;
-  margin: 0 auto;
-  border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.card-custom:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #000;
-}
-
-.card-text {
-  font-size: 0.95rem;
-  color: #6c757d;
-}
-
-.custom-icon {
-  background-color: white;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  font-size: 2rem;
-  position: relative;
-  top: -15px;
-  margin-bottom: -10px;
-  border: 2px solid #5555554d;
-}
-
-.custom-icon i {
-  color: #010101;
-}
-
-.investment-area a {
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.investment-area a:hover {
-  text-decoration: underline;
-}
-
-.card-body {
-  display: flex;
-  align-items: flex-start;
-  text-align: left;
-}
 /* 7th section */
 .faq-section {
   background-color: white;

@@ -4,16 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle as faGoogleBrand } from "@fortawesome/free-brands-svg-icons";
-import "../../styles/Signup.css";
+import "./Signup.css";
 
 const SignUp = () => {
   return (
-    <div
-      className="container-fluid "
-      style={{ backgroundColor: "transparent" }}
-    >
+    <div className="container-fluid" style={{ backgroundColor: "transparent" }}>
       <div className="row vh-100">
-        <div className="col-lg-6 d-flex align-items-center justify-content-center mt-5 ">
+        <div className="col-lg-6 d-flex align-items-center justify-content-center mt-5">
           <div className="w-75">
             <h2 className="text-center">Welcome</h2>
 
@@ -24,7 +21,6 @@ const SignUp = () => {
                   Sign in with Google
                 </button>
               </div>
-
               <p className="text-center">Or</p>
             </form>
 
@@ -58,8 +54,9 @@ const SignUp = () => {
                   </span>
                 </div>
               </div>
-              <div>
-                <div className="form-check">
+
+              <div className="d-flex pb-3">
+                <div className="form-check ">
                   <input
                     type="radio"
                     id="entrepreneur"
@@ -82,30 +79,26 @@ const SignUp = () => {
                     Investor
                   </label>
                 </div>
+                <div className="form-check">
+                  <input
+                    type="radio"
+                    id="Guest"
+                    name="userType"
+                    style={{ accentColor: "#E86924" }}
+                  />
+                  <label htmlFor="Guest" className="ms-2">
+                    Guest
+                  </label>
+                </div>
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-block"
-                style={{
-                  backgroundColor: "#E86924",
-                  color: "white",
-                  width: "100%",
-                  padding: "8px 12px",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                }}
-              >
-                Sign up
+              <button type="submit" className="update-button">
+                Sign Up
               </button>
+
               <p className="mt-3 text-center">
                 Already have an account?{" "}
-                <Link
-                  style={{
-                    Color: "#091F46",
-                  }}
-                  to="/sign-in"
-                >
+                <Link to="/sign-in" style={{ color: "#091F46" }}>
                   Sign In
                 </Link>
               </p>

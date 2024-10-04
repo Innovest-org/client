@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../styles/Screen1.css";
+import "./Screen5.css";
 
 const SuccessPage = () => {
   const navigate = useNavigate();
@@ -25,18 +25,7 @@ const SuccessPage = () => {
           Congratulations! Your password has been changed. Click continue to
           login.
         </p>
-        <button
-          className="btn btn-primary"
-          style={{
-            backgroundColor: "#E86924",
-            borderColor: "#E86924",
-            borderRadius: "8px",
-            padding: "10px 20px",
-            width: "100%",
-            maxWidth: "200px",
-          }}
-          onClick={handleClick}
-        >
+        <button className="btn btn-block update-button" onClick={handleClick}>
           Continue
         </button>
       </div>

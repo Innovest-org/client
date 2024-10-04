@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
-import '../../styles/Footer.css';
+import './Footer.css';
 
 const ContactInfo = () => (
   <div className="col-md-3 contact-info">
@@ -85,13 +85,15 @@ const Footer = () => {
   return (
     <footer className="bg-light py-4">
       <div className="container">
-        <div className="row align-items-start">
-          <ContactInfo />
-          <div className="col-md-9 service-social-media">
-            <FooterSection title="Service" links={services} />
-            <FooterSection title="Company" links={companyLinks} />
-            <SocialMediaLinks />
-            <NewsletterSection />
+        <div className="container">
+          <div className="row align-items-start">
+            <ContactInfo />
+            <div className="col-md-9 service-social-media">
+              <FooterSection title="Service" links={services} />
+              <FooterSection title="Company" links={companyLinks} />
+              <SocialMediaLinks />
+              <NewsletterSection />
+            </div>
           </div>
         </div>
       </div>

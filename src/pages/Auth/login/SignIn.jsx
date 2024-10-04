@@ -4,18 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle as faGoogleBrand } from "@fortawesome/free-brands-svg-icons";
-import "../../styles/Signin.css";
+import "./Signin.css";
 
 const SignIn = () => {
   return (
-    <div
-      className="container-fluid "
-      style={{ backgroundColor: "transparent" }}
-    >
+    <div className="container-fluid" style={{ backgroundColor: "transparent" }}>
       <div className="row vh-100">
-        <div className="col-lg-6 d-flex align-items-center justify-content-center ">
+        <div className="col-lg-6 d-flex align-items-center justify-content-center">
           <div className="w-75">
-            <h2 className="text-center">Welcome Back!</h2>
+            <h2 className="text-center mt-4">Welcome Back!</h2>
 
             <form>
               <div className="text-center my-3">
@@ -24,7 +21,6 @@ const SignIn = () => {
                   Sign in with Google
                 </button>
               </div>
-
               <p className="text-center">Or</p>
             </form>
             <form>
@@ -55,39 +51,18 @@ const SignIn = () => {
                   </label>
                 </div>
 
-                <Link
-                  style={{
-                    Color: "#091F46",
-                  }}
-                  to="/forget-password"
-                >
+                <Link to="/forget-password" style={{ color: "#091F46" }}>
                   Forgot your password?
                 </Link>
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-block"
-                style={{
-                  backgroundColor: "#E86924",
-                  color: "white",
-                  width: "100%",
-                  padding: "8px 12px",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                }}
-              >
+              <button type="submit" className="update-button">
                 Sign In
               </button>
 
               <p className="d-flex justify-content-between mt-3 mb-4">
                 <span>Don't have an account?</span>
-                <Link
-                  style={{
-                    Color: "#091F46",
-                  }}
-                  to="/sign-up"
-                >
+                <Link to="/sign-up" style={{ color: "#091F46" }}>
                   Sign Up
                 </Link>
               </p>
@@ -112,5 +87,4 @@ const SignIn = () => {
     </div>
   );
 };
-
 export default SignIn;

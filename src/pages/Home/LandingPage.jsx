@@ -12,7 +12,7 @@ import {
   faUserTie,
   faExchangeAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../styles/LandingPage.css";
+import "./LandingPage.css";
 
 export default function LandingPage() {
   const innovestRef = useRef(null);
@@ -124,27 +124,40 @@ export default function LandingPage() {
       </div>
 
       <section className="new-section d-flex">
-        <div className="left-half d-flex justify-content-center align-items-start flex-column">
-          <h2 className="text-position">Connecting</h2>
-          <h2 className="text-position">Entrepreneurs and</h2>
-          <h2 className="hl-text larger-text">Investors</h2>
-          <p className="footer-text">Connecting Entrepreneurs and Investors</p>
-        </div>
-        <div className="right-half d-flex justify-content-center align-items-start flex-column">
-          <div>
-            <h2>5.5 million</h2>
-            <p>Over 500 million in investments secured.</p>
-          </div>
-          <div>
-            <h2>24 billion</h2>
-            <p>Facilitated connections worth over 3 billion dollars.</p>
-          </div>
-          <div>
-            <h2>99%</h2>
-            <p>Yearly value growth</p>
-          </div>
-        </div>
+        <Container>
+          <Row>
+            <Col
+              md={6}
+              className="left-half d-flex justify-content-center align-items-start flex-column"
+            >
+              <h2 className="text-position">Connecting</h2>
+              <h2 className="text-position">Entrepreneurs and</h2>
+              <h2 className="hl-text larger-text">Investors</h2>
+              <p className="footer-text">
+                Connecting Entrepreneurs and Investors
+              </p>
+            </Col>
+            <Col
+              md={6}
+              className="right-half d-flex justify-content-center align-items-start flex-column"
+            >
+              <div>
+                <h2>5.5 million</h2>
+                <p>Over 500 million in investments secured.</p>
+              </div>
+              <div>
+                <h2>24 billion</h2>
+                <p>Facilitated connections worth over 3 billion dollars.</p>
+              </div>
+              <div>
+                <h2>99%</h2>
+                <p>Yearly value growth</p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
+
       <section className="third-section py-5">
         <div className="container">
           <div className="row mb-4">
@@ -249,55 +262,65 @@ export default function LandingPage() {
       </section>
 
       <section className="innovest-section" ref={innovestRef}>
-        <div className="text-center mb-4">
-          <h3 className="sub-heading">Invest Securely, Connect Privately</h3>
-          <h2 className="fw-bold">
-            How <span className="highlighted-text">INNOVEST</span> Works?
-          </h2>
-        </div>
-        <Row className="justify-content-center mb-4">
-          <Col md={12} className="text-center">
-            <img
-              src={require("../../assets/4th.png")}
-              alt="Innovest Process"
-              className="process-image"
-            />
-          </Col>
-        </Row>
-        <Row className="text-center icon-row mb-5">
-          <Col md={4}>
-            <FontAwesomeIcon icon={faLock} size="3x" className="icon" />
-            <h5 className="mt-3">Secure Transactions</h5>
-            <p>Your data is protected with top-notch security protocols.</p>
-          </Col>
-          <Col md={4}>
-            <FontAwesomeIcon icon={faUsers} size="3x" className="icon" />
-            <h5 className="mt-3">Community Driven</h5>
-            <p>Join a network of like-minded investors and entrepreneurs.</p>
-          </Col>
-          <Col md={4}>
-            <FontAwesomeIcon icon={faCommentDots} size="3x" className="icon" />
-            <h5 className="mt-3">Expert Guidance</h5>
-            <p>Get advice from experienced mentors in the field.</p>
-          </Col>
-        </Row>
-        <Row className="text-center icon-row mb-5">
-          <Col md={4}>
-            <FontAwesomeIcon icon={faChartBar} size="3x" className="icon" />
-            <h5 className="mt-3">Data-Driven Insights</h5>
-            <p>Leverage data to make informed investment decisions.</p>
-          </Col>
-          <Col md={4}>
-            <FontAwesomeIcon icon={faUserTie} size="3x" className="icon" />
-            <h5 className="mt-3">Professional Network</h5>
-            <p>Connect with industry leaders and potential partners.</p>
-          </Col>
-          <Col md={4}>
-            <FontAwesomeIcon icon={faExchangeAlt} size="3x" className="icon" />
-            <h5 className="mt-3">Flexible Investments</h5>
-            <p>Choose investment options that suit your goals.</p>
-          </Col>
-        </Row>
+        <Container>
+          <div className="text-center mb-4">
+            <h3 className="sub-heading">Invest Securely, Connect Privately</h3>
+            <h2 className="fw-bold">
+              How <span className="highlighted-text">INNOVEST</span> Works?
+            </h2>
+          </div>
+          <Row className="justify-content-center mb-4">
+            <Col md={12} className="text-center">
+              <img
+                src={require("../../assets/4th.png")}
+                alt="Innovest Process"
+                className="process-image"
+              />
+            </Col>
+          </Row>
+          <Row className="text-center icon-row mb-5">
+            <Col md={4}>
+              <FontAwesomeIcon icon={faLock} size="3x" className="icon" />
+              <h5 className="mt-3">Secure Transactions</h5>
+              <p>Your data is protected with top-notch security protocols.</p>
+            </Col>
+            <Col md={4}>
+              <FontAwesomeIcon icon={faUsers} size="3x" className="icon" />
+              <h5 className="mt-3">Community Driven</h5>
+              <p>Join a network of like-minded investors and entrepreneurs.</p>
+            </Col>
+            <Col md={4}>
+              <FontAwesomeIcon
+                icon={faCommentDots}
+                size="3x"
+                className="icon"
+              />
+              <h5 className="mt-3">Expert Guidance</h5>
+              <p>Get advice from experienced mentors in the field.</p>
+            </Col>
+          </Row>
+          <Row className="text-center icon-row mb-5">
+            <Col md={4}>
+              <FontAwesomeIcon icon={faChartBar} size="3x" className="icon" />
+              <h5 className="mt-3">Data-Driven Insights</h5>
+              <p>Leverage data to make informed investment decisions.</p>
+            </Col>
+            <Col md={4}>
+              <FontAwesomeIcon icon={faUserTie} size="3x" className="icon" />
+              <h5 className="mt-3">Professional Network</h5>
+              <p>Connect with industry leaders and potential partners.</p>
+            </Col>
+            <Col md={4}>
+              <FontAwesomeIcon
+                icon={faExchangeAlt}
+                size="3x"
+                className="icon"
+              />
+              <h5 className="mt-3">Flexible Investments</h5>
+              <p>Choose investment options that suit your goals.</p>
+            </Col>
+          </Row>
+        </Container>
       </section>
 
       <section className="team-section">

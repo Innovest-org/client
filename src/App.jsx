@@ -5,16 +5,17 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import Navbar from "./pages/LandingPage/Navbar.jsx";
-import LandingPage from "./pages/LandingPage/LandingPage.jsx";
-import Signin from "./pages/Auth/SignIn.jsx";
-import Signup from "./pages/Auth/Signup.jsx";
+
+import Navbar from "./pages/Home/Navbar.jsx";
+import LandingPage from "./pages/Home/LandingPage.jsx";
+import Footer from "./pages/Home/Footer.jsx";
+import Signin from "./pages/Auth/login/SignIn.jsx";
+import Signup from "./pages/Auth/register/Signup.jsx";
 import Forgot from "./pages/Auth/ForgetPass/Screen1.jsx";
 import Forget1 from "./pages/Auth/ForgetPass/Screen2.jsx";
 import Forget2 from "./pages/Auth/ForgetPass/Screen3.jsx";
 import Forget3 from "./pages/Auth/ForgetPass/Screen4.jsx";
 import Forget4 from "./pages/Auth/ForgetPass/Screen5.jsx";
-import Footer from "./pages/LandingPage/Footer.jsx";
 
 const Layout = () => {
   const location = useLocation();
