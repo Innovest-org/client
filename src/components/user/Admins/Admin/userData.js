@@ -6,7 +6,7 @@ export const userData = [
 export const adminsData = [
   {
     id: '1',
-    name: 'Anna Nekrashevich',
+    username: 'Anna Nekrashevich',
     community: 'General Community',
     email: 'anna.nekrashevich@example.com',
     phone: '123-456-7890',
@@ -17,7 +17,7 @@ export const adminsData = [
   },
   {
     id: '2',
-    name: 'John Doe',
+    username: 'John Doe',
     community: 'Tech Community',
     email: 'john.doe@example.com',
     phone: '987-654-3210',
@@ -28,7 +28,7 @@ export const adminsData = [
   },
   {
     id: '3',
-    name: 'Emily Smith',
+    username: 'Emily Smith',
     community: 'Health Community',
     email: 'emily.smith@example.com',
     phone: '555-123-4567',
@@ -39,7 +39,7 @@ export const adminsData = [
   },
   {
     id: '4',
-    name: 'Michael Johnson',
+    username: 'Michael Johnson',
     community: 'Business Community',
     email: 'michael.johnson@example.com',
     phone: '444-987-6543',
@@ -50,7 +50,7 @@ export const adminsData = [
   },
   {
     id: '5',
-    name: 'Sophia Davis',
+    username: 'Sophia Davis',
     community: 'Education Community',
     email: 'sophia.davis@example.com',
     phone: '333-654-9876',
@@ -61,7 +61,7 @@ export const adminsData = [
   },
   {
     id: '6',
-    name: 'David Brown',
+    username: 'David Brown',
     community: 'Sports Community',
     email: 'david.brown@example.com',
     phone: '222-345-6789',
@@ -71,3 +71,30 @@ export const adminsData = [
     description: 'David manages the Sports Community, facilitating events and engaging members in conversations about physical fitness and sports news.',
   },
 ];
+
+
+export  const languages = [
+  { value: '', label: 'Select Language' },
+  { value: 'english', label: 'English' },
+  { value: 'spanish', label: 'Spanish' },
+  { value: 'french', label: 'French' },
+  { value: 'german', label: 'German' },
+  // Add more languages as needed
+];
+
+export const countries = [
+  { value: '', label: 'Select Country' },
+  { value: 'usa', label: 'United States' },
+  { value: 'canada', label: 'Canada' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'germany', label: 'Germany' },
+  { value: 'france', label: 'France' },
+  // Add more countries as needed
+];
+
+export const membersData = [
+  { id: 1, firstName: 'John', lastName: 'Doe', email: 'john@example.com', phone: '123-456-7890' },
+  { id: 2, firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', phone: '987-654-3210' },
+  // ... other member objects
+];
+

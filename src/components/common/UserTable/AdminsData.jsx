@@ -10,7 +10,7 @@ export default function AdminTable({ admins }) {
       <table className="table table-bordered table-hover">
         <thead className="thead-light">
           <tr>
-            <th scope="col">Avatar & Name</th>
+            <th scope="col">User name</th>
             <th scope="col">Community</th>
             <th scope="col">Email</th>
             <th scope="col">Date Joined</th>
@@ -28,7 +28,7 @@ export default function AdminTable({ admins }) {
                     style={{ width: '50px', height: '50px' }}
                   />
                   <Link to={`/admin-dashboard/profile/${admin.id}`} className=''>
-                  <span>{admin.name}</span></Link>
+                  <span>{admin.username}</span></Link>
                 </td>
                 <td>{admin.community}</td>
                 <td>
