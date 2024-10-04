@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
-const AdminForm = ({ onSubmit, onBackClick, initialData, countries, languages }) => {
+const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}) => {
   const [formData, setFormData] = useState(initialData || {
     firstName: '',
     lastName: '',
@@ -140,19 +140,19 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, languages })
             />
           </div>
           <div className="mb-3 col-md-6">
-            <label htmlFor="language" className="form-label">Language</label>
+            <label htmlFor="community" className="form-label">Community</label>
             <select
               className="form-select"
-              id="language"
-              name="language"
-              value={formData.language}
+              id="community"
+              name="community"
+              value={formData.community}
               onChange={handleInputChange}
               required
             >
-              <option value="">Select Language</option>
-              {languages.map(lang => (
-                <option key={lang.value} value={lang.value}>
-                  {lang.label}
+              <option value="">Select community</option>
+              {communities.map(community => (
+                <option key={community.value} value={community.value}>
+                  {community.label}
                 </option>
               ))}
             </select>

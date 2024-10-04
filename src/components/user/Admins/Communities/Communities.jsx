@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
-import './style.css';
+import CommunitiesTable from '../../../common/tables/communitiesTable'; 
 import CommunityForm from '../../../common/AddOrEditForm/components/CommunityForm';
+import './style.css';
+import { sampleCommunities } from '../Admin/userData';
 
 export default function Communities() {
   const [isAddingCommunity, setIsAddingCommunity] = useState(false);
-  const [communities, setCommunities] = useState([]);
+  const [communities, setCommunities] = useState(sampleCommunities);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ export default function Communities() {
   };
 
   const filteredCommunities = communities.filter(community =>
-    `${community.name}`.toLowerCase().includes(searchQuery.toLowerCase())
+    community.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   console.log("Filtered Communities:", filteredCommunities);
@@ -63,17 +65,21 @@ export default function Communities() {
       <div className="row justify-content-center ms-1">
         {!isAddingCommunity && (
           <div className="col-12 m-sm-4">
-            <div className="card shadow-sm">
-              <div className="card-body text-center py-5">
-                <h2 className="card-title mb-3">No Communities Found</h2>
-                <p className="card-text mb-4">Communities will be listed here once added.</p>
-                <CustomButton
-                  text="Add New Community"
-                  onClick={handleAddCommunityClick}
-                  className="btn btn-primary"
-                />
+            {filteredCommunities.length > 0 ? (
+              <CommunitiesTable communities={filteredCommunities} /> // Correct the prop name
+            ) : (
+              <div className="card shadow-sm">
+                <div className="card-body text-center py-5">
+                  <h2 className="card-title mb-3">No Communities Found</h2>
+                  <p className="card-text mb-4">Communities will be listed here once added.</p>
+                  <CustomButton
+                    text="Add New Community"
+                    onClick={handleAddCommunityClick}
+                    className="btn btn-primary"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
