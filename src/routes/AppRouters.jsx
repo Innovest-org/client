@@ -2,16 +2,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "../pages/Error/ErrorPage";
 import AdminDashboard from "../pages/User/AdminDashboard";
-import Dashboard from "../components/user/Dashboard/Dashboard";
-import Members from "../components/user/Members/Members";
-import Communities from "../components/user/Communities/Communities";
-import Settings from "../components/user/Settings/Settings";
-import Messages from "../components/user/Messages/Messages";
+import Dashboard from "../components/user/Admins/Dashboard/Dashboard";
+import Members from "../components/user/Admins/Members/Members";
+import Communities from "../components/user/Admins/Communities/Communities";
+import Settings from "../components/user/Admins/Settings/Settings";
+import Messages from "../components/user/Admins/Messages/Messages";
 import AddOrEditForm from "../components/common/AddOrEditForm/AddOrEditForm";
-import Admin from "../components/user/Admin/Admin";
-import Profile from "../components/user/Profile/Profile";
+import Admin from "../components/user/Admins/Admin/Admin";
+import Profile from "../components/user/Admins/Profile/Profile";
 
-// Innovest Components 
+// Investor Components 
 import InvestorDashboard from '../pages/User/InvestorDashboard'
 import InvDashboard from '../components/user/Investor/Dashboard/Inv_DashBoard'
 import InvInvestments from "../components/user/Investor/Investments/Inv_Investments";
@@ -19,7 +19,7 @@ import InvProposals from "../components/user/Investor/Proposals/Inv_Proposals";
 import ProposalsDetails from "../components/user/Investor/ProposalsDetails/ProposalsDetails";
 import InvMessages from "../components/user/Investor/Messages/Inv_Messages";
 import InvSettings from "../components/user/Investor/Settings/Inv_Settings";
-import Inv_Communities from "../components/user/Investor/Communities/Inv_Communities";
+import InvCommunities from "../components/user/Investor/Communities/Inv_Communities";
 
 const Router = createBrowserRouter([
   {
@@ -84,7 +84,7 @@ const Router = createBrowserRouter([
     ],
   },
   {
-    path: 'innovest-dashboard',
+    path: 'investor-dashboard',
     element: <InvestorDashboard />,
     children: [
       {
@@ -97,7 +97,7 @@ const Router = createBrowserRouter([
       },
       {
         path: 'communities',
-        element: <Inv_Communities />,
+        element: <InvCommunities />,
       },
       {
         path: 'investments',

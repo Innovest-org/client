@@ -1,11 +1,11 @@
 import React from 'react';
 import './style.css';
-import CustomButton from '../../common/CustomButton/CustomButton';
-import SearchAndFilterBar from '../../common/SearchAndFilterBar/SerachAndFilterBar';
+import CustomButton from '../../../common/CustomButton/CustomButton';
+import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import AvatarPlaceholder from '../../../assets/admin-avatar.png';
+import AvatarPlaceholder from '../../../../assets/admin-avatar.png';
 import { adminsData } from '../Admin/userData';
 
 export default function Profile() {

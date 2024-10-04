@@ -1,9 +1,9 @@
 import React from 'react';
-import RightSidebar from '../../common/RightSidebar/RightSidebar';
+import RightSidebar from '../../../common/RightSidebar/RightSidebar';
 import './Dashboard.css';
-import CustomButton from '../../common/CustomButton/CustomButton';
-import OverviewCard from '../../common/OverviewCard/OverviewCard';
-import UserTable from '../../common/UserTable/UsersData';
+import CustomButton from '../../../common/CustomButton/CustomButton';
+import OverviewCard from '../../../common/OverviewCard/OverviewCard';
+import UserTable from '../../../common/UserTable/UsersData';
 
 const users = [
   {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminTable from '../../common/UserTable/AdminsData';
-import SearchAndFilterBar from '../../common/SearchAndFilterBar/SerachAndFilterBar'; 
-import AddOrEditForm from '../../common/AddOrEditForm/AddOrEditForm';
-import CustomButton from '../../common/CustomButton/CustomButton';
+import AdminTable from '../../../common/UserTable/AdminsData';
+import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar'; 
+import AddOrEditForm from '../../../common/AddOrEditForm/AddOrEditForm';
+import CustomButton from '../../../common/CustomButton/CustomButton';
 import './style.css';
 
 export default function Admin() {

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Inv_Communities = () => {
+const InvCommunities = () => {
   return (
     <div>Investor Communities</div>
   )
 }
 
-export default Inv_Communities
+export default InvCommunities;
