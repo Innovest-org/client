@@ -20,6 +20,7 @@ import ProposalsDetails from "../components/user/Investor/ProposalsDetails/Propo
 import InvMessages from "../components/user/Investor/Messages/Inv_Messages";
 import InvSettings from "../components/user/Investor/Settings/Inv_Settings";
 import InvCommunities from "../components/user/Investor/Communities/Inv_Communities";
+import MemberForm from "../components/common/AddOrEditForm/components/MemberForm";
 
 const Router = createBrowserRouter([
   {
@@ -47,10 +48,14 @@ const Router = createBrowserRouter([
             path: "add-admin",
             element: <AddOrEditForm />,
           },
-        {
-          path: "edit-admin",
-          element: <AddOrEditForm />,
-        },
+          {
+            path: "view-admins",
+            element: <Admin />,
+          },
+          {
+            path: "edit-admin/:id",
+            element: <AddOrEditForm />,
+          },
         {
           path: "profile",
           element: <Profile />,
@@ -60,10 +65,38 @@ const Router = createBrowserRouter([
       {
         path: "members",
         element: <Members />,
+        children: [
+          {
+            path: "add-member",
+            element: <MemberForm />,
+          },
+          {
+            path: "edit-member/:id",
+            element: <MemberForm />,
+          },
+          {
+            path: "view-members",
+            element: <Members />,
+          }
+        ]
       },
       {
         path: "communities",
         element: <Communities />,
+        children: [
+          {
+            path: "add-community",
+            element: <MemberForm />,
+          },
+          {
+            path: "edit-community/:id",
+            element: <MemberForm />,
+          },
+          {
+            path: "view-communities",
+            element: <Communities />,
+          }
+        ]
       },
       {
         path: "settings",

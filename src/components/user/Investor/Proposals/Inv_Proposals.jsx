@@ -24,7 +24,7 @@ export default function Inv_Proposals() {
   });
 
   const handleCardClick = (id) => {
-    navigate(`/innovest-dashboard/proposals/${id}`);
+    navigate(`/investor-dashboard/proposals/${id}`);
   };
 
   return (
