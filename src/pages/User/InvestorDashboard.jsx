@@ -8,7 +8,7 @@ const InvestorDashboard = () => {
     <div className="admin-container container-fluid">
     <div className="row">
       <div className="col-md-3 col-lg-2 p-0 d-none d-md-block">
-        <Sidebar role={'innovest'} />
+        <Sidebar role={'investor'} />
       </div>
       
       <div className="col-12 col-md-9 col-lg-10 mx-auto">

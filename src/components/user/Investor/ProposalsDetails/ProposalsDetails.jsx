@@ -47,7 +47,7 @@ const ProposalsDetails = () => {
     }
 
     const handleExit = () => {
-        navigate(`/innovest-dashboard/proposals`);
+        navigate(`/investor-dashboard/proposals`);
     };
 
     return (
