@@ -3,13 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import './style.css';
-import { membersData as initialMembersData } from '../Admin/userData';
+import { sampleMembers } from '../Admin/userData';
 import MemberForm from '../../../common/AddOrEditForm/components/MemberForm';
+import MembersTable from '../../../common/tables/MemberTable';
+import ProfileSidebar from '../../../common/ProfileSidebar/ProfileSidebar';
 
 export default function Members() {
   const [isAddingMember, setIsAddingMember] = useState(false);
-  const [members, setMembers] = useState(initialMembersData);
+  const [members, setMembers] = useState(sampleMembers);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedMember, setSelectedMember] = useState(null); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleAddMemberClick = () => {
@@ -35,8 +39,14 @@ export default function Members() {
     setSearchQuery(query);
   };
 
+  const handleMemberClick = (member) => {
+    setSelectedMember(member);
+    setIsSidebarOpen(true);
+    console.log('Selected Member:', member);
+  };
+
   const filteredMembers = members.filter(member =>
-    `${member.username}`.toLowerCase().includes(searchQuery.toLowerCase())
+    member.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   console.log("Filtered Members:", filteredMembers);
@@ -60,25 +70,34 @@ export default function Members() {
           countries={''} 
           languages={''}
         />
-
       )}
       <div className="row justify-content-center ms-1 custom-m">
         {!isAddingMember && (
           <div className="col-12 m-sm-4">
-            <div className="card shadow-sm">
-              <div className="card-body text-center py-5">
-                <h2 className="card-title mb-3">No Members Found</h2>
-                <p className="card-text mb-4">Members will be listed here once added.</p>
-                <CustomButton
-                  text="Add New Member"
-                  onClick={handleAddMemberClick}
-                  className="btn btn-primary"
-                />
+            {filteredMembers.length > 0 ? (
+              <MembersTable members={filteredMembers} onMemberClick={handleMemberClick} />
+            ) : (
+              <div className="card shadow-sm">
+                <div className="card-body text-center py-5">
+                  <h2 className="card-title mb-3">No Members Found</h2>
+                  <p className="card-text mb-4">Members will be listed here once added.</p>
+                  <CustomButton
+                    text="Add New Member"
+                    onClick={handleAddMemberClick}
+                    className="btn btn-primary"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
+      {isSidebarOpen && selectedMember && (
+        <ProfileSidebar 
+          member={selectedMember} 
+          onClose={() => setIsSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 }

@@ -91,10 +91,23 @@ export const countries = [
   { value: 'france', label: 'France' },
   // Add more countries as needed
 ];
-
+export const communities = [
+  {value: 'General community', label: 'General community'}
+]
 export const membersData = [
-  { id: 1, firstName: 'John', lastName: 'Doe', email: 'john@example.com', phone: '123-456-7890' },
-  { id: 2, firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', phone: '987-654-3210' },
+  { id: 1, firstName: 'John', avatar: 'https://via.placeholder.com/50', lastName: 'Doe', email: 'john@example.com', phone: '123-456-7890' },
+  { id: 2, firstName: 'Jane',avatar: 'https://via.placeholder.com/50',  lastName: 'Smith', email: 'jane@example.com', phone: '987-654-3210' },
   // ... other member objects
 ];
+
+export const sampleMembers = [
+  { id: '1', username: 'john_doe', avatar: 'https://via.placeholder.com/50', email: 'john@example.com', role: 'Investor', dateJoined: '2023-01-01' },
+  { id: '2', username: 'jane_doe', avatar: 'https://via.placeholder.com/50', email: 'jane@example.com', role: 'Entrepreneur', dateJoined: '2023-02-15' },
+];
+
+export const sampleCommunities = [
+  { id: '1', name: 'Tech Innovators', avatar: 'https://via.placeholder.com/50', membersNumber: 150, postsNumber: 75, dateCreated: '2023-01-10' },
+  { id: '2', name: 'Health Enthusiasts',avatar: 'https://via.placeholder.com/50',  membersNumber: 90, postsNumber: 30, dateCreated: '2023-03-12' },
+];
+
 

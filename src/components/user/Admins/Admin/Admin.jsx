@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminTable from '../../../common/UserTable/AdminsData';
+import AdminTable from '../../../common/tables/AdminsTable';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar'; 
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import './style.css';
-import { adminsData as initialAdminsData, countries, languages } from './userData';
+import { adminsData as initialAdminsData, countries, communities } from './userData';
 import AdminForm from '../../../common/AddOrEditForm/components/AdminForm';
 
 export default function Admin() {
@@ -44,7 +44,7 @@ export default function Admin() {
   console.log("Filtered Admins:", filteredAdmins);
 
   return (
-    <div className="container admin-page custom-m">
+    <div className="container admin-page">
       {!isAddingAdmin ? (
         <div className="row d-flex align-items-center justify-content-between g-0">
           <div className="col-md-9">
@@ -59,11 +59,11 @@ export default function Admin() {
           onSubmit={handleFormSubmit} 
           onBackClick={handleBackClick} 
           initialData={selectedAdmin}
-          languages={languages}
+          communities={communities}
           countries={countries}
         />
       )}
-      <div className="row justify-content-center ms-1">
+      <div className="row justify-content-center">
         {!isAddingAdmin && (
           <div className="col-12 m-sm-4">
             {filteredAdmins.length > 0 ? (
