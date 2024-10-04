@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 import Avatar from '../../assets/a_user01_avatar.png';
+import SearchAndFilterBar from '../common/SearchAndFilterBar/SerachAndFilterBar';
 
 export default function DashboardHeader() {
   return (
     <nav className="navbar navbar-expand-lg bg-transparent position-relative">
+      <SearchAndFilterBar />
       <div className="container-fluid">
         <button
           className="navbar-toggler ms-auto"

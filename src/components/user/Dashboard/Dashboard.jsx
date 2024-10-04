@@ -56,7 +56,8 @@ export default function Dashboard() {
         </div>
 
         <div className="right-sidebar col-12 col-md-2 mt-md-2  mb-4">
-          <RightSidebar />
+          {/* Render the SideBar depend on the userType (Admin - investor) */}
+          <RightSidebar userType={'admin'} />
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import React from 'react'
-import CustomButton from '../../common/CustomButton/CustomButton'
-import OverviewCard from '../../common/OverviewCard/OverviewCard'
-import UserTable from '../../common/UserTable/UsersData'
-import RightSidebar from '../../common/RightSidebar/RightSidebar'
+import OverviewCard from '../../../common/OverviewCard/OverviewCard'
+import RightSidebar from '../../../common/RightSidebar/RightSidebar'
+import RecentProposals from '../../../common/RecentProposals/RecentProposals'
 
 const Inv_DashBoard = () => {
+
 
   return (
     <>
@@ -21,12 +21,17 @@ const Inv_DashBoard = () => {
         <div className="main-content col-12 col-md-9 col-sm-12">
           <div className="my-2">
             <OverviewCard />
-          </div>
+          </div> 
+
+        <div className="mt-5 p-3">
+          <RecentProposals />
+        </div>
 
         </div>
 
         <div className="right-sidebar col-12 col-md-2 mt-md-2  mb-4">
-          <RightSidebar />
+          {/* Render the SideBar depend on the userType (Admin - investor) */}
+          <RightSidebar userType={'investor'} />
         </div>
       </div>
     </div>

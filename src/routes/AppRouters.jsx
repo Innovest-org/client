@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
+import ErrorPage from "../pages/Error/ErrorPage";
 import AdminDashboard from "../pages/User/AdminDashboard";
 import Dashboard from "../components/user/Dashboard/Dashboard";
 import Members from "../components/user/Members/Members";
@@ -11,18 +12,20 @@ import Admin from "../components/user/Admin/Admin";
 import Profile from "../components/user/Profile/Profile";
 
 // Innovest Components 
-import InnovestDashBoard from '../pages/User/InnovestDashBoard'
-import InvDashBoard from '../components/Innovest/Dashboard/Inv_DashBoard'
-import InvCommunities from "../components/Innovest/Communities/Inv_Communities";
-import InvInvestments from "../components/Innovest/Investments/Inv_Investments";
-import InvProposals from "../components/Innovest/Proposals/Inv_Proposals";
-import InvMessages from "../components/Innovest/Messages/Inv_Messages";
-import InvSettings from "../components/Innovest/Settings/Inv_Settings";
+import InvestorDashboard from '../pages/User/InvestorDashboard'
+import InvDashboard from '../components/user/Investor/Dashboard/Inv_DashBoard'
+import InvInvestments from "../components/user/Investor/Investments/Inv_Investments";
+import InvProposals from "../components/user/Investor/Proposals/Inv_Proposals";
+import ProposalsDetails from "../components/user/Investor/ProposalsDetails/ProposalsDetails";
+import InvMessages from "../components/user/Investor/Messages/Inv_Messages";
+import InvSettings from "../components/user/Investor/Settings/Inv_Settings";
+import Inv_Communities from "../components/user/Investor/Communities/Inv_Communities";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/admin-dashboard",
@@ -82,19 +85,19 @@ const Router = createBrowserRouter([
   },
   {
     path: 'innovest-dashboard',
-    element: <InnovestDashBoard />,
+    element: <InvestorDashboard />,
     children: [
       {
         index: true,
-        element: <InvDashBoard />,
+        element: <InvDashboard />,
       },
       {
         path: 'dashboard',
-        element: <InvDashBoard />,
+        element: <InvDashboard />,
       },
       {
         path: 'communities',
-        element: <InvCommunities />,
+        element: <Inv_Communities />,
       },
       {
         path: 'investments',
@@ -103,6 +106,10 @@ const Router = createBrowserRouter([
       {
         path: 'proposals',
         element: <InvProposals />,
+      },
+      {
+        path: 'proposals/:id',
+        element: <ProposalsDetails />,
       },
       {
         path:'messages',

@@ -1,0 +1,60 @@
+.proposal-details {
+    background-color: #F6F6F6;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 16px 1px rgb(0 0 0 / 10%);
+}
+  
+  .proposal-details h2 {
+    color: #f68b1e;
+  }
+  
+  .proposal-details h5 {
+    color: #333;
+  }
+
+  .content {
+    margin-right: 90px;
+    margin-left: 90px;
+  }
+
+  .proposals_doc {
+    background-color: #1A1A1A33;
+    border: none;
+    color: #000;
+    margin-left: 14px;
+    font-size: 12px;
+  }
+
+  form {
+    position: relative;
+  }
+
+  .textArea {
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    height: 140px;
+    border-radius: 5px;
+    outline: none;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .SendFeedBack_Btn {
+    background-color: #f68b1e;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+  }

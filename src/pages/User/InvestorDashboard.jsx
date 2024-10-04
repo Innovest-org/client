@@ -3,7 +3,7 @@ import Sidebar from '../../components/common/LeftSidebar/Sidebar'
 import DashboardHeader from '../../components/layout/DashboardHeader'
 import { Outlet } from "react-router-dom";
 
-const InnovestDashBoard = () => {
+const InvestorDashboard = () => {
   return (
     <div className="admin-container container-fluid">
     <div className="row">
@@ -24,4 +24,4 @@ const InnovestDashBoard = () => {
   )
 }
 
-export default InnovestDashBoard
+export default InvestorDashboard

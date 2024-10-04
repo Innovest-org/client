@@ -20,7 +20,6 @@ const Sidebar = ({ role }) => {
     { name: 'Proposals', icon: faMoneyCheckAlt, path: 'proposals' },
     { name: 'Communities', icon: faUsers, path: 'communities' },
     { name: 'My Investments', icon: faUsers, path: 'investments' },
-    { name: 'Settings', icon: faCog, path: 'settings' },
   ];
 
   const navItems = role === 'admin' ? adminNavItems : investorNavItems;
