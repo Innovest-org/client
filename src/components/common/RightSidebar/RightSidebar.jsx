@@ -1,9 +1,9 @@
-import { faBarsProgress, faCalendarAlt, faCheckCircle, faClipboardList, faClock, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBarsProgress, faCheckCircle, faClipboardList, faClock, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import './RightSidebar.css';
 import SidebarSection from './components/SidebarSection';
 
-export default function RightSidebar({userType}) {
+export default function RightSidebar({ userType }) {
   const activitySummary = [
     { icon: faUserPlus, color: '#007bff', label: 'New Registrations', count: 12 },
     { icon: faSignInAlt, color: '#28a745', label: 'User Logins', count: 156 },
@@ -26,16 +26,16 @@ export default function RightSidebar({userType}) {
     <div className={`right-sidebar ${userType === 'investor' && 'bg-white '}`}>
       {userType === 'admin' && (
         <>
-        <SidebarSection title="Today's Activity Summary" items={activitySummary} />
-        <SidebarSection title="Pending User Requests" items={pendingRequests} />  
+          <SidebarSection title="Today's Activity Summary" items={activitySummary} />
+          <SidebarSection title="Pending User Requests" items={pendingRequests} />
         </>
       )}
 
       {userType === 'investor' && (
         <>
-         <SidebarSection title="Upcoming Meetings" items={UpcomingMeetings} />
+          <SidebarSection title="Upcoming Meetings" items={UpcomingMeetings} />
         </>
-      )} 
+      )}
     </div>
   );
 }
