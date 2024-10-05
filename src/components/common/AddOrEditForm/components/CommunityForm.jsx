@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
+import InputField from './InputField';
+import AvatarUpload from './AvatarUpload';
 
-const CommunityForm = ({ onSubmit, onBackClick, initialData, countries = [], languages = [] }) => {
+const CommunityForm = ({ onSubmit, onBackClick, initialData, mode }) => {
   const [formData, setFormData] = useState(initialData || {
     name: '',
     description: '',
@@ -31,9 +33,26 @@ const CommunityForm = ({ onSubmit, onBackClick, initialData, countries = [], lan
     }
   };
 
+  const inputFields = [
+    {
+      type: 'text',
+      name: 'name',
+      label: 'Community Name',
+      placeholder: 'Enter Community Name',
+      required: true,
+    },
+    {
+      type: 'textarea',
+      name: 'description',
+      label: 'Description',
+      placeholder: 'Enter Community Description',
+      required: true,
+    },
+  ];
+
   return (
     <div className="position-relative container">
-      <h3 className="mb-4">Add New Community</h3>
+      <h3 className="mb-4">{mode === 'edit' ? 'Edit Community' : 'Add New Community'}</h3>
       <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
         <div className="position-absolute top-0 end-0 p-3">
           <FontAwesomeIcon
@@ -42,61 +61,31 @@ const CommunityForm = ({ onSubmit, onBackClick, initialData, countries = [], lan
             onClick={onBackClick}
           />
         </div>
-        <div className="mb-4 text-center">
-          <label htmlFor="avatarUpload">
-            <img
-              src={formData.avatar || 'https://via.placeholder.com/150'}
-              alt="Community"
-              className="rounded-circle"
-              style={{ width: '150px', height: '150px', objectFit: 'cover', cursor: 'pointer' }}
-            />
-          </label>
-          <input
-            type="file"
-            id="avatarUpload"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
-          />
-        </div>
+
+        <AvatarUpload
+          avatar={formData.avatar}
+          onImageUpload={handleImageUpload}
+        />
 
         <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="name" className="form-label">Community Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Enter Community Name"
-              required
-            />
-          </div>
-
-          <div className="mb-3 col-md-6">
-            <label htmlFor="description" className="form-label">Description</label>
-            <textarea
-              className="form-control"
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              placeholder="Enter Community Description"
-              required
-            />
-          </div>
+          {inputFields.map((field) => (
+            <div className="mb-3 col-md-6" key={field.name}>
+              <InputField
+                field={field}
+                value={formData[field.name]}
+                onChange={handleInputChange}
+              />
+            </div>
+          ))}
         </div>
 
         <div className="d-flex justify-content-between mt-3">
           <CustomButton
             type="submit"
-            text="Add New Community"
+            text={mode === 'edit' ? 'Edit Community' : 'Add New Community'}
             className="btn btn-primary"
           />
         </div>
-
       </form>
     </div>
   );
