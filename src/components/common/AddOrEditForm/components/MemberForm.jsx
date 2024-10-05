@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 
-const MemberForm = ({onSubmit, onBackClick, initialData, countries = [], languages = [] }) => {
+const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
   const [formData, setFormData] = useState(initialData || {
     firstName: '',
     lastName: '',
@@ -40,7 +40,7 @@ const MemberForm = ({onSubmit, onBackClick, initialData, countries = [], languag
 
   return (
     <div className="position-relative container">
-      <h3 className="mb-4 ">Add New Member</h3>
+      <h3 className="mb-4 ">{mode === 'edit' ? 'Edit Member' : 'Add New Member'}</h3>
       <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
         <div className="position-absolute top-0 end-0 p-3">
           <FontAwesomeIcon
@@ -154,7 +154,7 @@ const MemberForm = ({onSubmit, onBackClick, initialData, countries = [], languag
               required
             />
           </div>
-          
+
         </div>
 
         <div className="row">
@@ -174,7 +174,7 @@ const MemberForm = ({onSubmit, onBackClick, initialData, countries = [], languag
         <div className="d-flex justify-content-between mt-3">
           <CustomButton
             type="submit"
-            text="Add New Admin"
+            text={mode === 'edit' ? 'Update Member' : 'Add Member'}
             className="btn btn-primary"
           />
         </div>

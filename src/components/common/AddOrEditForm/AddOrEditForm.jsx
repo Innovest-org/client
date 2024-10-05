@@ -52,13 +52,13 @@ export default function AdminForm({ entityType, mode, fields, onSubmit, onBackCl
 
         <div className="d-flex justify-content-between">
           {mode === 'edit' &&
-          <CustomButton
-            text="delete"
-            type="button"
-            className="btn btn-secondary"
-            onClick={onBackClick}
-            icon={<FontAwesomeIcon icon={faArrowLeft} />}
-          />
+            <CustomButton
+              text="delete"
+              type="button"
+              className="btn btn-secondary"
+              onClick={onBackClick}
+              icon={<FontAwesomeIcon icon={faArrowLeft} />}
+            />
           }
           <CustomButton
             text={mode === 'submitting' ? "Submitting..." : "Save"}

@@ -1,17 +1,11 @@
-/* ProfileSidebar.css */
 .profile-sidebar {
-  transition: transform 0.3s ease-in-out; /* Smooth transition for the sidebar */
+  transition: transform 0.3s ease-in-out;
+  background-color: #F2F2F2;
+  border: 1px solid #E86924 !important;
+
 }
 
 .profile-sidebar .member-image {
-  border: 2px solid #007bff; /* Bootstrap primary color */
-}
-
-.social-media-links a {
-  font-size: 24px; /* Adjust the size of social media icons */
-  color: #007bff; /* Change to Bootstrap primary color */
-}
-
-.social-media-links a:hover {
-  color: #0056b3; /* Darken on hover */
+  object-fit: cover;
+  border: 2px solid #E86924 !important;
 }
