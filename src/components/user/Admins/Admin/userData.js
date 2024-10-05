@@ -6,7 +6,7 @@ export const userData = [
 export const adminsData = [
   {
     id: '1',
-    username: 'Anna Nekrashevich',
+    username: 'Anna Dav',
     community: 'General Community',
     email: 'anna.nekrashevich@example.com',
     phone: '123-456-7890',
@@ -95,14 +95,16 @@ export const communities = [
   {value: 'General community', label: 'General community'}
 ]
 export const membersData = [
-  { id: 1, firstName: 'John', avatar: 'https://via.placeholder.com/50', lastName: 'Doe', email: 'john@example.com', phone: '123-456-7890' },
-  { id: 2, firstName: 'Jane',avatar: 'https://via.placeholder.com/50',  lastName: 'Smith', email: 'jane@example.com', phone: '987-654-3210' },
+  { id: 15678, firstName: 'John', avatar: 'https://via.placeholder.com/50', lastName: 'Doe', email: 'john@example.com', phone: '123-456-7890' },
+  { id: 26789, firstName: 'Jane',avatar: 'https://via.placeholder.com/50',  lastName: 'Smith', email: 'jane@example.com', phone: '987-654-3210' },
   // ... other member objects
 ];
 
 export const sampleMembers = [
-  { id: '1', username: 'john_doe', avatar: 'https://via.placeholder.com/50', email: 'john@example.com', role: 'Investor', dateJoined: '2023-01-01' },
-  { id: '2', username: 'jane_doe', avatar: 'https://via.placeholder.com/50', email: 'jane@example.com', role: 'Entrepreneur', dateJoined: '2023-02-15' },
+  { id: '15678', username: 'john_doe', avatar: 'https://via.placeholder.com/50', email: 'john@example.com', role: 'Investor', dateJoined: '2023-01-01',
+  about: 'John is an experienced investor with a passion for technology and innovation.'
+   },
+  { id: '26789', username: 'jane_doe', avatar: 'https://via.placeholder.com/50', email: 'jane@example.com', role: 'Entrepreneur', dateJoined: '2023-02-15' },
 ];
 
 export const sampleCommunities = [

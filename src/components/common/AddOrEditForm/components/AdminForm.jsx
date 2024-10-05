@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
-const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}) => {
+const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities }) => {
   const [formData, setFormData] = useState(initialData || {
     firstName: '',
     lastName: '',
@@ -52,7 +52,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}
         <div className="mb-4 text-center">
           <label htmlFor="avatarUpload">
             <img
-              src={formData.avatar || 'https://via.placeholder.com/150'} // Placeholder if no image
+              src={formData.avatar || 'https://via.placeholder.com/150'}
               alt="Profile"
               className="rounded-circle"
               style={{ width: '150px', height: '150px', objectFit: 'cover', cursor: 'pointer' }}
@@ -62,7 +62,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}
             type="file"
             id="avatarUpload"
             accept="image/*"
-            style={{ display: 'none' }} // Hidden input
+            style={{ display: 'none' }}
             onChange={handleImageUpload}
           />
         </div>
@@ -98,7 +98,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}
         </div>
 
         <div className="row">
-        <div className="mb-3 col-md-6">
+          <div className="mb-3 col-md-6">
             <label htmlFor="username" className="form-label">Username</label>
             <input
               type="text"
@@ -111,7 +111,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}
               required
             />
           </div>
-        
+
           <div className="mb-3 col-md-6">
             <label htmlFor="id" className="form-label">ID Nationality</label>
             <input
@@ -125,10 +125,10 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}
               required
             />
           </div>
-          </div>
+        </div>
 
         <div className="row">
-        <div className="mb-3 col-md-6">
+          <div className="mb-3 col-md-6">
             <label htmlFor="role" className="form-label">Email</label>
             <input
               type="text"
@@ -171,7 +171,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities}
               disabled
             />
           </div>
-         
+
           <div className="mb-3 col-md-6">
             <label htmlFor="country" className="form-label">Country</label>
             <select

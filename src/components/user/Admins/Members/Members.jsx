@@ -10,6 +10,7 @@ import ProfileSidebar from '../../../common/ProfileSidebar/ProfileSidebar';
 
 export default function Members() {
   const [isAddingMember, setIsAddingMember] = useState(false);
+  const [isEditingMember, setIsEditingMember] = useState(false); // Track if editing
   const [members, setMembers] = useState(sampleMembers);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMember, setSelectedMember] = useState(null); 
@@ -23,14 +24,25 @@ export default function Members() {
 
   const handleFormSubmit = (formData) => {
     console.log("Member Form submitted", formData);
-    const newMember = { id: Date.now(), ...formData };
-    setMembers([...members, newMember]);
+    if (isEditingMember) {
+      const updatedMembers = members.map(member =>
+        member.id === selectedMember.id ? { ...member, ...formData } : member
+      );
+      setMembers(updatedMembers);
+      setIsEditingMember(false);
+    } else {
+      const newMember = { id: Date.now(), ...formData };
+      setMembers([...members, newMember]);
+    }
     navigate('/admin-dashboard/members/view-members');
     setIsAddingMember(false);
   };
+  const formMode = isEditingMember ? 'edit' : 'add';
+
 
   const handleBackClick = () => {
     setIsAddingMember(false);
+    setIsEditingMember(false); // Reset editing state
     navigate('/admin-dashboard/members/view-members');
   };
 
@@ -45,6 +57,12 @@ export default function Members() {
     console.log('Selected Member:', member);
   };
 
+  const handleEditMemberClick = (member) => {
+    setSelectedMember(member);
+    setIsEditingMember(true); // Set editing mode to true
+    setIsSidebarOpen(false); // Close sidebar
+  };
+
   const filteredMembers = members.filter(member =>
     member.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -53,7 +71,7 @@ export default function Members() {
 
   return (
     <div className="container member-page">
-      {!isAddingMember ? (
+      {!isAddingMember && !isEditingMember ? (
         <div className="row d-flex align-items-center justify-content-between g-0">
           <div className="col-md-9">
             <SearchAndFilterBar onSearchChange={handleSearchChange} />
@@ -66,13 +84,14 @@ export default function Members() {
         <MemberForm
           onSubmit={handleFormSubmit}
           onBackClick={handleBackClick}
-          initialData={''}
+          initialData={isEditingMember ? selectedMember : {}}
           countries={''} 
           languages={''}
+          mode={formMode}
         />
       )}
       <div className="row justify-content-center ms-1 custom-m">
-        {!isAddingMember && (
+        {!isAddingMember && !isEditingMember && (
           <div className="col-12 m-sm-4">
             {filteredMembers.length > 0 ? (
               <MembersTable members={filteredMembers} onMemberClick={handleMemberClick} />
@@ -96,6 +115,7 @@ export default function Members() {
         <ProfileSidebar 
           member={selectedMember} 
           onClose={() => setIsSidebarOpen(false)}
+          onEditClick={() => handleEditMemberClick(selectedMember)} // Pass the selected member to the edit function
         />
       )}
     </div>
