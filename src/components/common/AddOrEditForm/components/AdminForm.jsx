@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
-const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities }) => {
+import InputField from './InputField';
+import AvatarUpload from './AvatarUpload';
+
+const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities, mode }) => {
   const [formData, setFormData] = useState(initialData || {
     firstName: '',
     lastName: '',
@@ -10,7 +13,6 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities 
     country: '',
     email: '',
     id: '',
-    nationality: '',
     avatar: '',
     username: '',
     role: 'Admin',
@@ -38,9 +40,68 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities 
     }
   };
 
+  const inputFields = [
+    {
+      type: 'text',
+      name: 'firstName',
+      label: 'First Name',
+      placeholder: 'Enter First Name',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'lastName',
+      label: 'Last Name',
+      placeholder: 'Enter Last Name',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'username',
+      label: 'Username',
+      placeholder: 'Enter Username',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'id',
+      label: 'ID Nationality',
+      placeholder: 'Enter ID',
+      required: true,
+    },
+    {
+      type: 'email',
+      name: 'email',
+      label: 'Email',
+      placeholder: 'Enter Email',
+      required: true,
+    },
+    {
+      type: 'select',
+      name: 'community',
+      label: 'Community',
+      options: communities,
+      required: true,
+    },
+    {
+      type: 'select',
+      name: 'country',
+      label: 'Country',
+      options: countries,
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'role',
+      label: 'Role',
+      value: 'Admin',
+      disabled: true,
+    },
+  ];
+
   return (
     <div className="position-relative container">
-      <h3 className="mb-4 ">Add New Admin</h3>
+      <h3 className="mb-4 ">{mode === 'edit' ? 'Edit Admin' : 'Add New Admin'}</h3>
       <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
         <div className="position-absolute top-0 end-0 p-3">
           <FontAwesomeIcon
@@ -49,154 +110,25 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities 
             onClick={onBackClick}
           />
         </div>
-        <div className="mb-4 text-center">
-          <label htmlFor="avatarUpload">
-            <img
-              src={formData.avatar || 'https://via.placeholder.com/150'}
-              alt="Profile"
-              className="rounded-circle"
-              style={{ width: '150px', height: '150px', objectFit: 'cover', cursor: 'pointer' }}
-            />
-          </label>
-          <input
-            type="file"
-            id="avatarUpload"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
-          />
-        </div>
+        <AvatarUpload
+          avatar={formData.avatar}
+          onImageUpload={handleImageUpload}
+        />
 
         <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="firstName" className="form-label">First Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleInputChange}
-              placeholder="Enter First Name"
-              required
-            />
-          </div>
-
-          <div className="mb-3 col-md-6">
-            <label htmlFor="lastName" className="form-label">Last Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              placeholder="Enter Last Name"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="username" className="form-label">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Enter Username"
-              required
-            />
-          </div>
-
-          <div className="mb-3 col-md-6">
-            <label htmlFor="id" className="form-label">ID Nationality</label>
-            <input
-              type="text"
-              className="form-control"
-              id="id"
-              name="id"
-              value={formData.id}
-              onChange={handleInputChange}
-              placeholder="Enter ID"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="role" className="form-label">Email</label>
-            <input
-              type="text"
-              className="form-control"
-              id="role"
-              name="role"
-              placeholder="Enter Email"
-              value={formData.email}
-            />
-          </div>
-          <div className="mb-3 col-md-6">
-            <label htmlFor="community" className="form-label">Community</label>
-            <select
-              className="form-select"
-              id="community"
-              name="community"
-              value={formData.community}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Select community</option>
-              {communities.map(community => (
-                <option key={community.value} value={community.value}>
-                  {community.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="role" className="form-label">Role</label>
-            <input
-              type="text"
-              className="form-control"
-              id="role"
-              name="role"
-              value={formData.role}
-              disabled
-            />
-          </div>
-
-          <div className="mb-3 col-md-6">
-            <label htmlFor="country" className="form-label">Country</label>
-            <select
-              className="form-select"
-              id="country"
-              name="country"
-              value={formData.country}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Select Country</option>
-              {countries.map(country => (
-                <option key={country.value} value={country.value}>
-                  {country.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          {inputFields.map((field) => (
+            <div className="mb-3 col-md-6" key={field.name}>
+              <InputField
+                field={field}
+                value={formData[field.name]}
+                onChange={handleInputChange}
+              />
+            </div>
+          ))}
         </div>
 
         <div className="d-flex justify-content-between mt-3">
-          <CustomButton
-            text="Add New Admin"
-            className="btn btn-primary"
-          />
+          <CustomButton text={mode === 'edit' ? 'Edit Admin' : 'Add New Admin'} className="btn btn-primary" />
         </div>
       </form>
     </div>

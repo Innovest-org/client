@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
+import InputField from './InputField';
+import AvatarUpload from './AvatarUpload';
 
 const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
   const [formData, setFormData] = useState(initialData || {
@@ -38,6 +40,51 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
     }
   };
 
+  const inputFields = [
+    {
+      type: 'text',
+      name: 'firstName',
+      label: 'First Name',
+      placeholder: 'Enter First Name',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'lastName',
+      label: 'Last Name',
+      placeholder: 'Enter Last Name',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'username',
+      label: 'Username',
+      placeholder: 'Enter Username',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'id',
+      label: 'ID Nationality',
+      placeholder: 'Enter ID',
+      required: true,
+    },
+    {
+      type: 'email',
+      name: 'email',
+      label: 'Email',
+      placeholder: 'Enter Email',
+      required: true,
+    },
+    {
+      type: 'text',
+      name: 'role',
+      label: 'Role',
+      value: 'Investor',
+      disabled: true,
+    },
+  ];
+
   return (
     <div className="position-relative container">
       <h3 className="mb-4 ">{mode === 'edit' ? 'Edit Member' : 'Add New Member'}</h3>
@@ -49,126 +96,22 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
             onClick={onBackClick}
           />
         </div>
-        <div className="mb-4 text-center">
-          <label htmlFor="avatarUpload">
-            <img
-              src={formData.avatar || 'https://via.placeholder.com/150'}
-              alt="Profile"
-              className="rounded-circle"
-              style={{ width: '150px', height: '150px', objectFit: 'cover', cursor: 'pointer' }}
-            />
-          </label>
-          <input
-            type="file"
-            id="avatarUpload"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
-          />
-        </div>
+
+        <AvatarUpload
+          avatar={formData.avatar}
+          onImageUpload={handleImageUpload}
+        />
 
         <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="firstName" className="form-label">First Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleInputChange}
-              placeholder="Enter First Name"
-              required
-            />
-          </div>
-
-          <div className="mb-3 col-md-6">
-            <label htmlFor="lastName" className="form-label">Last Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              placeholder="Enter Last Name"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="username" className="form-label">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Enter Username"
-              required
-            />
-          </div>
-
-          <div className="mb-3 col-md-6">
-            <label htmlFor="id" className="form-label">ID Nationality</label>
-            <input
-              type="text"
-              className="form-control"
-              id="id"
-              name="id"
-              value={formData.id}
-              onChange={handleInputChange}
-              placeholder="Enter ID"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="email" className="form-label">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              placeholder="Enter Email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="mb-3 col-md-6">
-            <label htmlFor="email" className="form-label">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              placeholder="Enter Email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-        </div>
-
-        <div className="row">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="role" className="form-label">Role</label>
-            <input
-              type="text"
-              className="form-control"
-              id="role"
-              name="role"
-              value={formData.role}
-              disabled
-            />
-          </div>
+          {inputFields.map((field) => (
+            <div className="mb-3 col-md-6" key={field.name}>
+              <InputField
+                field={field}
+                value={formData[field.name]}
+                onChange={handleInputChange}
+              />
+            </div>
+          ))}
         </div>
 
         <div className="d-flex justify-content-between mt-3">
@@ -178,9 +121,7 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
             className="btn btn-primary"
           />
         </div>
-
       </form>
-
     </div>
   );
 };
