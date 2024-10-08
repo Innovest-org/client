@@ -129,8 +129,9 @@
     margin: 0 auto;
   }
 
-  .logo {
-    font-size: 18px;
+  .admin-sidebar .logo,
+   .investor-sidebar .logo{
+    display: none;
   }
 
   .admin-sidebar ul li ,
@@ -145,19 +146,15 @@
     width: 60px;
   }
 
-  .logo {
-    display: none;
-  }
-
   .admin-sidebar ul li ,
   .investor-sidebar ul li {
     justify-content: center;
     padding: 10px;
   }
 
-  .admin-sidebar ul li span,
+  /* .admin-sidebar ul li span,
   .investor-sidebar ul li span {
     display: none;
-  }
+  } */
 
 }

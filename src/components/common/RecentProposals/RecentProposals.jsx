@@ -50,7 +50,7 @@ const RecentProposals = () => {
   ];
 
   const handleProposalClick = (id) => {
-    navigate(`/innovest-dashboard/proposals/${id}`);
+    navigate(`/investor-dashboard/proposals/${id}`);
   }
 
   return (
@@ -79,7 +79,7 @@ const RecentProposals = () => {
                   <Card.Text>{proposal.description}</Card.Text>
                   
                   {/* Bottom: Status and Details */}
-                  <div className="d-flex justify-content-between align-items-center mt-5  ">
+                  <div className="d-flex justify-content-between align-items-center mt-5 ">
                     <div className="text-warning">
                       {Array.from({ length: proposal.rating }).map((_, idx) => (
                         <FontAwesomeIcon key={idx} icon={faStar} />
