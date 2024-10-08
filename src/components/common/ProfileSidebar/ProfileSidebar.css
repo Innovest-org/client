@@ -1,0 +1,11 @@
+.profile-sidebar {
+  transition: transform 0.3s ease-in-out;
+  background-color: #F2F2F2;
+  border: 1px solid #E86924 !important;
+
+}
+
+.profile-sidebar .member-image {
+  object-fit: cover;
+  border: 2px solid #E86924 !important;
+}

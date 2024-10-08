@@ -12,6 +12,11 @@ body {
   overflow-x: hidden;
 }
 
+a,
+.btn-link {
+  text-decoration: none;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -21,4 +26,10 @@ html {
   background-color: white;
   border-radius: 8px;
   width: 100% !important;
+}
+
+
+ul li {
+  list-style: none;
+  margin-bottom: 10px;
 }

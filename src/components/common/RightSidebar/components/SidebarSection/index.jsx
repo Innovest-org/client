@@ -14,6 +14,7 @@ export default function SidebarSection({ title, items }) {
             label={item.label}
             count={item.count}
             date={item.date}
+            time={item.time}
           />
         ))}
       </ul>
