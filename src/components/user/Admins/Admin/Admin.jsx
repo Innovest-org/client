@@ -24,14 +24,23 @@ export default function Admin() {
   };
 
   const handleFormSubmit = (formData) => {
-    console.log("Form submitted", formData);
-    setAdmins([...admins, { id: `${admins.length + 1}`, ...formData }]);
-    navigate('/admin-dashboard/admin/view-admins');
-    setIsAddingAdmin(false);
+    if (isEditingAdmin) {
+      const updatedAdmins = admins.map(admin => 
+        admin.id === selectedAdmin.id ? { ...admin, ...formData } : admin
+      );
+      setAdmins(updatedAdmins);
+      setIsEditingAdmin(false);
+    } else {
+      // Add new admin
+      const newAdmin = { id: Date.now(), ...formData };
+      setAdmins([...admins, newAdmin]);
+    }
   };
 
   const handleBackClick = () => {
     setIsAddingAdmin(false);
+    setIsEditingAdmin(false);
+    setSelectedAdmin(null);
     navigate('/admin-dashboard/admin/view-admins');
   };
 
@@ -54,7 +63,7 @@ export default function Admin() {
 
   return (
     <div className="container admin-page">
-      {!isAddingAdmin || isEditingAdmin ? (
+      {!isAddingAdmin && !isEditingAdmin ? (
         <div className="row d-flex align-items-center justify-content-between g-0">
           <div className="col-md-9">
             <SearchAndFilterBar onSearchChange={handleSearchChange} />
@@ -74,7 +83,7 @@ export default function Admin() {
         />
       )}
       <div className="row justify-content-center">
-        {!isAddingAdmin && (
+        {!isAddingAdmin && !isEditingAdmin && (
           <div className="col-12 m-sm-4">
             {filteredAdmins.length > 0 ? (
               <AdminTable admins={filteredAdmins} onEditClick={handleEditAdminClick} />
