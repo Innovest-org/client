@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -7,7 +8,7 @@ const Login = () => {
     username_or_email: '',
     password: ''
   });
-  
+
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -21,24 +22,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("data", formData);
-  
+
     try {
       const response = await axios.post('http://127.0.0.1:5000/api/admin/login', formData, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        withCredentials: true,
       });
-      
-      // Handle success
-      console.log(response.data);
-      localStorage.setItem('token', response.data.token);
+
       navigate('/admin-dashboard');
-      
+
+      console.log("Response", response);
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'Login failed. Please try again.');
     }
   };
-  
 
   return (
     <div className="container mt-5">

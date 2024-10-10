@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminTable from '../../../common/tables/AdminsTable';
-import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar'; 
+import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import './style.css';
 import { countries, communities } from './userData';
 import AdminForm from '../../../common/AddOrEditForm/components/AdminForm';
-import { getAdmins } from '../../../../Api/Endpoints/Endpoints';
+import { getAdmins } from '../../../../Api/Endpoints/AdminEndpoints';
 
 export default function Admin() {
   const [isAddingAdmin, setIsAddingAdmin] = useState(false);
-  const [isEditingAdmin, setIsEditingAdmin] = useState(false); 
+  const [isEditingAdmin, setIsEditingAdmin] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [admins, setAdmins] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,7 +21,7 @@ export default function Admin() {
   useEffect(() => {
     getAdmins()
       .then(response => {
-        setAdmins(response.data); 
+        setAdmins(response.data);
       })
       .catch(error => {
         console.error(error);
@@ -35,9 +35,8 @@ export default function Admin() {
   };
 
   const handleFormSubmit = (formData) => {
-<<<<<<< Updated upstream
     if (isEditingAdmin) {
-      const updatedAdmins = admins.map(admin => 
+      const updatedAdmins = admins.map(admin =>
         admin.id === selectedAdmin.id ? { ...admin, ...formData } : admin
       );
       setAdmins(updatedAdmins);
@@ -47,11 +46,7 @@ export default function Admin() {
       const newAdmin = { id: Date.now(), ...formData };
       setAdmins([...admins, newAdmin]);
     }
-=======
-    setAdmins([...admins, { id: `${admins.length + 1}`, ...formData }]);
-    navigate('/admin-dashboard/admin/view-admins');
-    setIsAddingAdmin(false);
->>>>>>> Stashed changes
+
   };
 
   const handleBackClick = () => {
@@ -67,10 +62,10 @@ export default function Admin() {
 
   const handleEditAdminClick = (admin) => {
     setSelectedAdmin(admin);
-    setIsEditingAdmin(true); 
-    navigate(`/admin-dashboard/admin/edit-admin/${admin.id}`);
+    setIsEditingAdmin(true);
+    navigate(`/admin-dashboard/admin/edit-admin/${admin.admin_id}`);
   };
- 
+
   const filteredAdmins = admins.filter(admin =>
     `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -87,9 +82,9 @@ export default function Admin() {
           </div>
         </div>
       ) : (
-        <AdminForm 
-          onSubmit={handleFormSubmit} 
-          onBackClick={handleBackClick} 
+        <AdminForm
+          onSubmit={handleFormSubmit}
+          onBackClick={handleBackClick}
           initialData={isEditingAdmin ? selectedAdmin : {}}
           communities={communities}
           countries={countries}
