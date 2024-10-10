@@ -26,6 +26,9 @@
   margin-left: 3rem;
   font-size: 0.85rem;
 }
+.rightsidebar-card h6 {
+  font-size: 1rem;
+}
 
 hr {
   margin: 0.5rem 0;

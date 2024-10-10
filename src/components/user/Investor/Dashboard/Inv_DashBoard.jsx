@@ -8,7 +8,7 @@ const Inv_DashBoard = () => {
 
   return (
     <>
-      <div className="dashboard-container container m-3">
+      <div className="investor-dashboard-container container m-3">
       <div className="row">
         <div className="col-12 col-md-7 ps-4">
           <h2>

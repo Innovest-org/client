@@ -28,7 +28,7 @@ export default function DashboardHeader() {
                 <i className="fa-regular fa-bell fs-5"></i>
               </Link>
             </li>
-            <li className="nav-item d-flex align-items-center mx-3">
+            <li className="admin-nav nav-item d-flex align-items-center mx-3">
               <div className="text-center">
                 <span className="user-name fw-bold">Lara Doe</span>
                 <p className='user-country mb-0'>U.P, India</p>
