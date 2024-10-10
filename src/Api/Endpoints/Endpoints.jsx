@@ -9,3 +9,4 @@ export const createAdmin = (adminData) => {
 export const getAdmins = () => {
     return axios.get(`${DOMAIN}/api/admin`);
 };
+
