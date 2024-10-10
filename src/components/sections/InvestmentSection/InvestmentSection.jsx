@@ -1,22 +1,21 @@
-import React from "react";
 import React, { useRef } from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../pages/Home/LandingPage";
-import Navbar from "../Navbar/Navbar";
+import Section_Img from '../../../assets/section2Image.png'
 
 export default function InvestmentSection() {
   const investmentsRef = useRef(null);
 
   const scrollToInnovest = () => {
-    if (howItWorksRef.current) {
-      howItWorksRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
+    // if (howItWorksRef.current) {
+    //   howItWorksRef.current.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "start",
+    //   });
+    // }
   };
   return (
     <section
@@ -59,7 +58,7 @@ export default function InvestmentSection() {
 
             <Col md={6} className="text-center slide-in-right">
               <img
-                src={require("../../assets/section2Image.png")}
+                src={Section_Img}
                 alt="Investment Platform"
                 className="img-fluid investment-image"
               />

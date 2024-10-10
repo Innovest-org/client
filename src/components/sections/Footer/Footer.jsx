@@ -61,11 +61,11 @@ const NewsletterSection = () => (
       </button>
     </div>
   </div>
-);
+); 
 
 const Footer = () => {
   const services = [
-    { label: 'Innovest', path: '/' },
+    { label: 'Innovest', path: '/investor-dashboard' },
     { label: 'Consulting', path: '/consulting' },
     { label: 'Investment', path: '/investment' },
     { label: 'Strategy', path: '/strategy' },

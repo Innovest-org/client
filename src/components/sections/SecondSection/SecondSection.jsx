@@ -2,6 +2,7 @@ import React from "react";
 import "../../../pages/Home/LandingPage";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Col, Container, Row } from "react-bootstrap";
 
 export default function SecondSection() {
   return (

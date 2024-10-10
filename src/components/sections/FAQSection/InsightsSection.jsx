@@ -1,4 +1,3 @@
-import React from "react";
 import React, { useRef } from "react";
 import { Container, Accordion } from "react-bootstrap";
 import "@fortawesome/fontawesome-free/css/all.min.css";
