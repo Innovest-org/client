@@ -3,36 +3,38 @@ import Navbar from "../../components/sections/Navbar/Navbar";
 import HeroSection from "../../components/sections/HeroSection/HeroSection";
 import SecondSection from "../../components/sections/SecondSection/SecondSection";
 import ThirdSection from "../../components/sections/ThirdSection/ThirdSection";
-import InvestmentSection from "../../components/sections/InvestmentSection";
-import HowItWorks from "../../components/sections/HowItWorks/HowItWorks";
+import InvestmentSection from "../../components/sections/InvestmentSection/InvestmentSection.jsx";
+import HowItWorks from "../../components/sections/HowItWorks/HowItWorks.jsx";
 import TeamSection from "../../components/sections/TeamSection/TeamSection";
-import InvestmentArea from "../../components/sections/InvestmentAreaSection";
-import InsightsSection from "../../components/sections/FAQSection";
+import InvestmentAreaSection from "../../components/sections/InvestmentAreaSection/InvestmentAreaSection.jsx";
+import FQSection from '../../components/sections/FAQSection/InsightsSection.jsx'
 import Footer from "../../components/sections/Footer/Footer";
+
+import './LandingPage.css'
 
 
 export default function LandingPage() {
 
   return (
     <div>
-         <Navbar
+         {/* <Navbar
         refs={{
           investments: investmentsRef,
-          howItWorks: howItWorksRef,
+          HowItWorks: howItWorksRef,
           experts: expertsRef,
           joinUs: joinUsRef,
           insights: insightsRef,
         }}
       />
-      <Navbar />
+      <Navbar /> */}
       <HeroSection />
       <SecondSection />
       <ThirdSection />
       <InvestmentSection />
       <HowItWorks />
       <TeamSection />
-      <InvestmentArea />
-      <InsightsSection />
+      <InvestmentAreaSection />
+      <FQSection />
       <Footer />
     </div>
   );
