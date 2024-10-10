@@ -6,3 +6,4 @@ import { DOMAIN } from "../Config/config";
 export const createAdmin = (adminData) => {
     return axios.post(`${DOMAIN}/admin`, adminData);
 };
+
