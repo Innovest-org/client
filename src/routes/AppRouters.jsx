@@ -22,12 +22,17 @@ import InvMessages from "../components/user/Investor/Messages/Inv_Messages";
 import InvSettings from "../components/user/Investor/Settings/Inv_Settings";
 import InvCommunities from "../components/user/Investor/Communities/Inv_Communities";
 import MemberForm from "../components/common/AddOrEditForm/components/MemberForm";
+import Login from "../pages/Auth/login";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/admin-dashboard",

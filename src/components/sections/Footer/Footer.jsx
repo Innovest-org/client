@@ -80,6 +80,8 @@ const Footer = () => {
     { label: 'Portfolio', path: '/portfolio' },
     { label: 'Blog', path: '/blog' },
     { label: 'Contact Us', path: '/contact' },
+    { label: 'login', path: '/login' },
+
   ];
 
   return (
