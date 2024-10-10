@@ -129,6 +129,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities,
 
         <div className="d-flex justify-content-between mt-3">
           <CustomButton text={mode === 'edit' ? 'Edit Admin' : 'Add New Admin'} className="btn btn-primary" />
+          <CustomButton text="Cancel" onClick={(e) => { e.preventDefault(); onBackClick(); }} />
         </div>
       </form>
     </div>
