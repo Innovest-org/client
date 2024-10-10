@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './style.index.css'
+import './style.css'
 
 export default function SidebarItem({ icon, color, label, count, date, time }) {
   return (
