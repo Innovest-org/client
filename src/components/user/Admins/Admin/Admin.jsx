@@ -45,7 +45,7 @@ export default function Admin() {
     setIsEditingAdmin(true); 
     navigate(`/admin-dashboard/admin/edit-admin/${admin.id}`);
   };
-
+ 
   const filteredAdmins = admins.filter(admin =>
     `${admin.id}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
