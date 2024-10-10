@@ -5,6 +5,7 @@ import CustomButton from '../../../common/CustomButton/CustomButton';
 import OverviewCard from '../../../common/OverviewCard/OverviewCard';
 import UserTable from '../../../common/tables/UsersData';
 
+
 const users = [
   {
     username: 'JohnDoe',
@@ -27,6 +28,7 @@ const users = [
 ];
 
 export default function Dashboard() {
+
   return (
     <div className="dashboard-container container m-3">
       <div className="row">

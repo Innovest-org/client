@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function AdminTable({ admins, onEditClick }) {
   const { id } = useParams();
-  console.log(id)
+  
   return (
     <div className="table-responsive">
       <table className="table table-bordered table-hover">
@@ -19,23 +19,23 @@ export default function AdminTable({ admins, onEditClick }) {
         <tbody>
           {admins.length > 0 ? (
             admins.map((admin, index) => (
-              <tr key={admin.id}>
+              <tr key={admin.admin_id}>
                 <td className="d-flex align-items-center">
                   <img
                     className="rounded-circle me-2"
-                    src={admin.avatar}
-                    alt={admin.name}
+                    src={admin.profile_image}
+                    alt={admin.username}
                     style={{ width: '50px', height: '50px' }}
                   />
-                  <Link to={`/admin-dashboard/profile/${admin.id}`} className=''>
+                  <Link to={`/admin-dashboard/profile/${admin.admin_id}`} className=''>
                     <span>{admin.username}</span>
                   </Link>
                 </td>
-                <td>{admin.community}</td>
+                <td>{admin.communities.length > 0 ? admin.communities.join(', ') : 'No community'}</td>
                 <td>
                   <Link to={`mailto:${admin.email}`}>{admin.email}</Link>
                 </td>
-                <td>{new Date(admin.dateJoined).toLocaleDateString()}</td>
+                <td>{new Date(admin.createdAt).toLocaleDateString()}</td>
                 <td>
                   <button 
                     className="btn btn-success btn-sm me-2"
@@ -43,12 +43,6 @@ export default function AdminTable({ admins, onEditClick }) {
                   >
                     Update
                   </button>
-                  {/* <button 
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(admin.id)}
-                  >
-                    Delete
-                  </button> */}
                 </td>
               </tr>
             ))
