@@ -61,6 +61,7 @@ export default function Members() {
     setSelectedMember(member);
     setIsEditingMember(true); // Set editing mode to true
     setIsSidebarOpen(false); // Close sidebar
+    navigate(`/admin-dashboard/members/edit-member/${member.id}`);
   };
 
   const filteredMembers = members.filter(member =>

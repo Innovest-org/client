@@ -9,10 +9,13 @@ import AdminForm from '../../../common/AddOrEditForm/components/AdminForm';
 
 export default function Admin() {
   const [isAddingAdmin, setIsAddingAdmin] = useState(false);
+  const [isEditingAdmin, setIsEditingAdmin] = useState(false); 
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [admins, setAdmins] = useState(initialAdminsData);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  const formMode = isEditingAdmin ? 'edit' : 'add';
 
   const handleAddAdminClick = () => {
     setIsAddingAdmin(true);
@@ -37,15 +40,21 @@ export default function Admin() {
     setSearchQuery(query);
   };
 
+  const handleEditAdminClick = (admin) => {
+    setSelectedAdmin(admin);
+    setIsEditingAdmin(true); 
+    navigate(`/admin-dashboard/admin/edit-admin/${admin.id}`);
+  };
+
   const filteredAdmins = admins.filter(admin =>
-    `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
+    `${admin.id}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   console.log("Filtered Admins:", filteredAdmins);
 
   return (
     <div className="container admin-page">
-      {!isAddingAdmin ? (
+      {!isAddingAdmin || isEditingAdmin ? (
         <div className="row d-flex align-items-center justify-content-between g-0">
           <div className="col-md-9">
             <SearchAndFilterBar onSearchChange={handleSearchChange} />
@@ -58,16 +67,17 @@ export default function Admin() {
         <AdminForm 
           onSubmit={handleFormSubmit} 
           onBackClick={handleBackClick} 
-          initialData={selectedAdmin}
+          initialData={isEditingAdmin ? selectedAdmin : {}}
           communities={communities}
           countries={countries}
+          mode={formMode}
         />
       )}
       <div className="row justify-content-center">
         {!isAddingAdmin && (
           <div className="col-12 m-sm-4">
             {filteredAdmins.length > 0 ? (
-              <AdminTable admins={filteredAdmins} />
+              <AdminTable admins={filteredAdmins} onEditClick={handleEditAdminClick} />
             ) : (
               <div className="card shadow-sm">
                 <div className="card-body text-center py-5">

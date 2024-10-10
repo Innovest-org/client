@@ -8,7 +8,7 @@ import Members from "../components/user/Admins/Members/Members";
 import Communities from "../components/user/Admins/Communities/Communities";
 import Settings from "../components/user/Admins/Settings/Settings";
 import Messages from "../components/user/Admins/Messages/Messages";
-import AddOrEditForm from "../components/common/AddOrEditForm/AddOrEditForm";
+import AdminForm from "../components/common/AddOrEditForm/AddOrEditForm";
 import Admin from "../components/user/Admins/Admin/Admin";
 import Profile from "../components/user/Admins/Profile/Profile";
 
@@ -47,7 +47,7 @@ const Router = createBrowserRouter([
         children: [
           {
             path: "add-admin",
-            element: <AddOrEditForm />,
+            element: <AdminForm />,
           },
           {
             path: "view-admins",
@@ -55,7 +55,7 @@ const Router = createBrowserRouter([
           },
           {
             path: "edit-admin/:id",
-            element: <AddOrEditForm />,
+            element: <AdminForm />,
           },
         {
           path: "profile",
