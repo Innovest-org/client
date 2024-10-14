@@ -1,13 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import Avatar from '../../assets/a_user01_avatar.png';
-import SearchAndFilterBar from '../common/SearchAndFilterBar/SerachAndFilterBar';
+import { logout } from '../../Api/Endpoints/AdminEndpoints';
+import { AppContext } from '../../context/AppContext';
 
 export default function DashboardHeader() {
+  const navigate = useNavigate();
+  const {setUser} = useContext(AppContext);
+
+  const handleLogout = async () => {
+      await logout();
+      setUser(null);
+      navigate('/login');
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-transparent position-relative">
-      <SearchAndFilterBar />
       <div className="container-fluid">
         <button
           className="navbar-toggler ms-auto"
@@ -54,7 +62,7 @@ export default function DashboardHeader() {
                 <li><Link className="dropdown-item" to="profile/id">Profile</Link></li>
                 <li><Link className="dropdown-item" to="settings">Settings</Link></li>
                 <li><hr className="dropdown-divider" /></li>
-                <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
+                <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
               </ul>
             </li>
           </ul>

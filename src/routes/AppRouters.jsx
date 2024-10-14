@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "../pages/Error/ErrorPage";
-
 import AdminDashboard from "../pages/User/AdminDashboard";
 import Dashboard from "../components/user/Admins/Dashboard/Dashboard";
 import Members from "../components/user/Admins/Members/Members";
@@ -11,10 +10,8 @@ import Messages from "../components/user/Admins/Messages/Messages";
 import AdminForm from "../components/common/AddOrEditForm/AddOrEditForm";
 import Admin from "../components/user/Admins/Admin/Admin";
 import Profile from "../components/user/Admins/Profile/Profile";
-
-// Investor Components 
-import InvestorDashboard from '../pages/User/InvestorDashboard'
-import InvDashboard from '../components/user/Investor/Dashboard/Inv_DashBoard'
+import InvestorDashboard from '../pages/User/InvestorDashboard';
+import InvDashboard from '../components/user/Investor/Dashboard/Inv_DashBoard';
 import InvInvestments from "../components/user/Investor/Investments/Inv_Investments";
 import InvProposals from "../components/user/Investor/Proposals/Inv_Proposals";
 import ProposalsDetails from "../components/user/Investor/ProposalsDetails/ProposalsDetails";
@@ -23,6 +20,8 @@ import InvSettings from "../components/user/Investor/Settings/Inv_Settings";
 import InvCommunities from "../components/user/Investor/Communities/Inv_Communities";
 import MemberForm from "../components/common/AddOrEditForm/components/MemberForm";
 import Login from "../pages/Auth/login";
+import ProtectedRoute from "../components/ProtectedRoute";
+import PublicRoute from "../components/PublicRoutes";
 
 const Router = createBrowserRouter([
   {
@@ -31,12 +30,24 @@ const Router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/register",
+    element: <PublicRoute>
+      <Login />
+    </PublicRoute>,
+  },
+  {
     path: "/login",
-    element: <Login />,
+    element: <PublicRoute>
+      <Login />
+    </PublicRoute>,
   },
   {
     path: "/admin-dashboard",
-    element: <AdminDashboard />,
+    element: (
+      <ProtectedRoute>
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -62,10 +73,10 @@ const Router = createBrowserRouter([
             path: "edit-admin/:id",
             element: <AdminForm />,
           },
-        {
-          path: "profile",
-          element: <Profile />,
-        }
+          {
+            path: "profile",
+            element: <Profile />,
+          },
         ]
       },
       {
@@ -123,39 +134,43 @@ const Router = createBrowserRouter([
     ],
   },
   {
-    path: 'investor-dashboard',
-    element: <InvestorDashboard />,
+    path: "investor-dashboard",
+    element: (
+      <ProtectedRoute>
+        <InvestorDashboard />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
         element: <InvDashboard />,
       },
       {
-        path: 'dashboard',
+        path: "dashboard",
         element: <InvDashboard />,
       },
       {
-        path: 'communities',
+        path: "communities",
         element: <InvCommunities />,
       },
       {
-        path: 'investments',
+        path: "investments",
         element: <InvInvestments />,
       },
       {
-        path: 'proposals',
+        path: "proposals",
         element: <InvProposals />,
       },
       {
-        path: 'proposals/:id',
+        path: "proposals/:id",
         element: <ProposalsDetails />,
       },
       {
-        path:'messages',
+        path: "messages",
         element: <InvMessages />,
       },
       {
-        path:'settings',
+        path: "settings",
         element: <InvSettings />,
       },
     ]
@@ -163,10 +178,9 @@ const Router = createBrowserRouter([
 ]);
 
 const AppRouters = () => {
-  console.log("AppRouters rendering");
   return (
     <RouterProvider router={Router} />
-  )
-}
+  );
+};
 
 export default AppRouters;

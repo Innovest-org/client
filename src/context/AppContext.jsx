@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 
@@ -6,8 +7,24 @@ const localHost = 'http://127.0.0.1:5000/';
 
 export const AppProvider = ({ children }) => {
   const [activeComponent, setActiveComponent] = useState('Dashboard');
-
+  const [user, setUser] = useState();
   const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const autoLogin = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/api/user/verify', {
+          withCredentials: true,
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (!user) {
+      autoLogin();
+    }
+  }, [user]);
 
   useEffect(() => {
     // Connect tp socket
@@ -26,7 +43,7 @@ export const AppProvider = ({ children }) => {
 
 
   return (
-    <AppContext.Provider value={{activeComponent, setActiveComponent, socket}}>
+    <AppContext.Provider value={{activeComponent, setActiveComponent, socket, user, setUser}}>
       {children}
     </AppContext.Provider>
   )
