@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../../context/AppContext';
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username_or_email: '',
     password: ''
   });
+
+  const {setUser} = useContext(AppContext);
 
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
@@ -21,16 +23,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("data", formData);
 
     try {
       const response = await axios.post('http://127.0.0.1:5000/api/admin/login', formData, {
         withCredentials: true,
       });
-
+      setUser(response.data.user);
       navigate('/admin-dashboard');
-
-      console.log("Response", response);
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'Login failed. Please try again.');
     }

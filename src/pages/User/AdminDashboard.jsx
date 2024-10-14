@@ -6,7 +6,7 @@ import DashboardHeader from "../../components/layout/DashboardHeader";
 
 const AdminDashboard = () => {
   return (
-    <div className="admin-container container-fluid">
+    <div className="admin-container container-fluid custom-m">
       <div className="row">
         <div className="col-md-3 col-lg-2 p-0 d-none d-md-block">
           <Sidebar role={'admin'} />
