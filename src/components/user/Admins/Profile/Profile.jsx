@@ -4,7 +4,6 @@ import { getAdminById, deleteAdmin, updateAdmin } from "../../../../Api/Endpoint
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import profile_img from '../../../../assets/profile.jpg'
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -48,10 +47,10 @@ const Profile = () => {
           ...prevData,
           ...formData,
         }));
-        toast.success("Profile updated successfully!", { theme: "dark" }); // Set theme for toast
+        toast.success("Profile updated successfully!", { theme: "dark" });
         setIsEditing(false);
       } catch (error) {
-        toast.error("Error updating profile: " + error.message, { theme: "dark" }); // Set theme for toast
+        toast.error("Error updating profile: " + error.message, { theme: "dark" });
       }
     }
   };
@@ -61,10 +60,9 @@ const Profile = () => {
     if (confirmed && adminData && adminData.admin_id) {
       try {
         await deleteAdmin(adminData.admin_id);
-        toast.success("Account deleted successfully!", { theme: "dark" }); // Set theme for toast
-        // Handle post-deletion logic, e.g., redirect to a different page
+        toast.success("Account deleted successfully!", { theme: "dark" });
       } catch (error) {
-        toast.error("Error deleting account: " + error.message, { theme: "dark" }); // Set theme for toast
+        toast.error("Error deleting account: " + error.message, { theme: "dark" });
       }
     }
   };

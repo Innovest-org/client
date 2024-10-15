@@ -5,7 +5,7 @@ import { deleteAdmin } from "../../../Api/Endpoints/AdminEndpoints";
 
 export default function AdminTable({ admins = [], onEditClick, setAdmins }) {
   const [communities, setCommunities] = useState([]);
-  const [loading, setLoading] = useState(true);  // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -19,20 +19,18 @@ export default function AdminTable({ admins = [], onEditClick, setAdmins }) {
       } catch (error) {
         console.error('Error fetching communities:', error);
       } finally {
-        setLoading(false);  // Set loading to false after fetch
+        setLoading(false);
       }
     };
 
     fetchCommunities();
   }, []);
 
-  // Function to get community name by community_id
   const getCommunityName = (communityId) => {
     const community = communities.find((c) => c.community_id === communityId);
     return community ? community.community_name : "No community";
   };
 
-  // Function to handle delete admin
   const handleDeleteAdmin = async (admin_id) => {
     try {
       const confirmed = window.confirm("Are you sure you want to delete this admin?");
@@ -52,13 +50,12 @@ export default function AdminTable({ admins = [], onEditClick, setAdmins }) {
     }
   };
 
-  // Render the admin table only if admins array is valid
   if (loading) {
-    return <div>Loading...</div>;  // Show loading while fetching data
+    return <div>Loading...</div>;
   }
 
   if (!admins || admins.length === 0) {
-    return <div>No admins available</div>;  // Handle no data scenario
+    return <div>No admins available</div>;
   }
 
   return (

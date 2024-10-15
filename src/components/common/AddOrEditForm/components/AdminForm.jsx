@@ -4,12 +4,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
-import { updateAdmin, createAdmin } from '../../../../Api/Endpoints/AdminEndpoints'; // Ensure both functions are imported
+import { updateAdmin, createAdmin } from '../../../../Api/Endpoints/AdminEndpoints';
 import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
 import { useParams } from 'react-router-dom';
 
 const AdminForm = ({ onSubmit, onBackClick, initialData, mode, fetchAdmins }) => {
-  const { admin_id } = useParams(); // Admin ID for editing
+  const { admin_id } = useParams();
   const [formData, setFormData] = useState(initialData || {
     communities: [],
     password: '',
@@ -22,15 +22,14 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, mode, fetchAdmins }) =>
   const [communities, setCommunities] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Fetch communities data on mount
   useEffect(() => {
     const fetchCommunities = async () => {
       try {
         const fetchedCommunities = await getAllCommunities();
-        console.log('Fetched Communities:', fetchedCommunities);  // Log the full response
+        console.log('Fetched Communities:', fetchedCommunities);
 
         if (Array.isArray(fetchedCommunities.communities)) {
-          setCommunities(fetchedCommunities.communities);  // Update the state with the correct array
+          setCommunities(fetchedCommunities.communities);
         } else {
           console.error('Fetched communities data is not an array or missing:', fetchedCommunities.communities);
         }

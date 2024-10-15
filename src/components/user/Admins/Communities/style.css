@@ -1,0 +1,72 @@
+.community-name-text {
+  text-decoration: none !important;
+  font-size: 0.8rem;
+  color: inherit;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.community-name:hover .community-name-text {
+  color: #E86924;
+}
+
+
+.communities-table a {
+  text-decoration: none;
+}
+
+.communities-table a:hover {
+  color: #28a745; /* Optional hover color */
+}
+
+
+.community-profile {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.community-avatar {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
+.community-profile h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.community-profile p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.community-details {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.community-posts {
+  background-color: #fff;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.community-post {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.community-post h5 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.community-post p {
+  font-size: 14px;
+  color: #666;
+}

@@ -4,22 +4,91 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
+import { createCommunity, updateCommunity } from '../../../../Api/Endpoints/CommunityEndpoints';
 
-const CommunityForm = ({ onSubmit, onBackClick, initialData, mode }) => {
+const CommunityForm = ({ initialData, mode, onCancel, setCommunities }) => {
   const [formData, setFormData] = useState(initialData || {
-    name: '',
+    community_name: '',
     description: '',
-    avatar: '',
+    image_url: '',
+    tags: [],
   });
+
+  const [tagInput, setTagInput] = useState('');
+  console.log(formData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleTagInputChange = (e) => {
+    setTagInput(e.target.value);
+  };
+
+  const handleTagSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    if (mode === 'edit') {
+      if (tagInput && !formData.tags.includes(tagInput)) {
+        setFormData({ ...formData, tags: formData.tags + "," + tagInput });
+        setTagInput('');
+      }
+    } else {
+      if (tagInput && !formData.tags.includes(tagInput)) {
+        setFormData({ ...formData, tags: [...formData.tags, tagInput] });
+        setTagInput('');
+      }
+    }
+
+  };
+
+  const handleTagRemove = (tagToRemove) => {
+    if (mode === 'edit') {
+      const tagsArray = formData.tags.split(",");
+      const newTags = tagsArray.filter((tag) => tag !== tagToRemove);
+      setFormData({ ...formData, tags: newTags.join(",") });
+    } else {
+      const newTags = formData.tags.filter((tag) => tag !== tagToRemove);
+      setFormData({ ...formData, tags: newTags });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('hi');
+    try {
+      if (mode === 'edit') {
+        const updatedData = { ...formData };
+        updatedData.tags = updatedData.tags.split(",").map((tag) => tag.trim());
+
+        const updatedCommunity = await updateCommunity(formData.community_id, updatedData);
+
+        console.log(updatedCommunity);
+        console.log('Community updated successfully');
+
+        setCommunities?.(prev => {
+          if (prev) {
+            const newArray = [...prev];
+            const index = prev.findIndex(c => c.community_id === formData.community_id);
+            if (index !== -1) {
+              newArray[index] = updatedCommunity;
+            }
+            return newArray;
+          }
+          return prev;
+        });
+
+        onCancel();
+      } else {
+        const newCommunity = await createCommunity(formData);
+        setCommunities?.(prev => (prev ? [...prev, newCommunity] : [newCommunity]));
+        console.log('New community created successfully');
+        onCancel();
+      }
+
+    } catch (error) {
+      console.error('Error handling community:', error);
+    }
   };
 
   const handleImageUpload = (e) => {
@@ -27,7 +96,7 @@ const CommunityForm = ({ onSubmit, onBackClick, initialData, mode }) => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({ ...formData, avatar: reader.result });
+        setFormData({ ...formData, image_url: reader.result });
       };
       reader.readAsDataURL(file);
     }
@@ -36,7 +105,7 @@ const CommunityForm = ({ onSubmit, onBackClick, initialData, mode }) => {
   const inputFields = [
     {
       type: 'text',
-      name: 'name',
+      name: 'community_name',
       label: 'Community Name',
       placeholder: 'Enter Community Name',
       required: true,
@@ -58,12 +127,12 @@ const CommunityForm = ({ onSubmit, onBackClick, initialData, mode }) => {
           <FontAwesomeIcon
             icon={faTimes}
             style={{ cursor: 'pointer', fontSize: '24px', zIndex: 100 }}
-            onClick={onBackClick}
+            onClick={() => onCancel()}
           />
         </div>
 
         <AvatarUpload
-          avatar={formData.avatar}
+          avatar={formData.image_url}
           onImageUpload={handleImageUpload}
         />
 
@@ -79,11 +148,60 @@ const CommunityForm = ({ onSubmit, onBackClick, initialData, mode }) => {
           ))}
         </div>
 
+        <div className="mb-3">
+          <label htmlFor="tags" className="form-label">Tags</label>
+          <div className="d-flex">
+            <input
+              type="text"
+              id="tags"
+              value={tagInput}
+              onChange={handleTagInputChange}
+              className="form-control"
+              placeholder="Enter a tag and press Enter"
+            />
+            <button
+              type="button"
+              className="btn btn-outline-secondary ms-2"
+              onClick={handleTagSubmit}
+            >
+              Add Tag
+            </button>
+          </div>
+          <div className="mt-2">
+            {mode === 'edit' ? formData?.tags?.split(",")?.map((tag, index) => (
+              <span
+                key={index}
+                className="badge bg-primary me-2"
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleTagRemove(tag)}
+              >
+                {tag} <span className="ms-1 text-danger">x</span>
+              </span>
+            )) : formData?.tags?.map((tag, index) => (
+              <span
+                key={index}
+                className="badge bg-primary me-2"
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleTagRemove(tag)}
+              >
+                {tag} <span className="ms-1 text-danger">x</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         <div className="d-flex justify-content-between mt-3">
           <CustomButton
             type="submit"
             text={mode === 'edit' ? 'Edit Community' : 'Add New Community'}
             className="btn btn-primary"
+            onClick={handleSubmit}
+          />
+          <CustomButton
+            type="cancel"
+            text="Cancel"
+            className="btn btn-primary"
+            onClick={() => onCancel()}
           />
         </div>
       </form>

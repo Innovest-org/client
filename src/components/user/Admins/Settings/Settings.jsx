@@ -61,7 +61,7 @@ const WebsiteSettingsPage = () => {
             type="file"
             id="logoUpload"
             accept="image/*"
-            style={{ display: 'none' }} // Hidden input
+            style={{ display: 'none' }}
             onChange={handleLogoUpload}
           />
         </div>

@@ -23,17 +23,14 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [documentUrl, setDocumentUrl] = useState('');
 
-  // Handle input field changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Check if file sizes are too large before submitting
     if (formData.profile_image && formData.profile_image.size > 10 * 1024 * 1024) {
       alert('Avatar file size exceeds the limit of 10MB');
       return;
@@ -44,7 +41,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
       return;
     }
   
-    // Prepare form data for submission
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
       if (key === 'profile_image' && formData.profile_image) {
@@ -61,11 +57,9 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
       alert('User registered successfully');
       onSubmit(result);
     } catch (error) {
-      // Specific error handling for unique constraint violations
       if (error.response && error.response.data) {
         const { message } = error.response.data;
         
-        // Check for unique validation errors on username and email
         if (message.includes('username') || message.includes('email')) {
           const errorMessage = message
             .replace(/Error creating user: /, '')
@@ -73,7 +67,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
             .replace('Value:', '')
             .replace(/, /g, '\n');
           
-          // Alert message with clear unique constraint violations
           alert(`Error creating user:\n${errorMessage}`);
         } else {
           console.error('Unknown error:', error);
@@ -85,9 +78,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
       }
     }
   };
-  
-
-  // Handle avatar image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -100,7 +90,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
     }
   };
 
-  // Handle document upload
   const handleDocumentUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -113,7 +102,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
     }
   };
 
-  // Fields for the form
   const inputFields = [
     { type: 'text', name: 'first_name', label: 'First Name', placeholder: 'Enter First Name', required: true },
     { type: 'text', name: 'last_name', label: 'Last Name', placeholder: 'Enter Last Name', required: true },
@@ -137,10 +125,8 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
           />
         </div>
 
-        {/* Avatar Upload */}
         <AvatarUpload profile_image={formData.profile_image} onImageUpload={handleImageUpload} />
 
-        {/* Input Fields */}
         <div className="row">
           {inputFields.map((field) => (
             <div className="mb-3 col-md-6" key={field.name}>
@@ -153,7 +139,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
           ))}
         </div>
 
-        {/* Document Upload */}
         <div className="mb-3">
           <label className="form-label">Upload Document</label>
           <input
@@ -164,7 +149,6 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="d-flex justify-content-between mt-3">
           <CustomButton
             type="submit"

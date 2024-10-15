@@ -17,12 +17,10 @@ export default function ModeratePages() {
     }
   };
 
-  // Fetch pages when the component mounts
   useEffect(() => {
     handleFetchPages();
   }, []);
 
-  // Function to approve a page
   const handleApprove = async (page_id) => {
     try {
       await approvePage(page_id);
@@ -34,7 +32,7 @@ export default function ModeratePages() {
   const handleReject = async (page_id) => {
     try {
       await rejectPage(page_id);
-      handleFetchPages(); // Fetch the pages again after rejection
+      handleFetchPages();
     } catch (error) {
       console.error('Error rejecting post:', error.message);
     }

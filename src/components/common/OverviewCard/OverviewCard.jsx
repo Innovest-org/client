@@ -3,7 +3,7 @@ import './OverviewCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faUsers, faUserPlus, faChartColumn } from '@fortawesome/free-solid-svg-icons';
 import SmallCard from './components/SmallCard';
-import { getUsers, getPendingUsers } from '../../../Api/Endpoints/UserEndpoints'; // Adjust your API endpoints
+import { getUsers, getPendingUsers } from '../../../Api/Endpoints/UserEndpoints';
 
 export default function OverviewCard() {
   const [totalUsers, setTotalUsers] = useState(0);
