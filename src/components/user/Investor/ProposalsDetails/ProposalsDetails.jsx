@@ -9,8 +9,6 @@ const ProposalsDetails = () => {
 
     const navigate = useNavigate();
 
-
-    // Mock proposals data
     const proposalsData = {
         1: {
             title: 'EcoPackage',
@@ -39,7 +37,6 @@ const ProposalsDetails = () => {
         },
     };
 
-    // Fetch proposal data by id
     const proposal = proposalsData[id];
 
     if (!proposal) {

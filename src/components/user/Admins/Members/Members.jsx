@@ -3,15 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import './style.css';
-import { sampleMembers } from '../Admin/userData';
 import MemberForm from '../../../common/AddOrEditForm/components/MemberForm';
 import MembersTable from '../../../common/tables/MemberTable';
 import ProfileSidebar from '../../../common/ProfileSidebar/ProfileSidebar';
 
 export default function Members() {
   const [isAddingMember, setIsAddingMember] = useState(false);
-  const [isEditingMember, setIsEditingMember] = useState(false); // Track if editing
-  const [members, setMembers] = useState(sampleMembers);
+  const [isEditingMember, setIsEditingMember] = useState(false);
+  const [members, setMembers] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMember, setSelectedMember] = useState(null); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -42,7 +41,7 @@ export default function Members() {
 
   const handleBackClick = () => {
     setIsAddingMember(false);
-    setIsEditingMember(false); // Reset editing state
+    setIsEditingMember(false);
     navigate('/admin-dashboard/members/view-members');
   };
 
@@ -59,8 +58,8 @@ export default function Members() {
 
   const handleEditMemberClick = (member) => {
     setSelectedMember(member);
-    setIsEditingMember(true); // Set editing mode to true
-    setIsSidebarOpen(false); // Close sidebar
+    setIsEditingMember(true);
+    setIsSidebarOpen(false);
     navigate(`/admin-dashboard/members/edit-member/${member.id}`);
   };
 
@@ -116,7 +115,7 @@ export default function Members() {
         <ProfileSidebar 
           member={selectedMember} 
           onClose={() => setIsSidebarOpen(false)}
-          onEditClick={() => handleEditMemberClick(selectedMember)} // Pass the selected member to the edit function
+          onEditClick={() => handleEditMemberClick(selectedMember)}
         />
       )}
     </div>

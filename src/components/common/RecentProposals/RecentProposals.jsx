@@ -19,7 +19,6 @@ const RecentProposals = () => {
       verified: true,
       documents: 2
     },
-    // Duplicate for demo purposes
     {
       id: 2,
       logo: 'https://via.placeholder.com/50',

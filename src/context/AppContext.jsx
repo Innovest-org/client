@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 
 export const AppContext = createContext();
-const localHost = 'http://127.0.0.1:5000/';
+const localHost = 'https://server-production-82fc.up.railway.app/';
 
 export const AppProvider = ({ children }) => {
   const [activeComponent, setActiveComponent] = useState('Dashboard');
@@ -13,7 +13,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const autoLogin = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/user/verify', {
+        const response = await axios.get('https://server-production-82fc.up.railway.app/api/user/verify', {
           withCredentials: true,
         });
         setUser(response.data);
@@ -27,7 +27,6 @@ export const AppProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    // Connect tp socket
     const socket = io(localHost);
     setSocket(socket);
 
@@ -36,7 +35,6 @@ export const AppProvider = ({ children }) => {
     }
 
     return () => {
-      // Disconnect from socket
       socket.disconnect();
     }
   },[])

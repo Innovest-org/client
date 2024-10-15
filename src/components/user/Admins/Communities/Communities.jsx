@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import CommunitiesTable from '../../../common/tables/communitiesTable'; 
 import CommunityForm from '../../../common/AddOrEditForm/components/CommunityForm';
 import './style.css';
-import { sampleCommunities } from '../Admin/userData';
+import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
 
 export default function Communities() {
   const [isAddingCommunity, setIsAddingCommunity] = useState(false);
-  const [communities, setCommunities] = useState(sampleCommunities);
+  const [communities, setCommunities] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        const response = await getAllCommunities();
+        setCommunities(response.communities || []);
+      } catch (error) {
+        console.error("Error fetching communities:", error);
+      }
+    };
+
+    fetchCommunities();
+  }, []);
 
   const handleAddCommunityClick = () => {
     setIsAddingCommunity(true);
     navigate('/admin-dashboard/communities/add-community');
-  };
-
-  const handleFormSubmit = (formData) => {
-    console.log("Community Form submitted", formData);
-    const newCommunity = { id: Date.now(), ...formData };
-    setCommunities([...communities, newCommunity]);
-    navigate('/admin-dashboard/communities/view-communities');
-    setIsAddingCommunity(false);
   };
 
   const handleBackClick = () => {
@@ -32,15 +37,12 @@ export default function Communities() {
   };
 
   const handleSearchChange = (query) => {
-    console.log("Search Query:", query);
     setSearchQuery(query);
   };
 
   const filteredCommunities = communities.filter(community =>
-    community.name.toLowerCase().includes(searchQuery.toLowerCase())
+    community.community_name && community.community_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  console.log("Filtered Communities:", filteredCommunities);
 
   return (
     <div className="container community-page">
@@ -55,18 +57,16 @@ export default function Communities() {
         </div>
       ) : (
         <CommunityForm
-          onSubmit={handleFormSubmit}
-          onBackClick={handleBackClick}
+          onCancel={handleBackClick}
           initialData={''}
-          countries={[]}
-          languages={[]}
+
         />
       )}
       <div className="row justify-content-center ms-1">
         {!isAddingCommunity && (
           <div className="col-12 m-sm-4">
             {filteredCommunities.length > 0 ? (
-              <CommunitiesTable communities={filteredCommunities} /> // Correct the prop name
+              <CommunitiesTable communities={filteredCommunities} setCommunities={setCommunities}   />
             ) : (
               <div className="card shadow-sm">
                 <div className="card-body text-center py-5">

@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router-dom';
 export default function Inv_Proposals() {
 
   const navigate = useNavigate();
-
-  // Sample data for the cards
   const cardsData = Array(12).fill({
     id: 1,
     logo: 'https://via.placeholder.com/50', 

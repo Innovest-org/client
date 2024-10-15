@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/admin/login', formData, {
+      const response = await axios.post('https://server-production-82fc.up.railway.app/api/admin/login', formData, {
         withCredentials: true,
       });
       setUser(response.data.user);

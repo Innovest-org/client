@@ -17,23 +17,19 @@ export default function ModerateRegistrations() {
     }
   };
 
-  // Fetch pending registrations when the component mounts
   useEffect(() => {
     handleFetchRegistrations();
   }, []);
 
-  // Function to approve a registration
   const handleApprove = async (id) => {
     try {
-      await approveUser(id); // Approve the registration
-      // Remove the approved user from the list
+      await approveUser(id);
       setRegistrations((prevRegistrations) => prevRegistrations.filter((registration) => registration.id !== id));
     } catch (error) {
       console.error('Error approving registration:', error.message);
     }
   };
 
-  // Function to reject a registration
   const handleReject = async (id) => {
     try {
       await rejectUser(id);
@@ -61,7 +57,7 @@ export default function ModerateRegistrations() {
             </thead>
             <tbody>
               {registrations.map((registration) => (
-                <tr key={registration.id}> {/* Assuming 'id' is the unique identifier */}
+                <tr key={registration.id}>
                   <td>{registration.username}</td>
                   <td>{registration.email}</td>
                   <td>{new Date(registration.created_at).toLocaleDateString()}</td>

@@ -20,7 +20,7 @@ export const createCommunity = async (communityData) => {
     const response = await axios.post(`${DOMAIN}/api/community`, communityData, {
       withCredentials: true,
     });
-    return response.data;
+    return response.data.community;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
@@ -32,7 +32,7 @@ export const updateCommunity = async (community_id, communityData) => {
     const response = await axios.put(`${DOMAIN}/api/community/${community_id}`, communityData, {
       withCredentials: true,
     });
-    return response.data;
+    return response.data.community;
   } catch (error) {
     throw new Error(error.response.data.message);
   }

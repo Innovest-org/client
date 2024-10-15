@@ -9,7 +9,6 @@ import Settings from "../components/user/Admins/Settings/Settings";
 import Messages from "../components/user/Admins/Messages/Messages";
 import AdminForm from "../components/common/AddOrEditForm/AddOrEditForm";
 import Admin from "../components/user/Admins/Admin/Admin";
-import Profile from "../components/user/Admins/Profile/Profile";
 import InvestorDashboard from '../pages/User/InvestorDashboard';
 import InvDashboard from '../components/user/Investor/Dashboard/Inv_DashBoard';
 import InvInvestments from "../components/user/Investor/Investments/Inv_Investments";
@@ -24,6 +23,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import PublicRoute from "../components/PublicRoutes";
 import ModeratePages from "../components/common/ModeratePages";
 import ModerateUsers from "../components/common/ModerateUsers";
+import Profile from "../components/user/Admins/Profile/Profile";
+import CommunityProfile from "../components/user/Admins/Communities/CommunityProfile/CommunityProfile";
 
 const Router = createBrowserRouter([
   {
@@ -118,6 +119,10 @@ const Router = createBrowserRouter([
         element: <Communities />,
         children: [
           {
+            path: "community-profile/:community_id",
+            element: <CommunityProfile />,
+          },
+          {
             path: "add-community",
             element: <MemberForm />,
           },
@@ -128,7 +133,7 @@ const Router = createBrowserRouter([
           {
             path: "view-communities",
             element: <Communities />,
-          }
+          },
         ]
       },
       {

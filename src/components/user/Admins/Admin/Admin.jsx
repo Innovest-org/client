@@ -4,7 +4,6 @@ import AdminTable from '../../../common/tables/AdminsTable';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import './style.css';
-import { countries, communities } from './userData';
 import AdminForm from '../../../common/AddOrEditForm/components/AdminForm';
 import { getAdmins } from '../../../../Api/Endpoints/AdminEndpoints';
 import { AppContext } from '../../../../context/AppContext';
@@ -94,8 +93,6 @@ export default function Admin() {
           onSubmit={handleFormSubmit}
           onBackClick={handleBackClick}
           initialData={isEditingAdmin ? selectedAdmin : {}}
-          communities={communities}
-          countries={countries}
           mode={formMode}
         />
       )}
@@ -103,7 +100,7 @@ export default function Admin() {
         {!isAddingAdmin && !isEditingAdmin && (
           <div className="col-12 m-sm-4">
             {filteredAdmins.length > 0 ? (
-              <AdminTable admins={filteredAdmins} onEditClick={handleEditAdminClick} />
+              <AdminTable admins={filteredAdmins} onEditClick={handleEditAdminClick}/>
             ) : (
               <div className="card shadow-sm">
                 <div className="card-body text-center py-5">
