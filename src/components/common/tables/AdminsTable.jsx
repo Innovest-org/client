@@ -19,7 +19,7 @@ export default function AdminTable({ admins, onEditClick, setAdmins }) {
         console.error('Error fetching communities:', error);
       }
     };
-        
+
     fetchCommunities();
   }, []);
 
@@ -52,66 +52,71 @@ export default function AdminTable({ admins, onEditClick, setAdmins }) {
   };
 
   return (
-    <div className="table-responsive">
-      <table className="table table-bordered table-hover">
-        <thead className="thead-light">
-          <tr>
-            <th scope="col">User name</th>
-            <th scope="col">Community</th>
-            <th scope="col">Email</th>
-            <th scope="col">Date Joined</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {admins.length > 0 ? (
-            admins.map((admin) => (
-              <tr key={admin.admin_id}>
-                <td className="d-flex align-items-center">
-                  <img
-                    className="rounded-circle me-2"
-                    src={admin.profile_image}
-                    alt={admin.username}
-                    style={{ width: '50px', height: '50px' }}
-                  />
-                  <Link to={`/admin-dashboard/profile/${admin.admin_id}`}>
-                    <span>{admin.username}</span>
-                  </Link>
-                </td>
-                <td>
-                  {admin.communities.length > 0
-                    ? admin.communities.map((communityId) => getCommunityName(communityId)).join(', ')
-                    : 'No community'}
-                </td>
-                <td>
-                  <Link to={`mailto:${admin.email}`}>{admin.email}</Link>
-                </td>
-                <td>{new Date(admin.createdAt).toLocaleDateString()}</td>
-                <td>
-                  <button
-                    className="btn btn-success btn-sm me-2"
-                    onClick={() => onEditClick(admin)}
+    <div className="container">
+      <div className="table-responsive">
+        <table className="table table-hover">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Community</th>
+              <th scope="col">Email address</th>
+              <th scope="col">Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {admins.length > 0 ? (
+              admins.map((admin) => (
+                <tr key={admin.admin_id}>
+                  <Link to={`/admin-dashboard/profile/${admin.admin_id}`} 
+                  className="d-flex align-items-center"
+                  style={{borderBottom: '1px solid #dcdbdd', paddingBottom: '19px'}}
                   >
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDeleteAdmin(admin.admin_id)}
-                  >
-                    Delete
-                  </button>
+                      <td >
+                        <img
+                          className="rounded-circle me-2"
+                          src={admin.profile_image}
+                          alt={admin.username}
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                          <span>{admin.username}</span>
+                      </td>
+                    </Link>
+                  <td>
+                    {admin.communities.length > 0
+                      ? admin.communities.map((communityId) => getCommunityName(communityId)).join(', ')
+                      : 'No community'}
+                  </td>
+                  <td>
+                    <Link to={`mailto:${admin.email}`}>{admin.email}</Link>
+                  </td>
+                  <td>{new Date(admin.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    <button
+                      className="btn btn-success btn-sm me-2"
+                      onClick={() => onEditClick(admin)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDeleteAdmin(admin.admin_id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  No admins available
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center">
-                No admins available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
