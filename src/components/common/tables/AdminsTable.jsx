@@ -71,44 +71,52 @@ export default function AdminTable({ admins = [], onEditClick, setAdmins }) {
           </tr>
         </thead>
         <tbody>
-          {admins.map((admin) => (
-            <tr key={admin.admin_id}>
-              <td className="d-flex align-items-center">
-                <img
-                  className="rounded-circle me-2"
-                  src={admin.profile_image}
-                  alt={admin.username}
-                  style={{ width: '50px', height: '50px' }}
-                />
-                <Link to={`/admin-dashboard/profile/${admin.admin_id}`}>
-                  <span>{admin.username}</span>
-                </Link>
-              </td>
-              <td>
-                {admin.communities && admin.communities.length > 0
-                  ? admin.communities.map((communityId) => getCommunityName(communityId)).join(', ')
-                  : 'No community'}
-              </td>
-              <td>
-                <Link to={`mailto:${admin.email}`}>{admin.email}</Link>
-              </td>
-              <td>{new Date(admin.createdAt).toLocaleDateString()}</td>
-              <td>
-                <button
-                  className="btn btn-success btn-sm me-2"
-                  onClick={() => onEditClick(admin)}
-                >
-                  Update
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDeleteAdmin(admin.admin_id)}
-                >
-                  Delete
-                </button>
+          {admins.length > 0 ? (
+            admins.map((admin) => (
+              <tr key={admin.admin_id}>
+                <td className="d-flex align-items-center">
+                  <img
+                    className="rounded-circle me-2"
+                    src={admin.profile_image}
+                    alt={admin.username}
+                    style={{ width: '50px', height: '50px' }}
+                  />
+                  <Link to={`/admin-dashboard/profile/${admin.admin_id}`}>
+                    <span>{admin.username}</span>
+                  </Link>
+                </td>
+                <td>
+                  {admin.communities.length > 0
+                    ? admin.communities.map((communityId) => getCommunityName(communityId)).join(', ')
+                    : 'No community'}
+                </td>
+                <td>
+                  <Link to={`mailto:${admin.email}`}>{admin.email}</Link>
+                </td>
+                <td>{new Date(admin.createdAt).toLocaleDateString()}</td>
+                <td>
+                  <button
+                    className="btn btn-success btn-sm me-2"
+                    onClick={() => onEditClick(admin)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDeleteAdmin(admin.admin_id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                No admins available
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

@@ -3,8 +3,7 @@ import { AppContext } from "../../../../context/AppContext";
 import { getAdminById, deleteAdmin, updateAdmin } from "../../../../Api/Endpoints/AdminEndpoints";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
-// import profile_img from '../../../../assets/profile.jpg'
-
+import profile_img from '../../../../assets/profile.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -77,7 +76,7 @@ const Profile = () => {
         <div className="row">
           <div className="col-md-4 text-center profile_section border-end">
             {adminData.profile_image ? (
-              <img src={""} alt="Profile" className="img-fluid  mb-3 profile_img" />
+              <img src={profile_img} alt="Profile" className="img-fluid  mb-3 profile_img" />
             ) : (
               <div className="default-profile-image rounded-circle mb-3"></div>
             )}
