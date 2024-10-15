@@ -1,72 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
+import { updateAdmin, createAdmin } from '../../../../Api/Endpoints/AdminEndpoints'; // Ensure both functions are imported
+import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
+import { useParams } from 'react-router-dom';
 
-const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities, mode }) => {
+const AdminForm = ({ onSubmit, onBackClick, initialData, mode, fetchAdmins }) => {
+  const { admin_id } = useParams(); // Admin ID for editing
   const [formData, setFormData] = useState(initialData || {
-    firstName: '',
-    lastName: '',
-    community: '',
-    country: '',
+    communities: [],
+    password: '',
     email: '',
-    id: '',
-    avatar: '',
+    profile_image: '',
     username: '',
-    role: 'Admin',
+    role: 'ADMIN',
   });
+
+  const [communities, setCommunities] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Fetch communities data on mount
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        const fetchedCommunities = await getAllCommunities();
+        console.log('Fetched Communities:', fetchedCommunities);  // Log the full response
+
+        if (Array.isArray(fetchedCommunities.communities)) {
+          setCommunities(fetchedCommunities.communities);  // Update the state with the correct array
+        } else {
+          console.error('Fetched communities data is not an array or missing:', fetchedCommunities.communities);
+        }
+      } catch (error) {
+        console.error('Error fetching communities:', error);
+      }
+    };
+        
+    fetchCommunities();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (Array.isArray(formData[name])) {
+      const newValues = formData[name].includes(value)
+        ? formData[name].filter(item => item !== value)
+        : [...formData[name], value];
+      setFormData({ ...formData, [name]: newValues });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    console.log('Form Data:', formData);
+    try {
+      if (mode === 'edit') {
+        await updateAdmin(admin_id, formData);
+        console.log('Admin updated successfully');
+      } else if (mode === 'add') {
+        await createAdmin(formData);
+        console.log('New admin created successfully');
+      }
+
+      if (fetchAdmins) {
+        fetchAdmins();
+      }
+      onSubmit();
+    } catch (error) {
+      console.error('Error handling admin:', error);
+    }
   };
 
-  // Handle profile image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({ ...formData, avatar: reader.result });
+        setFormData({ ...formData, profile_image: reader.result });
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const inputFields = [
-    {
-      type: 'text',
-      name: 'firstName',
-      label: 'First Name',
-      placeholder: 'Enter First Name',
-      required: true,
-    },
-    {
-      type: 'text',
-      name: 'lastName',
-      label: 'Last Name',
-      placeholder: 'Enter Last Name',
-      required: true,
-    },
     {
       type: 'text',
       name: 'username',
       label: 'Username',
       placeholder: 'Enter Username',
-      required: true,
-    },
-    {
-      type: 'text',
-      name: 'id',
-      label: 'ID Nationality',
-      placeholder: 'Enter ID',
       required: true,
     },
     {
@@ -77,25 +106,24 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities,
       required: true,
     },
     {
-      type: 'select',
-      name: 'community',
-      label: 'Community',
-      options: communities,
+      type: 'password',
+      name: 'password',
+      label: 'Password',
+      placeholder: 'Enter Password',
       required: true,
+      showPassword: showPassword,
+      onTogglePassword: togglePasswordVisibility,
     },
     {
       type: 'select',
-      name: 'country',
-      label: 'Country',
-      options: countries,
-      required: true,
-    },
-    {
-      type: 'text',
-      name: 'role',
-      label: 'Role',
-      value: 'Admin',
-      disabled: true,
+      name: 'communities',
+      label: 'Communities',
+      options: communities.map(community => ({
+        value: community.community_id,
+        label: community.community_name
+      })),
+      placeholder: 'Select Communities',
+      multiple: true,
     },
   ];
 
@@ -110,8 +138,9 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, countries, communities,
             onClick={onBackClick}
           />
         </div>
+
         <AvatarUpload
-          avatar={formData.avatar}
+          avatar={formData.profile_image}
           onImageUpload={handleImageUpload}
         />
 

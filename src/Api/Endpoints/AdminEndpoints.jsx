@@ -26,7 +26,7 @@ export const loginAdmin = async (loginData) => {
 };
 
 // Create New Admin (SUPER_ADMIN only)
-export const createAdmin = async (adminData) => {
+export const createAdmin = async (adminData,) => {
     try {
         const response = await axios.post(`${DOMAIN}/api/admin/`, adminData, {
             withCredentials: true,

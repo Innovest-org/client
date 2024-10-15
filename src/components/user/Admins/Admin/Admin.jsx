@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminTable from '../../../common/tables/AdminsTable';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
@@ -7,26 +7,33 @@ import './style.css';
 import { countries, communities } from './userData';
 import AdminForm from '../../../common/AddOrEditForm/components/AdminForm';
 import { getAdmins } from '../../../../Api/Endpoints/AdminEndpoints';
+import { AppContext } from '../../../../context/AppContext';
 
 export default function Admin() {
   const [isAddingAdmin, setIsAddingAdmin] = useState(false);
   const [isEditingAdmin, setIsEditingAdmin] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
-  const [admins, setAdmins] = useState([]);
+  const [admins, setAdmins] = useState([]); // Initialize as empty array
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const {user} = useContext(AppContext)
 
   const formMode = isEditingAdmin ? 'edit' : 'add';
 
   useEffect(() => {
     getAdmins()
       .then(response => {
-        setAdmins(response.data);
+        if (Array.isArray(response)) {
+          setAdmins(response);
+        } else {
+          console.error('Unexpected response format:', response);
+        }
       })
       .catch(error => {
-        console.error(error);
+        console.error('API Error:', error);
       });
   }, []);
+  
 
   const handleAddAdminClick = () => {
     setIsAddingAdmin(true);
@@ -42,11 +49,10 @@ export default function Admin() {
       setAdmins(updatedAdmins);
       setIsEditingAdmin(false);
     } else {
-      // Add new admin
+
       const newAdmin = { id: Date.now(), ...formData };
       setAdmins([...admins, newAdmin]);
     }
-
   };
 
   const handleBackClick = () => {
@@ -66,9 +72,9 @@ export default function Admin() {
     navigate(`/admin-dashboard/admin/edit-admin/${admin.admin_id}`);
   };
 
-  const filteredAdmins = admins.filter(admin =>
+  const filteredAdmins = admins && admins.length > 0 ? admins.filter(admin =>
     `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ) : [];
 
   return (
     <div className="container admin-page">
@@ -101,11 +107,11 @@ export default function Admin() {
                 <div className="card-body text-center py-5">
                   <h2 className="card-title mb-3">No Admins Found</h2>
                   <p className="card-text mb-4">Admins will be listed here once added.</p>
-                  <CustomButton
+                  {user.role==='SUPER_ADMIN' && <CustomButton
                     text="Add New Admin"
                     onClick={handleAddAdminClick}
                     className="btn btn-primary"
-                  />
+                  />}
                 </div>
               </div>
             )}

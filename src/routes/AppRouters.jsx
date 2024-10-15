@@ -22,6 +22,8 @@ import MemberForm from "../components/common/AddOrEditForm/components/MemberForm
 import Login from "../pages/Auth/login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PublicRoute from "../components/PublicRoutes";
+import ModeratePages from "../components/common/ModeratePages";
+import ModerateUsers from "../components/common/ModerateUsers";
 
 const Router = createBrowserRouter([
   {
@@ -56,6 +58,20 @@ const Router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+        children: [
+          {
+            path: "add-member",
+            element: <MemberForm />,
+          },
+          {
+            path: "moderate-pages",
+            element: <ModeratePages />,
+          },
+          {
+            path: "moderate-users",
+            element: <ModerateUsers />,
+          }
+        ]
       },
       {
         path: "admin",
@@ -70,7 +86,7 @@ const Router = createBrowserRouter([
             element: <Admin />,
           },
           {
-            path: "edit-admin/:id",
+            path: "edit-admin/:admin_id",
             element: <AdminForm />,
           },
           {
