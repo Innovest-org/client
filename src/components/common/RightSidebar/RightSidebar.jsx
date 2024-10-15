@@ -1,13 +1,28 @@
 import { faBarsProgress, faCheckCircle, faClipboardList, faClock, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './RightSidebar.css';
 import SidebarSection from './components/SidebarSection';
+import { getPendingUsers } from '../../../Api/Endpoints/UserEndpoints';
 
 export default function RightSidebar({ userType }) {
+  const [pendingRegistrationsCount, setPendingRegistrationsCount] = useState();
+
+  useEffect(() => {
+    const fetchPendingRegistrations = async () => {
+      try {
+        const pendingUsers = await getPendingUsers();
+        setPendingRegistrationsCount(pendingUsers.length);
+      } catch (error) {
+        console.error('Error fetching pending registrations:', error.message);
+      }
+    };
+
+    fetchPendingRegistrations();
+  }, []);
   const activitySummary = [
-    { icon: faUserPlus, color: '#007bff', label: 'New Registrations', count: 12 },
-    { icon: faSignInAlt, color: '#28a745', label: 'User Logins', count: 156 },
-    { icon: faClipboardList, color: '#ffc107', label: 'New Posts', count: 23 },
+    { icon: faUserPlus, color: '#007bff', label: 'New Registrations', count: pendingRegistrationsCount },
+    { icon: faSignInAlt, color: '#28a745', label: 'User Logins', count: 6 },
+    { icon: faClipboardList, color: '#ffc107', label: 'New Posts', count: 2 },
   ];
 
   const pendingRequests = [

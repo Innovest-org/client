@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RightSidebar from '../../../common/RightSidebar/RightSidebar';
-import './Dashboard.css';
 import CustomButton from '../../../common/CustomButton/CustomButton';
-import OverviewCard from '../../../common/OverviewCard/OverviewCard';
-import UserTable from '../../../common/tables/UsersData';
-
-
+import MemberForm from '../../../common/AddOrEditForm/components/MemberForm';
+import ModeratePages from '../../../common/ModeratePages/';
+import ModerateUsers from '../../../common/ModerateUsers/';
+import './Dashboard.css';
+import DashboardContent from './DashboardContent';
+import { useNavigate } from 'react-router-dom';
 const users = [
   {
     username: 'JohnDoe',
@@ -26,43 +27,55 @@ const users = [
     date: '2024-09-22',
   },
 ];
-
 export default function Dashboard() {
+  const [selectedPage, setSelectedPage] = useState('');
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    setSelectedPage('');
+    navigate('/admin-dashboard/dashboard');
+  };
+  const handleAddUserClick = () => {
+    setSelectedPage('add-user');
+  };
+
+  const handleModeratePagesClick = () => {
+    setSelectedPage('moderate-pages');
+  };
+
+  const handleModerateUsersClick = () => {
+    setSelectedPage('moderate-users');
+  };
 
   return (
     <div className="dashboard-container container m-3">
       <div className="row">
         <div className="col-12 col-md-7 ps-4">
           <h2>
-            Welcome, <span className='dashboard-text'>Lara Doe</span>
+            Welcome, <span className="dashboard-text">Lara Doe</span>
           </h2>
         </div>
       </div>
 
       <div className="dashboard-content row">
         <div className="main-content col-12 col-md-9 col-sm-12">
-          <div className='my-2 border buttons-border d-flex flex-wrap p-3 justify-content-evenly shadow-sm'>
-            <CustomButton text="Add New User" />
-            <CustomButton text="Moderate New Posts" />
-            <CustomButton text="Review New Projects" />
-            <CustomButton text="Add New Community" />
+          <div className="my-2 border buttons-border d-flex flex-wrap p-3 justify-content-evenly shadow-sm">
+            <CustomButton text="Add New User" onClick={handleAddUserClick} />
+            <CustomButton text="Moderate New users" onClick={ handleModerateUsersClick}/>
+            <CustomButton text="Moderate New Pages" onClick={handleModeratePagesClick} />
           </div>
 
-          <div className="my-2">
-            <OverviewCard />
-          </div>
-
-          <div className="my-2 p-3">
-            <UserTable users={users} />
-          </div>
+          {/* Conditionally render the content */}
+          {selectedPage === 'add-user' && <MemberForm onBackClick={handleBackClick}  />}
+          {selectedPage === 'moderate-pages' && <ModeratePages />}
+          {selectedPage === 'moderate-users' && <ModerateUsers />}
+          {selectedPage === '' && <DashboardContent users={users}  />}
         </div>
 
-        <div className="right-sidebar col-12 col-md-2 mt-md-2  mb-4">
-          {/* Render the SideBar depend on the userType (Admin - investor) */}
+        <div className="right-sidebar col-12 col-md-2 mt-md-2 mb-4">
           <RightSidebar userType={'admin'} />
         </div>
       </div>
     </div>
   );
 }
-
