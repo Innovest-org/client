@@ -13,7 +13,7 @@ export default function Admin() {
   const [isAddingAdmin, setIsAddingAdmin] = useState(false);
   const [isEditingAdmin, setIsEditingAdmin] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
-  const [admins, setAdmins] = useState([]); // Initialize as empty array
+  const [admins, setAdmins] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const {user} = useContext(AppContext)
@@ -27,12 +27,19 @@ export default function Admin() {
           setAdmins(response);
         } else {
           console.error('Unexpected response format:', response);
+          setAdmins([]);
         }
       })
       .catch(error => {
         console.error('API Error:', error);
+        setAdmins([]);
       });
   }, []);
+  
+  const filteredAdmins = admins.filter(admin =>
+    `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
   
 
   const handleAddAdminClick = () => {
@@ -71,11 +78,6 @@ export default function Admin() {
     setIsEditingAdmin(true);
     navigate(`/admin-dashboard/admin/edit-admin/${admin.admin_id}`);
   };
-
-  const filteredAdmins = admins && admins.length > 0 ? admins.filter(admin =>
-    `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
-
   return (
     <div className="container admin-page">
       {!isAddingAdmin && !isEditingAdmin ? (
