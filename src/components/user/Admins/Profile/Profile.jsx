@@ -3,7 +3,7 @@ import { AppContext } from "../../../../context/AppContext";
 import { getAdminById, deleteAdmin, updateAdmin } from "../../../../Api/Endpoints/AdminEndpoints";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
-import profile_img from '../../../../assets/profile.jpg'
+import profile_img from '../../../../assets/admin-avatar.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

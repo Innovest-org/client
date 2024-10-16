@@ -28,8 +28,10 @@ ul li {
   margin-bottom: 10px;
 }
 
-
 a {
+  text-decoration: none !important;
+  color: inherit;
   all: unset;
   cursor: pointer;
+  
 }
