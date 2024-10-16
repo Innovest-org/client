@@ -13,6 +13,7 @@ const Login = () => {
 
   const { setUser } = useContext(AppContext);
   const [errorMessage, setErrorMessage] = useState('');
+  const [endpoint, setEndpoint] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,14 +26,44 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!endpoint) {
+      setErrorMessage('Please select a login type.');
+      return;
+    }
+
     try {
-      const response = await axios.post('https://server-production-82fc.up.railway.app/api/admin/login', formData, {
+      const response = await axios.post(endpoint, formData, {
         withCredentials: true,
       });
       setUser(response.data.user);
-      navigate('/admin-dashboard');
+
+      if (response.data.user.role === 'ADMIN' || response.data.user.role === 'SUPER_ADMIN') {
+        navigate('/admin-dashboard');
+      } else if (response.data.user.role === 'ENTREPRENEUR') {
+        navigate('/entrepreneur-dashboard');
+      } else if (response.data.user.role === 'INVESTOR') {
+        navigate('/investor-dashboard');
+      } else {
+        navigate('/user-dashboard');
+      }
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'Login failed. Please try again.');
+    }
+  };
+
+  const handleAdminLogin = () => {
+    try {
+      setEndpoint('https://server-production-82fc.up.railway.app/api/admin/login');
+    } catch (error) {
+      setErrorMessage('Failed to set Admin login endpoint.');
+    }
+  };
+
+  const handleUserLogin = () => {
+    try {
+      setEndpoint('https://server-production-82fc.up.railway.app/api/user/login');
+    } catch (error) {
+      setErrorMessage('Failed to set User login endpoint.');
     }
   };
 
@@ -69,13 +100,17 @@ const Login = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="btn w-100 login-btn">Login</button>
+                <button type="submit" className="btn w-100 login-btn" onClick={handleAdminLogin}>
+                  Admin Login
+                </button>
+                <button type="submit" className="btn w-100 login-btn mt-2" onClick={handleUserLogin}>
+                  User Login
+                </button>
               </form>
             </div>
           </div>
         </div>
 
-        {/* Image Column */}
         <div className="col-md-6 d-none d-md-block">
           <div className="login-image h-100">
             <img src={login} alt="login" className="img-fluid" />
