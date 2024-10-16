@@ -14,7 +14,6 @@ const Sidebar = () => {
     { name: 'Members', icon: faUserGear, path: 'members' },
     { name: 'Communities', icon: faUsers, path: 'communities' },
     { name: 'Settings', icon: faCog, path: 'settings' },
-    { name: 'Messages', icon: faComments, path: 'messages' },
   ];
 
   const investorNavItems = [
@@ -23,6 +22,7 @@ const Sidebar = () => {
     { name: 'Proposals', icon: faMoneyCheckAlt, path: 'proposals' },
     { name: 'Communities', icon: faUsers, path: 'communities' },
     { name: 'My Investments', icon: faUsers, path: 'investments' },
+    { name: 'Messages', icon: faComments, path: 'messages' },
   ];
 
   const navItems = role === 'ADMIN' || 'SUPER_ADMIN' ? adminNavItems : investorNavItems;
