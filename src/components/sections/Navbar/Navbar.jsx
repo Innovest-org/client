@@ -82,10 +82,10 @@ const Navbar = ({ refs }) => {
               </button>
             </li>
             <li className="nav-item">
-              <Link className="btn btn-get-started" to="/sign-up">Get Started</Link>
+              <Link className="btn btn-get-started" to="/register">Get Started</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/sign-in">Sign In</Link>
+              <Link className="nav-link" to="/login">Sign In</Link>
             </li>
           </ul>
         </div>
