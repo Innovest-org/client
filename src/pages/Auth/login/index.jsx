@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../../context/AppContext';
+import './login.css';
+import login from '../../../assets/section3Image3.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +11,7 @@ const Login = () => {
     password: ''
   });
 
-  const {setUser} = useContext(AppContext);
-
+  const { setUser } = useContext(AppContext);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -36,10 +37,10 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
+    <div className="container-fluid vh-100 d-flex align-items-center">
+      <div className="row w-100">
+        <div className="col-md-6 d-flex justify-content-center align-items-center">
+          <div className="card w-75">
             <div className="card-body">
               <h3 className="text-center">Login</h3>
               {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
@@ -68,9 +69,16 @@ const Login = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Login</button>
+                <button type="submit" className="btn w-100 login-btn">Login</button>
               </form>
             </div>
+          </div>
+        </div>
+
+        {/* Image Column */}
+        <div className="col-md-6 d-none d-md-block">
+          <div className="login-image h-100">
+            <img src={login} alt="login" className="img-fluid" />
           </div>
         </div>
       </div>
