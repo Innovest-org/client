@@ -101,8 +101,7 @@ export default function MembersTable({ mode, onBackClick, members, setMembers })
             currentMembers.map((member) => (
               <tr key={member.id}>
                 <td>
-                  <Link
-                    to={`/admin-dashboard/members/profile/${member.id}`}
+                  <div
                     className="d-flex align-items-center member-name"
                     style={{ cursor: 'pointer' }}
                   >
@@ -113,7 +112,7 @@ export default function MembersTable({ mode, onBackClick, members, setMembers })
                       style={{ width: '50px', height: '50px' }}
                     />
                     <span className="fw-bold member-name-text">{member.username}</span>
-                  </Link>
+                  </div>
                 </td>
                 <td>{member.username}</td>
                 <td>{member.email}</td>

@@ -29,9 +29,9 @@ export default function SearchAndFilterBar({onSearchChange}) {
             <FontAwesomeIcon icon={faFilter} />
           </button>
           <ul className="dropdown-menu" aria-labelledby="filterDropdown">
-            <li><Link className="dropdown-item" to="#">Filter Option 1</Link></li>
-            <li><Link className="dropdown-item" to="#">Filter Option 2</Link></li>
-            <li><Link className="dropdown-item" to="#">Filter Option 3</Link></li>
+            <li><Link className="dropdown-item" to="#">Dame</Link></li>
+            <li><Link className="dropdown-item" to="#">Date</Link></li>
+            <li><Link className="dropdown-item" to="#">Id</Link></li>
           </ul>
         </div>
       </div>

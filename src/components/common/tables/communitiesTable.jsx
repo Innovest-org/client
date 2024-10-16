@@ -77,8 +77,7 @@ export default function CommunitiesTable({ communities, setCommunities }) {
             communities.map((community) => (
               <tr key={community.community_id}>
                 <td>
-                  <Link
-                    to={`/admin-dashboard/communities/community-profile/${community.community_id}`}
+                  <div
                     className="d-flex align-items-center community-name"
                     style={{ cursor: 'pointer' }}
                   >
@@ -89,7 +88,7 @@ export default function CommunitiesTable({ communities, setCommunities }) {
                       style={{ width: '50px', height: '50px' }}
                     />
                     <span className="fw-bold community-name-text">{community.community_name}</span>
-                  </Link>
+                  </div>
 
                 </td>
                 <td>{community.member_count || 0}</td>
