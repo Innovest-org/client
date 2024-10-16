@@ -6,9 +6,6 @@
   cursor: pointer;
 }
 
-.community-name:hover .community-name-text {
-  color: #E86924;
-}
 
 
 .communities-table a {

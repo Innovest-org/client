@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   deleteCommunity as deleteCommunityAPI,
 } from '../../../Api/Endpoints/CommunityEndpoints';
-import { Link } from 'react-router-dom';
 import CommunityForm from '../AddOrEditForm/components/CommunityForm';
 
 export default function CommunitiesTable({ communities, setCommunities }) {

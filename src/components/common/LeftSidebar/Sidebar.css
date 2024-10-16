@@ -62,7 +62,7 @@
 .investor-sidebar ul li a:hover,
 .investor-sidebar ul li a.active {
   background-color: #E86924;
-  color: #fff !important;
+  color: #E86924 !important;
   border-radius: 8px;
 }
 
