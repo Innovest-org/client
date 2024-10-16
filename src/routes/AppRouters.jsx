@@ -6,7 +6,6 @@ import Dashboard from "../components/user/Admins/Dashboard/Dashboard";
 import Members from "../components/user/Admins/Members/Members";
 import Communities from "../components/user/Admins/Communities/Communities";
 import Settings from "../components/user/Admins/Settings/Settings";
-import Messages from "../components/user/Admins/Messages/Messages";
 import AdminForm from "../components/common/AddOrEditForm/AddOrEditForm";
 import Admin from "../components/user/Admins/Admin/Admin";
 import InvestorDashboard from '../pages/User/InvestorDashboard';
@@ -25,6 +24,7 @@ import ModeratePages from "../components/common/ModeratePages";
 import ModerateUsers from "../components/common/ModerateUsers";
 import Profile from "../components/user/Admins/Profile/Profile";
 import CommunityProfile from "../components/user/Admins/Communities/CommunityProfile/CommunityProfile";
+import Messages from "../components/common/Messages/Messages";
 
 const Router = createBrowserRouter([
   {
