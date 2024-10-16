@@ -71,7 +71,7 @@ export default function AdminTable({ admins, setAdmins }) {
             admins.map((admin) => (
               <tr key={admin.admin_id}>
                 <td>
-                  <Link
+                  <div
                     to={`/admin-dashboard/profile/${admin.admin_id}`}
                     className="d-flex align-items-center"
                     style={{ cursor: 'pointer' }}
@@ -83,7 +83,7 @@ export default function AdminTable({ admins, setAdmins }) {
                       style={{ width: '50px', height: '50px' }}
                     />
                     <span className="community-name-text fw-bold">{admin.username}</span>
-                  </Link>
+                  </div>
                 </td>
                 <td>
                   {admin.communities.length > 0

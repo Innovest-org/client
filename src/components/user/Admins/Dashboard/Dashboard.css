@@ -134,3 +134,7 @@ th {
 tbody {
   font-size: 13px !important;
 }
+
+.custom-fit {
+  object-fit: cover !important;
+}

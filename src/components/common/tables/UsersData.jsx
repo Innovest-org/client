@@ -28,7 +28,7 @@ export default function UserTable({ users }) {
                 <img
                   src={user.avatar}
                   alt="avatar"
-                  className="rounded-circle me-2"
+                  className="rounded-circle me-2 custom-fit"
                   style={{ width: '40px', height: '40px' }}
                 />
                 <span>{user.username}</span>
