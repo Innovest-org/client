@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const MemberForm = ({onCancel, initialData, mode }) => {
+const MemberForm = ({ onCancel, initialData, mode }) => {
   const [formData, setFormData] = useState(initialData || {
     first_name: '',
     last_name: '',
@@ -33,17 +33,17 @@ const MemberForm = ({onCancel, initialData, mode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.profile_image && formData.profile_image.size > 10 * 1024 * 1024) {
       toast.error('Avatar file size exceeds the limit of 10MB');
       return;
     }
-  
+
     if (formData.id_doc && formData.id_doc.size > 10 * 1024 * 1024) {
       toast.error('Document file size exceeds the limit of 10MB');
       return;
     }
-  
+
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
       if (key === 'profile_image' && formData.profile_image) {
@@ -54,7 +54,7 @@ const MemberForm = ({onCancel, initialData, mode }) => {
         data.append(key, formData[key]);
       }
     });
-  
+
     try {
       let response;
       if (mode === 'edit') {
@@ -163,6 +163,12 @@ const MemberForm = ({onCancel, initialData, mode }) => {
           <CustomButton
             type="submit"
             text={mode === 'edit' ? 'Update Member' : 'Add Member'}
+            className="btn btn-primary"
+          />
+          <CustomButton
+            type="cancel"
+            text="Cancel"
+            onClick={onCancel}
             className="btn btn-primary"
           />
         </div>
