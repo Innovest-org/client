@@ -1,19 +1,20 @@
 .profileContainer {
   position: relative;
-  height: 75vh;
+  height: 80vh;
 }
 
 .profile-card {
   max-width: 1000px;
   width: 100%;
   border: none;
+  height: 86vh;
   background: #f9f9f9;
   border-radius: 12px;
 }
 
 .default-profile-image {
-  width: 150px;
-  height: 150px;
+  width: 60px;
+  height: 60px;
   background-color: #ddd;
   display: inline-block;
   margin-bottom: 15px;
@@ -26,12 +27,13 @@
   justify-content: center;
 }
 
+
 .userEmail {
   margin-bottom: 70%;
 }
 
 .profile_img {
-  width: 100%;
+  width: 70%;
   background-size: cover;
   object-fit: cover;
   border-radius: 50%;

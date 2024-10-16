@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
-import Avatar from '../../assets/a_user01_avatar.png';
+import Avatar from '../../assets/admin-avatar.png';
 import { logout } from '../../Api/Endpoints/AdminEndpoints';
 import { AppContext } from '../../context/AppContext';
 
@@ -38,7 +38,7 @@ export default function DashboardHeader() {
             </li>
             <li className="admin-nav nav-item d-flex align-items-center mx-3">
               <div className="text-center">
-                <span className="user-name fw-bold">Lara Doe</span>
+                <span className="user-name fw-bold">clarkkent</span>
                 <p className='user-country mb-0'>U.P, India</p>
               </div> 
             </li>

@@ -1,0 +1,20 @@
+.member-name-text {
+  text-decoration: none !important;
+  font-size: 0.8rem;
+  color: inherit;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.member-name-text:hover .member-name-text {
+  color: #E86924;
+}
+
+
+.members-table a {
+  text-decoration: none;
+}
+
+.members-table a:hover {
+  color: #28a745;
+}

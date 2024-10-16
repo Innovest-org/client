@@ -52,7 +52,7 @@ export default function Dashboard() {
       <div className="row">
         <div className="col-12 col-md-7 ps-4">
           <h2>
-            Welcome, <span className="dashboard-text">Lara Doe</span>
+            Welcome, <span className="dashboard-text">clarkkent</span>
           </h2>
         </div>
       </div>

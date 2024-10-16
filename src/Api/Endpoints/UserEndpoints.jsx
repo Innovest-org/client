@@ -120,7 +120,11 @@ export const getUsers = async () => {
     const response = await axios.get(`${DOMAIN}/api/user`, {
       withCredentials: true,
     });
+    console.log(
+      response.data
+    )
     return response.data;
+    
   } catch (error) {
     throw new Error(error.response.data.message);
   }

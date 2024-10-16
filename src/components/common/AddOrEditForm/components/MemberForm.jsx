@@ -4,9 +4,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
-import { registerUser } from '../../../../Api/Endpoints/UserEndpoints';
+import { registerUser, updateUser } from '../../../../Api/Endpoints/UserEndpoints';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
+
+const MemberForm = ({onCancel, initialData, mode }) => {
   const [formData, setFormData] = useState(initialData || {
     first_name: '',
     last_name: '',
@@ -17,7 +20,7 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
     phone: '',
     username: '',
     role: 'INVESTOR',
-    password: ''
+    password: '',
   });
 
   const [avatarUrl, setAvatarUrl] = useState('');
@@ -30,14 +33,14 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     if (formData.profile_image && formData.profile_image.size > 10 * 1024 * 1024) {
-      alert('Avatar file size exceeds the limit of 10MB');
+      toast.error('Avatar file size exceeds the limit of 10MB');
       return;
     }
   
     if (formData.id_doc && formData.id_doc.size > 10 * 1024 * 1024) {
-      alert('Document file size exceeds the limit of 10MB');
+      toast.error('Document file size exceeds the limit of 10MB');
       return;
     }
   
@@ -53,31 +56,38 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
     });
   
     try {
-      const result = await registerUser(data);
-      alert('User registered successfully');
-      onSubmit(result);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        const { message } = error.response.data;
-        
-        if (message.includes('username') || message.includes('email')) {
-          const errorMessage = message
-            .replace(/Error creating user: /, '')
-            .replace(/User validation failed: /, '')
-            .replace('Value:', '')
-            .replace(/, /g, '\n');
-          
-          alert(`Error creating user:\n${errorMessage}`);
-        } else {
-          console.error('Unknown error:', error);
-          alert('Failed to register user');
-        }
+      let response;
+      if (mode === 'edit') {
+        response = await updateUser(formData.id, data);
+        setFormData({ ...formData, ...response.updatedUser });
+        toast.success('Member updated successfully');
       } else {
-        console.error('Error:', error);
-        alert('Failed to register user');
+        response = await registerUser(data);
+        setFormData({
+          first_name: '',
+          last_name: '',
+          email: '',
+          national_id: '',
+          profile_image: '',
+          id_doc: '',
+          phone: '',
+          username: '',
+          role: 'INVESTOR',
+          password: '',
+        });
+        toast.success('Member registered successfully');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      if (error.response) {
+        console.error('Error response:', error.response);
+        toast.error(`Failed to save member: ${error.response.data.message}`);
+      } else {
+        toast.error('Failed to save member. Please check the API or network connection.');
       }
     }
   };
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -121,7 +131,7 @@ const MemberForm = ({ onSubmit, onBackClick, initialData, mode }) => {
           <FontAwesomeIcon
             icon={faTimes}
             style={{ cursor: 'pointer', fontSize: '24px', zIndex: 100 }}
-            onClick={onBackClick}
+            onClick={onCancel}
           />
         </div>
 
