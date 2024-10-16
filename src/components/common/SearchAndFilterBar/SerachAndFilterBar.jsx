@@ -29,7 +29,7 @@ export default function SearchAndFilterBar({onSearchChange}) {
             <FontAwesomeIcon icon={faFilter} />
           </button>
           <ul className="dropdown-menu" aria-labelledby="filterDropdown">
-            <li><Link className="dropdown-item" to="#">Dame</Link></li>
+            <li><Link className="dropdown-item" to="#">Name</Link></li>
             <li><Link className="dropdown-item" to="#">Date</Link></li>
             <li><Link className="dropdown-item" to="#">Id</Link></li>
           </ul>
