@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import RightSidebar from '../../../common/RightSidebar/RightSidebar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import MemberForm from '../../../common/AddOrEditForm/components/MemberForm';
@@ -7,6 +7,9 @@ import ModerateUsers from '../../../common/ModerateUsers/';
 import './Dashboard.css';
 import DashboardContent from './DashboardContent';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../../../context/AppContext';
+import { getAdminById } from '../../../../Api/Endpoints/AdminEndpoints';
+
 const users = [
   {
     username: 'JohnDoe',
@@ -27,14 +30,33 @@ const users = [
     date: '2024-09-22',
   },
 ];
+
 export default function Dashboard() {
   const [selectedPage, setSelectedPage] = useState('');
+  const [admin, setAdmin] = useState(null);
   const navigate = useNavigate();
+  const { user } = useContext(AppContext);
+
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      try {
+        const adminData = await getAdminById(user.id);
+        setAdmin(adminData);
+      } catch (error) {
+        console.error('Error fetching admin data:', error);
+      }
+    };
+
+    if (user.id) {
+      fetchAdminData();
+    }
+  }, [user.id]);
 
   const handleBackClick = () => {
     setSelectedPage('');
     navigate('/admin-dashboard/dashboard');
   };
+
   const handleAddUserClick = () => {
     setSelectedPage('add-user');
   };
@@ -52,7 +74,10 @@ export default function Dashboard() {
       <div className="row">
         <div className="col-12 col-md-7 ps-4">
           <h2>
-            Welcome, <span className="dashboard-text">clarkkent</span>
+            Welcome,{' '}
+            <span className="dashboard-text">
+              {admin ? admin.username : 'Loading...'}
+            </span>
           </h2>
         </div>
       </div>
@@ -61,15 +86,14 @@ export default function Dashboard() {
         <div className="main-content col-12 col-md-9 col-sm-12">
           <div className="my-2 border buttons-border d-flex flex-wrap p-3 justify-content-evenly shadow-sm">
             <CustomButton text="Add New User" onClick={handleAddUserClick} />
-            <CustomButton text="Moderate New users" onClick={ handleModerateUsersClick}/>
+            <CustomButton text="Moderate New users" onClick={handleModerateUsersClick} />
             <CustomButton text="Moderate New Pages" onClick={handleModeratePagesClick} />
           </div>
 
-          {/* Conditionally render the content */}
-          {selectedPage === 'add-user' && <MemberForm onCancelForm={handleBackClick}  />}
+          {selectedPage === 'add-user' && <MemberForm onCancelForm={handleBackClick} />}
           {selectedPage === 'moderate-pages' && <ModeratePages />}
           {selectedPage === 'moderate-users' && <ModerateUsers />}
-          {selectedPage === '' && <DashboardContent users={users}  />}
+          {selectedPage === '' && <DashboardContent users={users} />}
         </div>
 
         <div className="right-sidebar col-12 col-md-2 mt-md-2 mb-4">

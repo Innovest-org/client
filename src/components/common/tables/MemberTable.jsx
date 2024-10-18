@@ -1,51 +1,24 @@
 import React, { useContext, useState } from 'react';
-import { deleteUser as deleteMemberAPI, updateUser as updateMemberAPI } from '../../../Api/Endpoints/UserEndpoints';
+import { deleteUser as deleteMemberAPI } from '../../../Api/Endpoints/UserEndpoints';
 import MemberForm from '../AddOrEditForm/components/MemberForm';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from '../../../context/AppContext';
+import Pagination from "../../common/Pagination/Pagination";
 
 export default function MembersTable({ mode, onBackClick, members, setMembers }) {
-  // const [editingMember, setEditingMember] = useState(null);
-  const {editingMember,setEditingMember} = useContext(AppContext)
+  const { editingMember, setEditingMember } = useContext(AppContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
-  const totalPages = Math.ceil(members.length / itemsPerPage);
-const [isAdding, setIsAdding] = useState(false)
+
   const handleUpdateMember = async (member_id) => {
     try {
       const memberToEdit = members.find((m) => m.id === member_id);
       setEditingMember(memberToEdit);
-      console.log(memberToEdit)
     } catch (error) {
       console.error('Error selecting member for update:', error);
       toast.error('Failed to select member for update.');
     }
-  };
-
-  const handleSaveUpdatedMember = async (updatedMemberData) => {
-    try {
-      const response = await updateMemberAPI(updatedMemberData.id, updatedMemberData);
-      if (response.success) {
-        setMembers((prevMembers) =>
-          prevMembers.map((member) =>
-            member.id === updatedMemberData.id ? updatedMemberData : member
-          )
-        );
-        toast.success('Member updated successfully.');
-        setEditingMember(null);
-      } else {
-        toast.error(`Error updating member: ${response.message}`);
-      }
-    } catch (error) {
-      console.error('Error updating member:', error);
-      toast.error('Failed to update member. Please try again.');
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setEditingMember(null);
-    console.log("donig")
   };
 
   const handleDeleteMember = async (member_id) => {
@@ -63,15 +36,22 @@ const [isAdding, setIsAdding] = useState(false)
     }
   };
 
+  const indexOfLastMember = currentPage * itemsPerPage;
+  const indexOfFirstMember = indexOfLastMember - itemsPerPage;
+  const currentMembers = members.slice(indexOfFirstMember, indexOfLastMember);
+  const totalPages = Math.ceil(members.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const currentMembers = members.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const handlePreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
 
   if (editingMember) {
     return (
@@ -79,7 +59,6 @@ const [isAdding, setIsAdding] = useState(false)
         mode="edit"
         initialData={editingMember}
       />
-
     );
   }
 
@@ -146,17 +125,15 @@ const [isAdding, setIsAdding] = useState(false)
           )}
         </tbody>
       </table>
-      <div className="pagination d-flex justify-content-center align-items-center">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            className={`btn ${currentPage === index + 1 ? 'btn-primary' : 'btn-secondary'
-              } mx-1`}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </button>
-        ))}
+
+      <div className="pagination-container">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          handlePreviousPage={handlePreviousPage}
+          handleNextPage={handleNextPage}
+        />
       </div>
     </div>
   );

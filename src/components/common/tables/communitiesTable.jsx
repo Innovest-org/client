@@ -3,10 +3,14 @@ import {
   deleteCommunity as deleteCommunityAPI,
 } from '../../../Api/Endpoints/CommunityEndpoints';
 import CommunityForm from '../AddOrEditForm/components/CommunityForm';
+import Pagination from "../../common/Pagination/Pagination";
 
 export default function CommunitiesTable({ communities, setCommunities }) {
-  console.log(communities);
   const [editingCommunity, setEditingCommunity] = useState(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3); // Number of communities per page
+
   const handleUpdateCommunity = async (community_id) => {
     try {
       const communityToEdit = communities.find(c => c.community_id === community_id);
@@ -15,11 +19,11 @@ export default function CommunitiesTable({ communities, setCommunities }) {
         communityToEdit.tags = communityToEdit.tags.map((tag) => tag.trim()).join(",");
         setEditingCommunity(communityToEdit);
       }
-
     } catch (error) {
       console.error('Error selecting community for update:', error);
     }
   };
+
   const handleCancelEdit = () => {
     setEditingCommunity(null);
   };
@@ -40,10 +44,29 @@ export default function CommunitiesTable({ communities, setCommunities }) {
     }
   };
 
+  // Pagination logic
+  const indexOfLastCommunity = currentPage * itemsPerPage;
+  const indexOfFirstCommunity = indexOfLastCommunity - itemsPerPage;
+  const currentCommunities = communities.slice(indexOfFirstCommunity, indexOfLastCommunity);
+
+  const totalPages = Math.ceil(communities.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1)); // Ensure not less than 1
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages)); // Ensure not more than total pages
+  };
+
   if (editingCommunity) {
     return (
       <CommunityForm
-        mode='edit'
+        mode="edit"
         initialData={editingCommunity}
         setCommunities={setCommunities}
         onSave={(updatedCommunity) => {
@@ -72,8 +95,8 @@ export default function CommunitiesTable({ communities, setCommunities }) {
           </tr>
         </thead>
         <tbody>
-          {communities.length > 0 ? (
-            communities.map((community) => (
+          {currentCommunities.length > 0 ? (
+            currentCommunities.map((community) => (
               <tr key={community.community_id}>
                 <td>
                   <div
@@ -88,7 +111,6 @@ export default function CommunitiesTable({ communities, setCommunities }) {
                     />
                     <span className="fw-bold community-name-text">{community.community_name}</span>
                   </div>
-
                 </td>
                 <td>{community.member_count || 0}</td>
                 <td>{community.page_count || 0}</td>
@@ -120,6 +142,14 @@ export default function CommunitiesTable({ communities, setCommunities }) {
           )}
         </tbody>
       </table>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        handlePreviousPage={handlePreviousPage}
+        handleNextPage={handleNextPage}
+      />
     </div>
   );
 }
