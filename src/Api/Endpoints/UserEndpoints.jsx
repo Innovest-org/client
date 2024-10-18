@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { DOMAIN } from '../Config/config';
+import { toast } from 'react-toastify';
 
 // User Auth Routes
 
@@ -9,6 +10,7 @@ export const registerUser = async (userData) => {
     const response = await axios.post(`${DOMAIN}/api/user/register`, userData, {
       withCredentials: true,
     });
+    toast.success("user registered successfully")
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -156,6 +158,7 @@ export const deleteUser = async (user_id) => {
 
 // Update user
 export const updateUser = async (user_id, userData) => {
+  console.log(userData)
   try {
     const response = await axios.put(`${DOMAIN}/api/user/${user_id}`, userData, {
       withCredentials: true,

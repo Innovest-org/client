@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
 import { registerUser, updateUser } from '../../../../Api/Endpoints/UserEndpoints';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AppContext } from '../../../../context/AppContext';
+import { produce } from 'immer';
 
 
-const MemberForm = ({ onCancel, initialData, mode }) => {
+const MemberForm = ({onCancelForm, initialData, mode }) => {
+   
+  const {setEditingMember,editingMember,members, setMembers} = useContext(AppContext)
   const [formData, setFormData] = useState(initialData || {
     first_name: '',
     last_name: '',
@@ -22,6 +26,13 @@ const MemberForm = ({ onCancel, initialData, mode }) => {
     role: 'INVESTOR',
     password: '',
   });
+  const onCancel = ()=>{
+    if(editingMember){
+      setEditingMember?.(null)
+    }else{
+      onCancelForm()
+    }
+  }
 
   const [avatarUrl, setAvatarUrl] = useState('');
   const [documentUrl, setDocumentUrl] = useState('');
@@ -44,25 +55,47 @@ const MemberForm = ({ onCancel, initialData, mode }) => {
       return;
     }
 
-    const data = new FormData();
+    const registerData = new FormData();
     Object.keys(formData).forEach((key) => {
       if (key === 'profile_image' && formData.profile_image) {
-        data.append(key, formData.profile_image);
+        registerData.append(key, formData.profile_image);
       } else if (key === 'id_doc' && formData.id_doc) {
-        data.append(key, formData.id_doc);
+        registerData.append(key, formData.id_doc);
       } else {
-        data.append(key, formData[key]);
+        registerData.append(key, formData[key]);
       }
     });
+
+    const editedData = {
+      first_name: formData.first_name,
+    last_name: formData.last_name,
+    email: formData.email,
+    national_id: formData.national_id,
+    profile_image: formData.profile_image,
+    id_doc: formData.id_doc,
+    phone: formData.phone,
+    username: formData.username,
+    role: 'INVESTOR',
+    password: formData.password,
+    }
 
     try {
       let response;
       if (mode === 'edit') {
-        response = await updateUser(formData.id, data);
-        setFormData({ ...formData, ...response.updatedUser });
+        response = await updateUser(formData.id, editedData);
+
+        setMembers(produce(draft => {
+          if(draft){
+            const index = draft.findIndex((m) => m.id === editingMember.id);
+            if (index > -1) {
+              draft[index] = response.updatedUser;
+            }
+          }
+        }))
+
         toast.success('Member updated successfully');
       } else {
-        response = await registerUser(data);
+        response = await registerUser(registerData);
         setFormData({
           first_name: '',
           last_name: '',
@@ -75,7 +108,7 @@ const MemberForm = ({ onCancel, initialData, mode }) => {
           role: 'INVESTOR',
           password: '',
         });
-        toast.success('Member registered successfully');
+        // toast.success('Member registered successfully');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -85,6 +118,8 @@ const MemberForm = ({ onCancel, initialData, mode }) => {
       } else {
         toast.error('Failed to save member. Please check the API or network connection.');
       }
+    }finally{
+      onCancel()
     }
   };
 

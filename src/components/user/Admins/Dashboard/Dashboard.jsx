@@ -66,7 +66,7 @@ export default function Dashboard() {
           </div>
 
           {/* Conditionally render the content */}
-          {selectedPage === 'add-user' && <MemberForm onBackClick={handleBackClick}  />}
+          {selectedPage === 'add-user' && <MemberForm onCancelForm={handleBackClick}  />}
           {selectedPage === 'moderate-pages' && <ModeratePages />}
           {selectedPage === 'moderate-users' && <ModerateUsers />}
           {selectedPage === '' && <DashboardContent users={users}  />}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
@@ -8,21 +8,23 @@ import MembersTable from '../../../common/tables/MemberTable';
 import ProfileSidebar from '../../../common/ProfileSidebar/ProfileSidebar';
 import { getUsers } from '../../../../Api/Endpoints/UserEndpoints';
 import { ToastContainer } from 'react-toastify';
+import { AppContext } from '../../../../context/AppContext';
 
 export default function Members() {
   const [isAddingMember, setIsAddingMember] = useState(false);
   const [isEditingMember, setIsEditingMember] = useState(false);
-  const [members, setMembers] = useState([]);
+  const {members, setMembers} = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMember, setSelectedMember] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Fetch members on component mount
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const fetchedMembers = await getUsers();
-        setMembers(fetchedMembers.users);
+        const { users } = await getUsers();
+        setMembers(users);
       } catch (error) {
         console.error('Failed to fetch members:', error);
       }
@@ -31,38 +33,18 @@ export default function Members() {
     fetchMembers();
   }, []);
 
-  const handleAddMemberClick = () => {
+  // Memoized callback to avoid unnecessary re-renders
+  const handleAddMemberClick = useCallback(() => {
     setIsAddingMember(true);
-    navigate('/admin-dashboard/members/add-member');
-  };
+  }, []);
 
-  const handleFormSubmit = (formData) => {
-    console.log('Member Form submitted', formData);
-    if (isEditingMember) {
-      const updatedMembers = members.map(member =>
-        member.id === selectedMember.id ? { ...member, ...formData } : member
-      );
-      setMembers(updatedMembers);
-      setIsEditingMember(false);
-    } else {
-      const newMember = { id: Date.now(), ...formData };
-      setMembers([...members, newMember]);
-    }
-    navigate('/admin-dashboard/members/view-members');
-    setIsAddingMember(false);
-  };
 
   const formMode = isEditingMember ? 'edit' : 'add';
 
-  const handleBackClick = () => {
-    setIsAddingMember(false);
-    setIsEditingMember(false);
-    navigate('/admin-dashboard/members/view-members');
-  };
 
-  const handleSearchChange = (query) => {
+  const handleSearchChange = useCallback((query) => {
     setSearchQuery(query);
-  };
+  }, []);
 
   const handleMemberClick = (member) => {
     setSelectedMember(member);
@@ -99,11 +81,10 @@ export default function Members() {
         </div>
       ) : (
         <MemberForm
-          onSubmit={handleFormSubmit}
-          onBackClick={handleBackClick}
           initialData={isEditingMember ? selectedMember : {}}
           mode={formMode}
           setIsAddingMember={setIsAddingMember}
+          onCancelForm={()=>setIsAddingMember(false)}
         />
       )}
       <div className="row justify-content-center ms-1 custom-m">
