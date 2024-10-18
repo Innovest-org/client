@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { deleteUser as deleteMemberAPI, updateUser as updateMemberAPI } from '../../../Api/Endpoints/UserEndpoints';
 import MemberForm from '../AddOrEditForm/components/MemberForm';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AppContext } from '../../../context/AppContext';
 
 export default function MembersTable({ mode, onBackClick, members, setMembers }) {
-  const [editingMember, setEditingMember] = useState(null);
+  // const [editingMember, setEditingMember] = useState(null);
+  const {editingMember,setEditingMember} = useContext(AppContext)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
   const totalPages = Math.ceil(members.length / itemsPerPage);
-
+const [isAdding, setIsAdding] = useState(false)
   const handleUpdateMember = async (member_id) => {
     try {
       const memberToEdit = members.find((m) => m.id === member_id);
       setEditingMember(memberToEdit);
+      console.log(memberToEdit)
     } catch (error) {
       console.error('Error selecting member for update:', error);
       toast.error('Failed to select member for update.');
@@ -42,6 +45,7 @@ export default function MembersTable({ mode, onBackClick, members, setMembers })
 
   const handleCancelEdit = () => {
     setEditingMember(null);
+    console.log("donig")
   };
 
   const handleDeleteMember = async (member_id) => {
@@ -74,9 +78,6 @@ export default function MembersTable({ mode, onBackClick, members, setMembers })
       <MemberForm
         mode="edit"
         initialData={editingMember}
-        setMembers={setMembers}
-        onSave={handleSaveUpdatedMember}
-        onCancel={mode === 'edit' ? handleCancelEdit : onBackClick}
       />
 
     );

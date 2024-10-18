@@ -1,19 +1,22 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { io } from 'socket.io-client';
+import { DOMAIN } from "../Api/Config/config";
 
 export const AppContext = createContext();
-const localHost = 'https://server-production-82fc.up.railway.app/';
+const localHost = DOMAIN;
 
 export const AppProvider = ({ children }) => {
   const [activeComponent, setActiveComponent] = useState('Dashboard');
   const [user, setUser] = useState();
   const [socket, setSocket] = useState(null);
+  const [editingMember, setEditingMember] = useState(null);
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     const autoLogin = async () => {
       try {
-        const response = await axios.get('https://server-production-82fc.up.railway.app/api/user/verify', {
+        const response = await axios.get(`${DOMAIN}/api/user/verify`, {
           withCredentials: true,
         });
         setUser(response.data);
@@ -41,7 +44,7 @@ export const AppProvider = ({ children }) => {
 
 
   return (
-    <AppContext.Provider value={{activeComponent, setActiveComponent, socket, user, setUser}}>
+    <AppContext.Provider value={{activeComponent, setActiveComponent, socket,setMembers,members, user, setUser,editingMember,setEditingMember}}>
       {children}
     </AppContext.Provider>
   )
