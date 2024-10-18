@@ -86,7 +86,6 @@ export const searchAdmins = async (query) => {
     }
 };
 
-// Get Admin by ID
 export const getAdminById = async (admin_id) => {
     try {
         const response = await axios.get(`${DOMAIN}/api/admin/${admin_id}`, {
@@ -98,7 +97,6 @@ export const getAdminById = async (admin_id) => {
     }
 };
 
-// Admin Logout
 export const logout = async () => {
     try {
         const response = await axios.get(`${DOMAIN}/api/admin/logout`, {

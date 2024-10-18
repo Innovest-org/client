@@ -2,9 +2,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { deleteAdmin } from "../../../Api/Endpoints/AdminEndpoints";
 import AdminForm from "../AddOrEditForm/components/AdminForm";
+import Pagination from "../../common/Pagination/Pagination";
 
 export default function AdminTable({ admins, setAdmins }) {
   const [editingAdmin, setEditingAdmin] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const indexOfLastAdmin = currentPage * itemsPerPage;
+  const indexOfFirstAdmin = indexOfLastAdmin - itemsPerPage;
+  const currentAdmins = admins.slice(indexOfFirstAdmin, indexOfLastAdmin);
+  const totalPages = Math.ceil(admins.length / itemsPerPage);
 
   const handleUpdateAdmin = async (admin_id) => {
     try {
@@ -33,6 +41,18 @@ export default function AdminTable({ admins, setAdmins }) {
     } catch (error) {
       console.error("Error deleting admin:", error);
     }
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
   };
 
   if (editingAdmin) {
@@ -67,28 +87,30 @@ export default function AdminTable({ admins, setAdmins }) {
           </tr>
         </thead>
         <tbody>
-          {admins.length > 0 ? (
-            admins.map((admin) => (
+          {currentAdmins.length > 0 ? (
+            currentAdmins.map((admin) => (
               <tr key={admin.admin_id}>
                 <td>
                   <div
                     to={`/admin-dashboard/profile/${admin.admin_id}`}
                     className="d-flex align-items-center"
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                   >
                     <img
                       className="rounded-circle me-2"
-                      src={admin.profile_image || 'path/to/default-image.jpg'}
+                      src={admin.profile_image || "path/to/default-image.jpg"}
                       alt={admin.username}
-                      style={{ width: '50px', height: '50px' }}
+                      style={{ width: "50px", height: "50px" }}
                     />
-                    <span className="community-name-text fw-bold">{admin.username}</span>
+                    <span className="community-name-text fw-bold">
+                      {admin.username}
+                    </span>
                   </div>
                 </td>
                 <td>
                   {admin.communities.length > 0
                     ? admin.communities.join(", ")
-                    : 'No community'}
+                    : "No community"}
                 </td>
                 <td>
                   <Link to={`mailto:${admin.email}`}>{admin.email}</Link>
@@ -119,6 +141,14 @@ export default function AdminTable({ admins, setAdmins }) {
           )}
         </tbody>
       </table>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        handlePreviousPage={handlePreviousPage}
+        handleNextPage={handleNextPage}
+      />
     </div>
   );
 }

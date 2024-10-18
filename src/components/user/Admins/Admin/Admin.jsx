@@ -7,39 +7,41 @@ import './style.css';
 import AdminForm from '../../../common/AddOrEditForm/components/AdminForm';
 import { getAdmins } from '../../../../Api/Endpoints/AdminEndpoints';
 import { AppContext } from '../../../../context/AppContext';
+import { ClipLoader } from 'react-spinners';
 
 export default function Admin() {
   const [isAddingAdmin, setIsAddingAdmin] = useState(false);
   const [isEditingAdmin, setIsEditingAdmin] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(true); // Added loading state
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const {user} = useContext(AppContext)
+  const { user } = useContext(AppContext);
 
   const formMode = isEditingAdmin ? 'edit' : 'add';
 
   useEffect(() => {
     getAdmins()
-      .then(response => {
+      .then((response) => {
         if (Array.isArray(response)) {
           setAdmins(response);
         } else {
           console.error('Unexpected response format:', response);
           setAdmins([]);
         }
+        setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('API Error:', error);
         setAdmins([]);
+        setLoading(false); // Stop loading even on error
       });
   }, []);
-  
+
   const filteredAdmins = admins.filter(admin =>
     `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  
-  
 
   const handleAddAdminClick = () => {
     setIsAddingAdmin(true);
@@ -55,7 +57,6 @@ export default function Admin() {
       setAdmins(updatedAdmins);
       setIsEditingAdmin(false);
     } else {
-
       const newAdmin = { id: Date.now(), ...formData };
       setAdmins([...admins, newAdmin]);
     }
@@ -77,6 +78,7 @@ export default function Admin() {
     setIsEditingAdmin(true);
     navigate(`/admin-dashboard/admin/edit-admin/${admin.admin_id}`);
   };
+
   return (
     <div className="container admin-page">
       {!isAddingAdmin && !isEditingAdmin ? (
@@ -97,24 +99,32 @@ export default function Admin() {
         />
       )}
       <div className="row justify-content-center">
-        {!isAddingAdmin && !isEditingAdmin && (
-          <div className="col-12 m-sm-4">
-            {filteredAdmins.length > 0 ? (
-              <AdminTable admins={filteredAdmins} onEditClick={handleEditAdminClick}/>
-            ) : (
-              <div className="card shadow-sm">
-                <div className="card-body text-center py-5">
-                  <h2 className="card-title mb-3">No Admins Found</h2>
-                  <p className="card-text mb-4">Admins will be listed here once added.</p>
-                  {user.role==='SUPER_ADMIN' && <CustomButton
-                    text="Add New Admin"
-                    onClick={handleAddAdminClick}
-                    className="btn btn-primary"
-                  />}
-                </div>
-              </div>
-            )}
+        {loading ? (
+          <div className="text-center">
+            <ClipLoader size={50} color="#007bff" loading={loading} />
           </div>
+        ) : (
+          !isAddingAdmin && !isEditingAdmin && (
+            <div className="col-12 m-sm-4">
+              {filteredAdmins.length > 0 ? (
+                <AdminTable admins={filteredAdmins} onEditClick={handleEditAdminClick} />
+              ) : (
+                <div className="card shadow-sm">
+                  <div className="card-body text-center py-5">
+                    <h2 className="card-title mb-3">No Admins Found</h2>
+                    <p className="card-text mb-4">Admins will be listed here once added.</p>
+                    {user.role === 'SUPER_ADMIN' && (
+                      <CustomButton
+                        text="Add New Admin"
+                        onClick={handleAddAdminClick}
+                        className="btn btn-primary"
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          )
         )}
       </div>
     </div>
