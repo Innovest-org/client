@@ -97,6 +97,12 @@
 
   .sidebar-text {
     display: block;
+
+  }
+  
+  .sidebar-text:hover {
+    color:#E86924
+    
   }
 }
 
@@ -119,6 +125,10 @@
   .sidebar-text {
     display: none !important;
   }
+       .sidebar-text {
+    color: #E86924;
+  }
+
 }
 
 @media (max-width: 768px) {
