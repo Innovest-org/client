@@ -6,12 +6,12 @@ import CommunitiesTable from '../../../common/tables/communitiesTable';
 import CommunityForm from '../../../common/AddOrEditForm/components/CommunityForm';
 import './style.css';
 import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
-import { ClipLoader } from 'react-spinners'; // Import spinner from react-spinners
+import { ClipLoader } from 'react-spinners';
 
 export default function Communities() {
   const [isAddingCommunity, setIsAddingCommunity] = useState(false);
   const [communities, setCommunities] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function Communities() {
       } catch (error) {
         console.error("Error fetching communities:", error);
       } finally {
-        setLoading(false); // Set loading to false after data fetch or error
+        setLoading(false);
       }
     };
 
