@@ -8,7 +8,7 @@ import { updateAdmin, createAdmin } from '../../../../Api/Endpoints/AdminEndpoin
 import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
 import { useParams } from 'react-router-dom';
 
-const AdminForm = ({ onSubmit, onBackClick, initialData, mode, fetchAdmins }) => {
+const AdminForm = ({ onSubmit,  onCancel, initialData, mode, fetchAdmins }) => {
   const { admin_id } = useParams();
   const [formData, setFormData] = useState(initialData || {
     communities: [],
@@ -134,7 +134,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, mode, fetchAdmins }) =>
           <FontAwesomeIcon
             icon={faTimes}
             style={{ cursor: 'pointer', fontSize: '24px', zIndex: 100 }}
-            onClick={onBackClick}
+            onClick={onCancel}
           />
         </div>
 
@@ -157,7 +157,7 @@ const AdminForm = ({ onSubmit, onBackClick, initialData, mode, fetchAdmins }) =>
 
         <div className="d-flex justify-content-between mt-3">
           <CustomButton text={mode === 'edit' ? 'Edit Admin' : 'Add New Admin'} className="btn btn-primary" />
-          <CustomButton text="Cancel" onClick={(e) => { e.preventDefault(); onBackClick(); }} />
+          <CustomButton text="Cancel" onClick={(e) => { e.preventDefault(); onCancel(); }} />
         </div>
       </form>
     </div>

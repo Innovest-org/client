@@ -98,9 +98,9 @@ export const rejectPage = async (community_id, page_id) => {
 };
 
 // Get all pending pages within a community (Requires SUPER_ADMIN or ADMIN role)
-export const getPendingPages = async (community_id) => {
+export const getPendingPages = async () => {
   try {
-    const response = await axios.get(`${DOMAIN}/api/community/pages/pending/${community_id}`, {
+    const response = await axios.get(`${DOMAIN}/api/community/community-pages/pending-pages`, {
       withCredentials: true,
     });
     return response.data;

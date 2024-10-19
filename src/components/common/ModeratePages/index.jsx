@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { approvePage, getPendingPages, rejectPage } from '../../../Api/Endpoints/CommunityPagesEndpoints';
+import { approvePage, getPageById, getPendingPages, rejectPage } from '../../../Api/Endpoints/CommunityPagesEndpoints';
+import { getCommunityById } from '../../../Api/Endpoints/CommunityEndpoints';
+import { getUserById } from '../../../Api/Endpoints/UserEndpoints';
+import Pagination from '../../common/Pagination/Pagination';
+import { ClipLoader } from 'react-spinners'; // Import ClipLoader
+import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import default styles for toast
 
 export default function ModeratePages() {
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   const handleFetchPages = async () => {
     try {
       setLoading(true);
       const response = await getPendingPages();
-      setPages(response.data);
+      const pagesWithDetails = await Promise.all(response.data.map(async (page) => {
+        const pageDetails = await getPageById(page.community_id, page.page_id);
+        const communityDetails = await getCommunityById(page.community_id);
+        const authorDetails = await getUserById(pageDetails.author);
+
+        return {
+          ...page,
+          title: pageDetails.title,
+          author: authorDetails.user.username || 'Unknown Author',
+          communityName: communityDetails.community.community_name || 'Unknown Community',
+        };
+      }));
+      setPages(pagesWithDetails);
     } catch (error) {
-      console.error('Error fetching posts:', error.message);
+      console.error('Error fetching pages:', error.message);
     } finally {
       setLoading(false);
     }
@@ -21,63 +41,97 @@ export default function ModeratePages() {
     handleFetchPages();
   }, []);
 
-  const handleApprove = async (page_id) => {
+  const handleApprove = async (communityId, pageId) => {
     try {
-      await approvePage(page_id);
-      handleFetchPages();
+      await approvePage(communityId, pageId);
+      setPages((prevPages) => prevPages.filter((page) => page.page_id !== pageId));
+      toast.success('Page approved successfully!'); // Show success toast
     } catch (error) {
-      console.error('Error approving post:', error.message);
-    }
-  };
-  const handleReject = async (page_id) => {
-    try {
-      await rejectPage(page_id);
-      handleFetchPages();
-    } catch (error) {
-      console.error('Error rejecting post:', error.message);
+      console.error('Error approving page:', error.message);
+      toast.error('Error approving page. Please try again.'); // Show error toast
     }
   };
 
+  const handleReject = async (communityId, pageId) => {
+    try {
+      await rejectPage(communityId, pageId);
+      setPages((prevPages) => prevPages.filter((page) => page.page_id !== pageId));
+      toast.success('Page rejected successfully!'); // Show success toast
+    } catch (error) {
+      console.error('Error rejecting page:', error.message);
+      toast.error('Error rejecting page. Please try again.'); // Show error toast
+    }
+  };
+
+  // Pagination logic
+  const indexOfLastPage = currentPage * itemsPerPage;
+  const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+  const currentPages = pages.slice(indexOfFirstPage, indexOfLastPage);
+  const totalPages = Math.ceil(pages.length / itemsPerPage);
+
   return (
     <div className="moderate-pages-container container my-3">
+      <ToastContainer />
       <h2 className="mb-3">Moderate New Pages</h2>
       {loading ? (
-        <p>Loading...</p>
+        <div className="text-center">
+          <ClipLoader color="#007bff" loading={loading} size={50} />
+        </div>
       ) : (
         <div className="table-responsive">
-          <table className="table table-bordered table-hover">
+          <table className="table table-borderless table-hover">
             <thead className="table-light">
               <tr>
-                <th>Page Title</th>
+                <th style={{ width: '250px' }} className="fw-bold">Page Title</th>
                 <th>Author</th>
+                <th>Community Name</th>
                 <th>Date Submitted</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {pages.map((page) => (
-                <tr key={page.page_id}> {/* Fixing typo: page.oage_id -> page.page_id */}
+              {currentPages.map((page) => (
+                <tr key={page.page_id}>
                   <td>{page.title}</td>
-                  <td>{page.author.username}</td>
+                  <td>{page.author}</td>
+                  <td>{page.communityName}</td>
                   <td>{new Date(page.createdAt).toLocaleDateString()}</td>
                   <td>
-                    <button
-                      className="btn btn-success me-2 mb-2 mb-md-0"
-                      onClick={() => handleApprove(page.page_id)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleReject(page.page_id)}
-                    >
-                      Reject
-                    </button>
+                    <div className="d-flex">
+                      <button
+                        className="btn btn-success me-2"
+                        onClick={() => handleApprove(page.community_id, page.page_id)}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleReject(page.community_id, page.page_id)}
+                      >
+                        Reject
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
+              {currentPages.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="text-center">
+                    No pending pages available
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              handlePreviousPage={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              handleNextPage={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            />
+          )}
         </div>
       )}
     </div>

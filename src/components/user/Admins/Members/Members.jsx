@@ -9,7 +9,7 @@ import ProfileSidebar from '../../../common/ProfileSidebar/ProfileSidebar';
 import { getUsers } from '../../../../Api/Endpoints/UserEndpoints';
 import { ToastContainer } from 'react-toastify';
 import { AppContext } from '../../../../context/AppContext';
-import { ClipLoader } from 'react-spinners'; // Import the spinner
+import { ClipLoader } from 'react-spinners';
 
 export default function Members() {
   const [isAddingMember, setIsAddingMember] = useState(false);
@@ -18,7 +18,7 @@ export default function Members() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMember, setSelectedMember] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,7 +90,6 @@ export default function Members() {
 
       <div className="row justify-content-center ms-1 custom-m">
         {loading ? (
-          // Display spinner when loading data
           <div className="text-center">
             <ClipLoader size={50} color="#007bff" loading={loading} />
           </div>
