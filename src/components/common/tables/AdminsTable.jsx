@@ -11,7 +11,7 @@ export default function AdminTable({ admins }) {
   const [editingAdmin, setEditingAdmin] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-  const {setAdmins} = useContext(AppContext)
+  const {setAdmins, setIsAddingAdmin} = useContext(AppContext)
   const indexOfLastAdmin = currentPage * itemsPerPage;
   const indexOfFirstAdmin = indexOfLastAdmin - itemsPerPage;
   const currentAdmins = admins.slice(indexOfFirstAdmin, indexOfLastAdmin);
@@ -28,6 +28,7 @@ export default function AdminTable({ admins }) {
 
   const handleCancelEdit = () => {
     setEditingAdmin(null);
+    setIsAddingAdmin(false);
   };
 
   const handleDeleteAdmin = async (admin_id) => {
