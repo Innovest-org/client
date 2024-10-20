@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from '../../../../context/AppContext';
 import { produce } from 'immer';
+import {motion} from 'framer-motion'
 
 
 const MemberForm = ({ onCancelForm, initialData, mode }) => {
@@ -159,7 +160,7 @@ const MemberForm = ({ onCancelForm, initialData, mode }) => {
   ];
 
   return (
-    <div className="position-relative container">
+    <motion.div initial={{ scale:0 }} animate={{scale:1}} exit={{scale:0}} className="position-relative container">
       <h3 className="mb-4 ">{mode === 'edit' ? 'Edit Member' : 'Add New Member'}</h3>
       <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
         <div className="position-absolute top-0 end-0 p-3">
@@ -208,7 +209,7 @@ const MemberForm = ({ onCancelForm, initialData, mode }) => {
           />
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

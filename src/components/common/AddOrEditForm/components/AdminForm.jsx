@@ -9,7 +9,7 @@ import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints'
 import { produce } from 'immer';
 import { AppContext } from '../../../../context/AppContext';
 import { toast } from 'react-toastify';
-
+import {motion} from 'framer-motion'
 const AdminForm = ({ onCancel, initialData, mode, fetchAdmins,setIsAddingAdmin }) => {
   const [formData, setFormData] = useState(initialData || {
     communities: [],
@@ -139,7 +139,7 @@ const AdminForm = ({ onCancel, initialData, mode, fetchAdmins,setIsAddingAdmin }
   ];
 
   return (
-    <div className="position-relative container">
+    <motion.div initial={{ scale:0 }} animate={{scale:1}} exit={{scale:0}} className="position-relative container">
       <h3 className="mb-4 ">{mode === 'edit' ? 'Edit Admin' : 'Add New Admin'}</h3>
       <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
         <div className="position-absolute top-0 end-0 p-3">
@@ -172,7 +172,7 @@ const AdminForm = ({ onCancel, initialData, mode, fetchAdmins,setIsAddingAdmin }
           <CustomButton text="Cancel" onClick={(e) => { e.preventDefault(); onCancel(); }} />
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

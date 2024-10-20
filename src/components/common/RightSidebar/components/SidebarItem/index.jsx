@@ -5,8 +5,8 @@ import './style.css'
 export default function SidebarItem({ icon, color, label, count, date, time }) {
   return (
     <div className={`sidebar-item ${time && 'mt-4'}`} >
-      <div className='d-flex justify-content-between align-items-center'>
-        <div className="rightsidebar-icon d-flex align-items-center mb-4" style={{ color }}>
+      <div className='d-flex justify-content-between align-items-center mb-1'>
+        <div className="rightsidebar-icon d-flex align-items-center" style={{ color }}>
           <div className={`${time ? 'BgColor_time' : 'icon-back mb-1'}  `} >
             <FontAwesomeIcon icon={icon} />
             <p className="mb-0 ">{time}</p>
