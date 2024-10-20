@@ -91,7 +91,7 @@ export default function Admin() {
       ) : (
         <AdminForm
           onSubmit={handleFormSubmit}
-          onBackClick={handleBackClick}
+          onCancel={handleBackClick}
           initialData={isEditingAdmin ? selectedAdmin : {}}
           mode={formMode}
           setIsAddingAdmin={setIsAddingAdmin}
