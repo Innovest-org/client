@@ -1,4 +1,4 @@
-import { createBrowserRouter, Router as ReactRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "../pages/Error/ErrorPage";
 import AdminDashboard from "../pages/User/AdminDashboard";
@@ -25,6 +25,7 @@ import ModerateUsers from "../components/common/ModerateUsers";
 import Profile from "../components/user/Admins/Profile/Profile";
 import CommunityProfile from "../components/user/Admins/Communities/CommunityProfile/CommunityProfile";
 import Messages from "../components/common/Messages/Messages";
+import { ToastContainer } from "react-toastify";
 
 const Router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ const Router = createBrowserRouter([
     path: "/admin-dashboard",
     element: (
       <ProtectedRoute>
+        <ToastContainer />
         <AdminDashboard />
       </ProtectedRoute>
     ),

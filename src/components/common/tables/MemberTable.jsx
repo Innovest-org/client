@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { deleteUser as deleteMemberAPI } from '../../../Api/Endpoints/UserEndpoints';
 import MemberForm from '../AddOrEditForm/components/MemberForm';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from '../../../context/AppContext';
 import Pagination from "../../common/Pagination/Pagination";
 
-export default function MembersTable({ mode, onBackClick, members, setMembers }) {
-  const { editingMember, setEditingMember } = useContext(AppContext);
+export default function MembersTable({ mode, onBackClick, members }) {
+  const { editingMember, setEditingMember,setMembers } = useContext(AppContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
@@ -22,18 +22,12 @@ export default function MembersTable({ mode, onBackClick, members, setMembers })
   };
 
   const handleDeleteMember = async (member_id) => {
-    try {
-      const response = await deleteMemberAPI(member_id);
-      if (response.success) {
+
+      await deleteMemberAPI(member_id);
         setMembers((prevMembers) =>
           prevMembers.filter((member) => member.id !== member_id)
         );
         toast.success('Member deleted successfully.');
-      }
-    } catch (error) {
-      console.error('Error deleting member:', error);
-      toast.error('Failed to delete member. Please try again.');
-    }
   };
 
   const indexOfLastMember = currentPage * itemsPerPage;
@@ -64,7 +58,7 @@ export default function MembersTable({ mode, onBackClick, members, setMembers })
 
   return (
     <div className="table-responsive members-table">
-      <ToastContainer />
+      
       <table className="table table-hover table-striped">
         <thead className="thead-dark">
           <tr>

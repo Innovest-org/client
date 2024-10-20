@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../pages/Home/LandingPage";
-import Navbar from "../Navbar/Navbar";
 
 export default function TeamSection() {
   const expertsRef = useRef(null);

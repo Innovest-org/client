@@ -54,7 +54,6 @@ const Login = () => {
 
   const handleAdminLogin = () => {
     try {
-      // setEndpoint('https://server-production-82fc.up.railway.app/api/admin/login');
       setEndpoint(`${DOMAIN}/api/admin/login`);
     } catch (error) {
       setErrorMessage('Failed to set Admin login endpoint.');
@@ -63,7 +62,6 @@ const Login = () => {
 
   const handleUserLogin = () => {
     try {
-      // setEndpoint('https://server-production-82fc.up.railway.app/api/user/login');
       setEndpoint(`${DOMAIN}/api/user/login`);
     } catch (error) {
       setErrorMessage('Failed to set User login endpoint.');

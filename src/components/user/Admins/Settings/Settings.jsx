@@ -41,7 +41,6 @@ const WebsiteSettingsPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Website settings submitted", settingsData);
   };
 
   return (

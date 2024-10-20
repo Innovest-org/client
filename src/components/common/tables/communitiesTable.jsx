@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   deleteCommunity as deleteCommunityAPI,
 } from '../../../Api/Endpoints/CommunityEndpoints';
 import CommunityForm from '../AddOrEditForm/components/CommunityForm';
 import Pagination from "../../common/Pagination/Pagination";
+import { toast } from 'react-toastify';
+import { produce } from 'immer';
+import { AppContext } from '../../../context/AppContext';
 
-export default function CommunitiesTable({ communities, setCommunities }) {
+export default function CommunitiesTable({ communities }) {
   const [editingCommunity, setEditingCommunity] = useState(null);
-
+  const {setCommunities} = useContext(AppContext)
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(3); // Number of communities per page
+  const [itemsPerPage] = useState(3);
 
   const handleUpdateCommunity = async (community_id) => {
     try {
@@ -20,7 +23,7 @@ export default function CommunitiesTable({ communities, setCommunities }) {
         setEditingCommunity(communityToEdit);
       }
     } catch (error) {
-      console.error('Error selecting community for update:', error);
+      toast.error(error);
     }
   };
 
@@ -29,26 +32,21 @@ export default function CommunitiesTable({ communities, setCommunities }) {
   };
 
   const handleDeleteCommunity = async (community_id) => {
-    try {
-      const response = await deleteCommunityAPI(community_id);
-      if (response.success) {
-        setCommunities((prevCommunities) =>
-          prevCommunities.filter((community) => community.community_id !== community_id)
-        );
-        console.log('Community deleted successfully.');
-      } else {
-        console.error('Error deleting community:', response.message);
-      }
-    } catch (error) {
-      console.error('Error deleting community:', error);
-    }
+
+      await deleteCommunityAPI(community_id);
+        setCommunities(produce(draft=>{
+          const index = draft.findIndex((community)=> community.community_id === community_id)
+          if(index !== -1){
+            draft.splice(index, 1)
+          }
+        }));
+      toast.success('Community deleted successfully.');
+
   };
 
-  // Pagination logic
   const indexOfLastCommunity = currentPage * itemsPerPage;
   const indexOfFirstCommunity = indexOfLastCommunity - itemsPerPage;
   const currentCommunities = communities.slice(indexOfFirstCommunity, indexOfLastCommunity);
-
   const totalPages = Math.ceil(communities.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
@@ -56,11 +54,11 @@ export default function CommunitiesTable({ communities, setCommunities }) {
   };
 
   const handlePreviousPage = () => {
-    setCurrentPage(prev => Math.max(prev - 1, 1)); // Ensure not less than 1
+    setCurrentPage(prev => Math.max(prev - 1, 1));
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prev => Math.min(prev + 1, totalPages)); // Ensure not more than total pages
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
   };
 
   if (editingCommunity) {
@@ -69,14 +67,6 @@ export default function CommunitiesTable({ communities, setCommunities }) {
         mode="edit"
         initialData={editingCommunity}
         setCommunities={setCommunities}
-        onSave={(updatedCommunity) => {
-          setCommunities((prevCommunities) =>
-            prevCommunities.map((community) =>
-              community.community_id === updatedCommunity.community_id ? updatedCommunity : community
-            )
-          );
-          setEditingCommunity(null);
-        }}
         onCancel={handleCancelEdit}
       />
     );

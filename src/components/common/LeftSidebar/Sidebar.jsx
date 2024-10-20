@@ -27,10 +27,6 @@ const Sidebar = () => {
 
   const navItems = role === 'ADMIN' || 'SUPER_ADMIN' ? adminNavItems : investorNavItems;
   const sidebarClass = role === 'ADMIN' || 'SUPER_ADMIN' ? ' admin-sidebar' : 'investor-sidebar';
-
-  console.log("Current role:", role);
-
-
   return (
     <div className={`sidebar ${sidebarClass}`}>
       <div className="logo">{role === 'ADMIN' || 'SUPER_ADMIN' ? 'Admin Dashboard' : 'Investor Dashboard'}</div>

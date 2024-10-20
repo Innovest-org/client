@@ -3,9 +3,9 @@ import { approvePage, getPageById, getPendingPages, rejectPage } from '../../../
 import { getCommunityById } from '../../../Api/Endpoints/CommunityEndpoints';
 import { getUserById } from '../../../Api/Endpoints/UserEndpoints';
 import Pagination from '../../common/Pagination/Pagination';
-import { ClipLoader } from 'react-spinners'; // Import ClipLoader
-import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import default styles for toast
+import { ClipLoader } from 'react-spinners';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ModeratePages() {
   const [pages, setPages] = useState([]);
@@ -45,10 +45,10 @@ export default function ModeratePages() {
     try {
       await approvePage(communityId, pageId);
       setPages((prevPages) => prevPages.filter((page) => page.page_id !== pageId));
-      toast.success('Page approved successfully!'); // Show success toast
+      toast.success('Page approved successfully!');
     } catch (error) {
       console.error('Error approving page:', error.message);
-      toast.error('Error approving page. Please try again.'); // Show error toast
+      toast.error('Error approving page. Please try again.');
     }
   };
 
@@ -56,14 +56,13 @@ export default function ModeratePages() {
     try {
       await rejectPage(communityId, pageId);
       setPages((prevPages) => prevPages.filter((page) => page.page_id !== pageId));
-      toast.success('Page rejected successfully!'); // Show success toast
+      toast.success('Page rejected successfully!');
     } catch (error) {
       console.error('Error rejecting page:', error.message);
-      toast.error('Error rejecting page. Please try again.'); // Show error toast
+      toast.error('Error rejecting page. Please try again.');
     }
   };
 
-  // Pagination logic
   const indexOfLastPage = currentPage * itemsPerPage;
   const indexOfFirstPage = indexOfLastPage - itemsPerPage;
   const currentPages = pages.slice(indexOfFirstPage, indexOfLastPage);
@@ -71,7 +70,6 @@ export default function ModeratePages() {
 
   return (
     <div className="moderate-pages-container container my-3">
-      <ToastContainer />
       <h2 className="mb-3">Moderate New Pages</h2>
       {loading ? (
         <div className="text-center">
