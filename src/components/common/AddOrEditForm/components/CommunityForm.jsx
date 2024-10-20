@@ -8,6 +8,7 @@ import { createCommunity, updateCommunity } from '../../../../Api/Endpoints/Comm
 import { AppContext } from '../../../../context/AppContext';
 import { produce } from 'immer';
 import { toast } from 'react-toastify';
+import {motion} from 'framer-motion'
 
 const CommunityForm = ({ initialData, mode, onCancel }) => {
   const { setCommunities } = useContext(AppContext)
@@ -121,7 +122,7 @@ const CommunityForm = ({ initialData, mode, onCancel }) => {
   ];
 
   return (
-    <div className="position-relative container">
+    <motion.div initial={{ scale:0 }} animate={{scale:1}} exit={{scale:0}} className="position-relative container">
       <h3 className="mb-4">{mode === 'edit' ? 'Edit Community' : 'Add New Community'}</h3>
       <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
         <div className="position-absolute top-0 end-0 p-3">
@@ -206,7 +207,7 @@ const CommunityForm = ({ initialData, mode, onCancel }) => {
           />
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
