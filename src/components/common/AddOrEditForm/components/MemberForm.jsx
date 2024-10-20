@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -11,9 +12,9 @@ import { AppContext } from '../../../../context/AppContext';
 import { produce } from 'immer';
 
 
-const MemberForm = ({onCancelForm, initialData, mode }) => {
-   
-  const {setEditingMember,editingMember,members, setMembers} = useContext(AppContext)
+const MemberForm = ({ onCancelForm, initialData, mode }) => {
+
+  const { setEditingMember, editingMember, members, setMembers } = useContext(AppContext)
   const [formData, setFormData] = useState(initialData || {
     first_name: '',
     last_name: '',
@@ -26,14 +27,13 @@ const MemberForm = ({onCancelForm, initialData, mode }) => {
     role: 'INVESTOR',
     password: '',
   });
-  const onCancel = ()=>{
-    if(editingMember){
+  const onCancel = () => {
+    if (editingMember) {
       setEditingMember?.(null)
-    }else{
+    } else {
       onCancelForm()
     }
   }
-
   const [avatarUrl, setAvatarUrl] = useState('');
   const [documentUrl, setDocumentUrl] = useState('');
 
@@ -68,15 +68,15 @@ const MemberForm = ({onCancelForm, initialData, mode }) => {
 
     const editedData = {
       first_name: formData.first_name,
-    last_name: formData.last_name,
-    email: formData.email,
-    national_id: formData.national_id,
-    profile_image: formData.profile_image,
-    id_doc: formData.id_doc,
-    phone: formData.phone,
-    username: formData.username,
-    role: 'INVESTOR',
-    password: formData.password,
+      last_name: formData.last_name,
+      email: formData.email,
+      national_id: formData.national_id,
+      profile_image: formData.profile_image,
+      id_doc: formData.id_doc,
+      phone: formData.phone,
+      username: formData.username,
+      role: 'INVESTOR',
+      password: formData.password,
     }
 
     try {
@@ -85,7 +85,7 @@ const MemberForm = ({onCancelForm, initialData, mode }) => {
         response = await updateUser(formData.id, editedData);
 
         setMembers(produce(draft => {
-          if(draft){
+          if (draft) {
             const index = draft.findIndex((m) => m.id === editingMember.id);
             if (index > -1) {
               draft[index] = response.updatedUser;
@@ -108,7 +108,7 @@ const MemberForm = ({onCancelForm, initialData, mode }) => {
           role: 'INVESTOR',
           password: '',
         });
-        // toast.success('Member registered successfully');
+        toast.success('Member registered successfully');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -118,7 +118,7 @@ const MemberForm = ({onCancelForm, initialData, mode }) => {
       } else {
         toast.error('Failed to save member. Please check the API or network connection.');
       }
-    }finally{
+    } finally {
       onCancel()
     }
   };

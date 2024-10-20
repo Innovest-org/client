@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { approveUser, getPendingUsers, rejectUser } from '../../../Api/Endpoints/UserEndpoints';
 import Pagination from '../../common/Pagination/Pagination';
 import { ClipLoader } from 'react-spinners';
-import { toast, ToastContainer } from 'react-toastify'; // Import toast
+import { toast } from 'react-toastify';
 
 export default function ModerateRegistrations() {
   const [registrations, setRegistrations] = useState([]);
@@ -30,10 +30,10 @@ export default function ModerateRegistrations() {
     try {
       await approveUser(id);
       setRegistrations((prevRegistrations) => prevRegistrations.filter((registration) => registration.id !== id));
-      toast.success('Registration approved successfully!'); // Toast notification on success
+      toast.success('Registration approved successfully!');
     } catch (error) {
       console.error('Error approving registration:', error.message);
-      toast.error('Failed to approve registration.'); // Toast notification on failure
+      toast.error('Failed to approve registration.');
     }
   };
 
@@ -67,7 +67,6 @@ export default function ModerateRegistrations() {
 
   return (
     <div className="moderate-registrations-container container my-3">
-      <ToastContainer />
       <h2 className="mb-3">Moderate New Registrations</h2>
 
       {loading ? (

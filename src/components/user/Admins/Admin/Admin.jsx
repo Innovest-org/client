@@ -13,11 +13,10 @@ export default function Admin() {
   const [isAddingAdmin, setIsAddingAdmin] = useState(false);
   const [isEditingAdmin, setIsEditingAdmin] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
-  const [admins, setAdmins] = useState([]);
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const { user } = useContext(AppContext);
+  const { user,admins, setAdmins } = useContext(AppContext);
 
   const formMode = isEditingAdmin ? 'edit' : 'add';
 
@@ -35,9 +34,9 @@ export default function Admin() {
       .catch((error) => {
         console.error('API Error:', error);
         setAdmins([]);
-        setLoading(false); // Stop loading even on error
+        setLoading(false);
       });
-  }, []);
+  }, [setAdmins]);
 
   const filteredAdmins = admins.filter(admin =>
     `${admin.username}`.toLowerCase().includes(searchQuery.toLowerCase())
@@ -46,7 +45,6 @@ export default function Admin() {
   const handleAddAdminClick = () => {
     setIsAddingAdmin(true);
     setSelectedAdmin(null);
-    navigate('/admin-dashboard/admin/add-admin');
   };
 
   const handleFormSubmit = (formData) => {
@@ -96,6 +94,7 @@ export default function Admin() {
           onBackClick={handleBackClick}
           initialData={isEditingAdmin ? selectedAdmin : {}}
           mode={formMode}
+          setIsAddingAdmin={setIsAddingAdmin}
         />
       )}
       <div className="row justify-content-center">

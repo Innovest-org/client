@@ -11,7 +11,9 @@ export const AppProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [socket, setSocket] = useState(null);
   const [editingMember, setEditingMember] = useState(null);
+  const [communities, setCommunities] = useState([]);
   const [members, setMembers] = useState([]);
+  const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
     const autoLogin = async () => {
@@ -40,11 +42,18 @@ export const AppProvider = ({ children }) => {
     return () => {
       socket.disconnect();
     }
-  },[])
+  }, [])
 
 
   return (
-    <AppContext.Provider value={{activeComponent, setActiveComponent, socket,setMembers,members, user, setUser,editingMember,setEditingMember}}>
+    <AppContext.Provider value={{
+      activeComponent,
+      setActiveComponent,
+      socket, setMembers, members,
+      admins, setAdmins, user,
+      setUser, editingMember, setEditingMember,
+      communities, setCommunities
+    }}>
       {children}
     </AppContext.Provider>
   )

@@ -141,11 +141,22 @@ const Profile = () => {
                   <p><strong>Email:</strong> {adminData.email}</p>
                   <p><strong>Admin State:</strong> {adminData.admin_state}</p>
                   <p><strong>Role:</strong> {adminData.role}</p>
+                  <p><strong>Skills:</strong> Management, Leadership</p>
                 </div>
                 <div className="col-md-6">
-                  <p><strong>Communities:</strong> {adminData.communities.length > 0 ? adminData.communities.join(', ') : 'Empty'}</p>
-                  <p><strong>Approved Pages:</strong> {adminData.approved_pages.length > 0 ? adminData.approved_pages.join(', ') : 'Empty'}</p>
+                  <p><strong>Communities:</strong> {adminData.communities.length > 0 ? adminData.communities.join(', ') : 'General Community'}</p>
+                  <p><strong>Approved Pages:</strong> {adminData.approved_pages.length > 0 ? adminData.approved_pages.join(', ') : '10 Pages'}</p>
                   <p><strong>Date Joined:</strong> {new Date(adminData.createdAt).toLocaleDateString()}</p>
+                </div>
+                <div className="col-md-12">
+                  <h5 className="text-muted">Professional Overview</h5>
+                  <p>As an admin, I am committed to fostering a collaborative environment and ensuring the smooth operation of our community. My key responsibilities include managing community interactions, overseeing content approval, and supporting members.</p>
+                  <h5 className="text-muted">Achievements</h5>
+                  <ul>
+                    <li>Successfully managed over 10 community projects.</li>
+                    <li>Increased community engagement by 50% through targeted initiatives.</li>
+                    <li>Established best practices for content moderation and approval.</li>
+                  </ul>
                 </div>
               </div>
             )}

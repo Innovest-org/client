@@ -12,7 +12,6 @@ import {
   faExchangeAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../../pages/Home/LandingPage";
-import Navbar from "../Navbar/Navbar"
 
 export default function HowItWorks() {
   const howItWorksRef = useRef(null);

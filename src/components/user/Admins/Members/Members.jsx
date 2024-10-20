@@ -7,7 +7,6 @@ import MemberForm from '../../../common/AddOrEditForm/components/MemberForm';
 import MembersTable from '../../../common/tables/MemberTable';
 import ProfileSidebar from '../../../common/ProfileSidebar/ProfileSidebar';
 import { getUsers } from '../../../../Api/Endpoints/UserEndpoints';
-import { ToastContainer } from 'react-toastify';
 import { AppContext } from '../../../../context/AppContext';
 import { ClipLoader } from 'react-spinners';
 
@@ -69,7 +68,7 @@ export default function Members() {
 
   return (
     <div className="container member-page">
-      <ToastContainer />
+
       {!isAddingMember && !isEditingMember ? (
         <div className="row d-flex align-items-center justify-content-between g-0">
           <div className="col-md-9">

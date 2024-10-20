@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import SearchAndFilterBar from '../../../common/SearchAndFilterBar/SerachAndFilterBar';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 import CommunitiesTable from '../../../common/tables/communitiesTable'; 
@@ -7,13 +6,13 @@ import CommunityForm from '../../../common/AddOrEditForm/components/CommunityFor
 import './style.css';
 import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
 import { ClipLoader } from 'react-spinners';
+import { AppContext } from '../../../../context/AppContext';
 
 export default function Communities() {
   const [isAddingCommunity, setIsAddingCommunity] = useState(false);
-  const [communities, setCommunities] = useState([]);
+  const {communities, setCommunities} = useContext(AppContext)
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -28,16 +27,14 @@ export default function Communities() {
     };
 
     fetchCommunities();
-  }, []);
+  }, [setCommunities]);
 
   const handleAddCommunityClick = () => {
     setIsAddingCommunity(true);
-    navigate('/admin-dashboard/communities/add-community');
   };
 
   const handleBackClick = () => {
     setIsAddingCommunity(false);
-    navigate('/admin-dashboard/communities/view-communities');
   };
 
   const handleSearchChange = (query) => {

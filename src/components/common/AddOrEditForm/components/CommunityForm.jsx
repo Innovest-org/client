@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
 import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
 import { createCommunity, updateCommunity } from '../../../../Api/Endpoints/CommunityEndpoints';
+import { AppContext } from '../../../../context/AppContext';
+import { produce } from 'immer';
+import { toast } from 'react-toastify';
 
-const CommunityForm = ({ initialData, mode, onCancel, setCommunities }) => {
+const CommunityForm = ({ initialData, mode, onCancel }) => {
+  const { setCommunities } = useContext(AppContext)
   const [formData, setFormData] = useState(initialData || {
     community_name: '',
     description: '',
@@ -15,7 +19,6 @@ const CommunityForm = ({ initialData, mode, onCancel, setCommunities }) => {
   });
 
   const [tagInput, setTagInput] = useState('');
-  console.log(formData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +36,7 @@ const CommunityForm = ({ initialData, mode, onCancel, setCommunities }) => {
         setFormData({ ...formData, tags: formData.tags + "," + tagInput });
         setTagInput('');
       }
+
     } else {
       if (tagInput && !formData.tags.includes(tagInput)) {
         setFormData({ ...formData, tags: [...formData.tags, tagInput] });
@@ -55,17 +59,11 @@ const CommunityForm = ({ initialData, mode, onCancel, setCommunities }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('hi');
     try {
       if (mode === 'edit') {
         const updatedData = { ...formData };
         updatedData.tags = updatedData.tags.split(",").map((tag) => tag.trim());
-
         const updatedCommunity = await updateCommunity(formData.community_id, updatedData);
-
-        console.log(updatedCommunity);
-        console.log('Community updated successfully');
-
         setCommunities?.(prev => {
           if (prev) {
             const newArray = [...prev];
@@ -77,17 +75,20 @@ const CommunityForm = ({ initialData, mode, onCancel, setCommunities }) => {
           }
           return prev;
         });
-
+        toast.success('Community updated successfully');
         onCancel();
       } else {
         const newCommunity = await createCommunity(formData);
-        setCommunities?.(prev => (prev ? [...prev, newCommunity] : [newCommunity]));
-        console.log('New community created successfully');
+        setCommunities(produce(draft => {
+          if (draft) {
+            draft.push(newCommunity);
+          }
+        }))
+        toast.success('Community created successfully');
         onCancel();
       }
-
     } catch (error) {
-      console.error('Error handling community:', error);
+      toast.error(error);
     }
   };
 

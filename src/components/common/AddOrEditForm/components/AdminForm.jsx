@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../../CustomButton/CustomButton';
@@ -6,10 +6,11 @@ import InputField from './InputField';
 import AvatarUpload from './AvatarUpload';
 import { updateAdmin, createAdmin } from '../../../../Api/Endpoints/AdminEndpoints';
 import { getAllCommunities } from '../../../../Api/Endpoints/CommunityEndpoints';
-import { useParams } from 'react-router-dom';
+import { produce } from 'immer';
+import { AppContext } from '../../../../context/AppContext';
+import { toast } from 'react-toastify';
 
-const AdminForm = ({ onSubmit,  onCancel, initialData, mode, fetchAdmins }) => {
-  const { admin_id } = useParams();
+const AdminForm = ({ onCancel, initialData, mode, fetchAdmins,setIsAddingAdmin }) => {
   const [formData, setFormData] = useState(initialData || {
     communities: [],
     password: '',
@@ -18,7 +19,7 @@ const AdminForm = ({ onSubmit,  onCancel, initialData, mode, fetchAdmins }) => {
     username: '',
     role: 'ADMIN',
   });
-
+  const {setAdmins} = useContext(AppContext)
   const [communities, setCommunities] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -26,7 +27,6 @@ const AdminForm = ({ onSubmit,  onCancel, initialData, mode, fetchAdmins }) => {
     const fetchCommunities = async () => {
       try {
         const fetchedCommunities = await getAllCommunities();
-        console.log('Fetched Communities:', fetchedCommunities);
 
         if (Array.isArray(fetchedCommunities.communities)) {
           setCommunities(fetchedCommunities.communities);
@@ -37,7 +37,6 @@ const AdminForm = ({ onSubmit,  onCancel, initialData, mode, fetchAdmins }) => {
         console.error('Error fetching communities:', error);
       }
     };
-        
     fetchCommunities();
   }, []);
 
@@ -55,22 +54,35 @@ const AdminForm = ({ onSubmit,  onCancel, initialData, mode, fetchAdmins }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
     try {
       if (mode === 'edit') {
-        await updateAdmin(admin_id, formData);
-        console.log('Admin updated successfully');
+        const res = await updateAdmin(formData.admin_id, formData);
+        setAdmins(produce(draft=>{
+          const index = draft.findIndex((admin)=>admin.admin_id === formData.admin_id)
+          if(index !== -1){
+            draft[index] = res.admin;
+          }
+        }))
+        toast.success('Admin updated successfully');
       } else if (mode === 'add') {
-        await createAdmin(formData);
-        console.log('New admin created successfully');
+        const admin  = await createAdmin(formData);
+        setAdmins(produce(draft=>{
+          draft.push(admin)
+        }))
+        toast.success('New admin created successfully');
       }
 
       if (fetchAdmins) {
         fetchAdmins();
       }
-      onSubmit();
     } catch (error) {
-      console.error('Error handling admin:', error);
+      toast.success(error);
+    }finally{
+      if(mode === 'edit'){
+        onCancel()
+      }else{
+        setIsAddingAdmin(false)
+      }
     }
   };
 

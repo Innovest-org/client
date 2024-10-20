@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { deleteAdmin } from "../../../Api/Endpoints/AdminEndpoints";
 import AdminForm from "../AddOrEditForm/components/AdminForm";
 import Pagination from "../../common/Pagination/Pagination";
+import { produce } from "immer";
+import { toast } from "react-toastify";
+import { AppContext } from "../../../context/AppContext";
 
-export default function AdminTable({ admins, setAdmins }) {
+export default function AdminTable({ admins }) {
   const [editingAdmin, setEditingAdmin] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-
+  const {setAdmins} = useContext(AppContext)
   const indexOfLastAdmin = currentPage * itemsPerPage;
   const indexOfFirstAdmin = indexOfLastAdmin - itemsPerPage;
   const currentAdmins = admins.slice(indexOfFirstAdmin, indexOfLastAdmin);
@@ -28,19 +31,14 @@ export default function AdminTable({ admins, setAdmins }) {
   };
 
   const handleDeleteAdmin = async (admin_id) => {
-    try {
       const response = await deleteAdmin(admin_id);
-      if (response.success) {
-        setAdmins((prevAdmins) =>
-          prevAdmins.filter((admin) => admin.admin_id !== admin_id)
-        );
-        console.log("Admin deleted successfully.");
-      } else {
-        console.error("Error deleting admin:", response.message);
-      }
-    } catch (error) {
-      console.error("Error deleting admin:", error);
-    }
+        setAdmins(produce(draft=>{
+          const index = draft.findIndex((admin)=>admin.admin_id === admin_id)
+          if(index !== -1){
+            draft.splice(index, 1)
+          }
+        }));
+        toast.success(response.message)
   };
 
   const handlePageChange = (pageNumber) => {
@@ -61,14 +59,6 @@ export default function AdminTable({ admins, setAdmins }) {
         mode="edit"
         initialData={editingAdmin}
         setAdmins={setAdmins}
-        onSave={(updatedAdmin) => {
-          setAdmins((prevAdmins) =>
-            prevAdmins.map((admin) =>
-              admin.admin_id === updatedAdmin.admin_id ? updatedAdmin : admin
-            )
-          );
-          setEditingAdmin(null);
-        }}
         onCancel={handleCancelEdit}
       />
     );
@@ -76,6 +66,7 @@ export default function AdminTable({ admins, setAdmins }) {
 
   return (
     <div className="table-responsive">
+            
       <table className="table table-hover table-striped">
         <thead className="thead-dark">
           <tr>

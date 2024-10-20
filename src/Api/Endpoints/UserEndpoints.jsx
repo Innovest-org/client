@@ -122,9 +122,6 @@ export const getUsers = async () => {
     const response = await axios.get(`${DOMAIN}/api/user`, {
       withCredentials: true,
     });
-    console.log(
-      response.data
-    )
     return response.data;
     
   } catch (error) {
@@ -158,7 +155,6 @@ export const deleteUser = async (user_id) => {
 
 // Update user
 export const updateUser = async (user_id, userData) => {
-  console.log(userData)
   try {
     const response = await axios.put(`${DOMAIN}/api/user/${user_id}`, userData, {
       withCredentials: true,
