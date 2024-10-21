@@ -15,19 +15,19 @@ const users = [
     username: 'JohnDoe',
     avatar: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?t=st=1729086049~exp=1729089649~hmac=2bc8dca0177357c20cee15c31fe0e7042694d139e0b1f6d63b114f05c5c9a986&w=996',
     role: 'Investor',
-    date: '2024-09-22',
+    date: '2025-10-21',
   },
   {
     username: 'JaneSmith',
     avatar: 'https://img.freepik.com/free-photo/close-up-portrait-attractive-young-woman-isolated_273609-36129.jpg?t=st=1729086176~exp=1729089776~hmac=b81485f4678e17a69b6007cf7b19239ea23d1cece4ad6c5b6e8d2723b9ed2fa4&w=740',
     role: 'Entrepreneur',
-    date: '2024-09-21',
+    date: '2025-10-21',
   },
   {
     username: 'JohnDoe',
     avatar: 'https://img.freepik.com/free-photo/front-view-smiley-business-man_23-2148479583.jpg?t=st=1729086226~exp=1729089826~hmac=2e0aaea35076bb87138245a972fff8c575a6042e9c1ac736fb4eaf11c22d1865&w=900',
     role: 'Entrepreneur',
-    date: '2024-09-22',
+    date: '2025-10-21',
   },
 ];
 
